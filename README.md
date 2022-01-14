@@ -12,3 +12,4 @@
 - [x] CutBambou : Coupe d'un bambou
 - [x] VerifMax : Reperage du bambou le plus grand
 - [x] ReduceMax : Coupe le bambou le plus grand
+- [x] GrowAll : Croissance simultané de la bambouraie
