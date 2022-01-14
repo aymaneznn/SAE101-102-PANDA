@@ -9,29 +9,36 @@ struct Bambou {
     int taille;
 };
 
+
 // Création d'un bambou
-void CreateBambou(Bambou bambou, int taille) {
+void CreateBambou(Bambou& bambou, int taille) {
     bambou.croissance = taille;
     bambou.taille = taille;
 }
 
+void InitBamboueraie(Bambou bambouraie[], int taille) {
+    for (int i = 0; i < taille; i++){
+        CreateBambou(bambouraie[i], (rand() % 9) + 1);
+    }
+}
 // Croissance d'un bambou
-void GrowBambou(Bambou bambou) {
+void GrowBambou(Bambou& bambou) {
     bambou.taille += bambou.croissance;
 }
  
 // Coupe d'un bambou
-void CutBambou(Bambou bambou) {
+void CutBambou(Bambou& bambou) {
     bambou.taille = bambou.croissance;
 }
 
 // Reperage du bambou le plus grand
-int VerifMax(Bambou Bambou, int TailleChoisie) {
+int VerifMax(Bambou Bambou[], int TailleChoisie) {
         int TailleMax = 0;
-        int indiceBambou;
+        int indiceBambou = 0;
+
         for (int i = 0 ; i < TailleChoisie; i++) {
-            if (Bambou.taille > TailleMax) {
-                TailleMax = Bambou.taille;
+            if (Bambou[i].taille > TailleMax) {
+                TailleMax = Bambou[i].taille;
                 indiceBambou = i;
             }
         }
@@ -39,24 +46,23 @@ int VerifMax(Bambou Bambou, int TailleChoisie) {
 }
 
 // Coupe le bambou le plus grand
-void ReduceMax(Bambou bambou, int tab[], int TailleChoisie) {
+void ReduceMax(Bambou bambou[], int TailleChoisie) {
     int taille;
     int indice = VerifMax(bambou, TailleChoisie);
-    tab[indice] = bambou.croissance;
+    bambou[indice].taille = bambou[indice].croissance;
 }
 
 // Fonction Reduce-Fastest(x)
-int ReduceFaster(Bambou bambou, int seuil, Bambou tab[], int TailleChoisie) {
+void ReduceFaster(int seuil, Bambou tab[], int TailleChoisie) {
     int maxCroissance = 0;
-    if (bambou.taille = seuil) {
-        for (int i = 0; i < TailleChoisie; i++) {
-            if (tab[i].croissance > maxCroissance) {
-                maxCroissance = tab[i].croissance;
+    for (int j = 0; j < TailleChoisie; j++) {
+        if (tab[j].taille > seuil) {
+            if (tab[j].croissance > maxCroissance) {
+                maxCroissance = tab[j].croissance;
             }
         }
-
     }
-    return maxCroissance;
+    CutBambou(tab[maxCroissance]);
 }
 
 // Croissance simultané de la bambouraie
@@ -68,5 +74,19 @@ void GrowAll(Bambou bambouraie[], int taille) {
 
 int main(){
     Bambou bambouseraie[TAILLE_MAX];
+    InitBamboueraie(bambouseraie, 5);
 
+    cout << "Bambou 1 : " << bambouseraie[0].taille << "  " << bambouseraie[0].croissance << endl;
+    cout << "Bambou 2 : " << bambouseraie[1].taille << "  " << bambouseraie[1].croissance << endl;
+    GrowBambou(bambouseraie[0]);
+    cout << "Bambou 1 : " << bambouseraie[0].taille << "  " << bambouseraie[0].croissance << endl;
+    cout << "Bambou 2 : " << bambouseraie[1].taille << "  " << bambouseraie[1].croissance << endl;
+    CutBambou(bambouseraie[0]);
+    cout << "Bambou 1 : " << bambouseraie[0].taille << "  " << bambouseraie[0].croissance << endl;
+    cout << "Bambou 2 : " << bambouseraie[1].taille << "  " << bambouseraie[1].croissance << endl;
+
+    cout << VerifMax(bambouseraie, 5);
+    ReduceMax(bambouseraie, 5);
+    ReduceFaster(6, bambouseraie, 5);
+    GrowAll(bambouseraie, 5);
 }
