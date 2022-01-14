@@ -12,19 +12,17 @@ struct Bambou {
     int taille;
 };
 
-void VerifMax(Bambou Bomboo, int TailleChoisie) {{
+void VerifMax(Bambou Bambou, int TailleChoisie) {
         
         int TailleMax = 0;
         int indiceBambou;
 
         for (int i = 0 ; i < TailleChoisie; i++) {
-            if (Bamboo.Taille > TailleMax) {
-                TailleMax = Bamboo.Taille;
+            if (Bambou.taille > TailleMax) {
+                TailleMax = Bambou.taille;
                 indiceBambou = i;
             }
         }
-
-
 }
 
 int main(){
