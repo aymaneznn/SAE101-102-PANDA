@@ -1,7 +1,16 @@
 #include <iostream>
 using namespace std;
 
-// Reduce - Max()
+
+
+// Taille maximale de la bambouseraie
+const int TAILLE_MAX = 100;
+
+// Definition des bambou
+struct Bambou {
+    int croissance;
+    int taille;
+};
 
 void VerifMax(Bambou Bomboo, int TailleChoisie) {{
         
@@ -18,8 +27,6 @@ void VerifMax(Bambou Bomboo, int TailleChoisie) {{
 
 }
 
-
 int main(){
-    cout << "Hello World!\n";
+    Bambou bambouseraie[TAILLE_MAX];
 }
-
