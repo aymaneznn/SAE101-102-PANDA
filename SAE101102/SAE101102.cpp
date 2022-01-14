@@ -1,8 +1,6 @@
 #include <iostream>
 using namespace std;
 
-
-
 // Taille maximale de la bambouseraie
 const int TAILLE_MAX = 100;
 
@@ -12,13 +10,13 @@ struct Bambou {
     int taille;
 };
 
-//Création d'un bambou
+//CrÃ©ation d'un bambou
 void CreateBambou(Bambou bambou, int taille) {
     bambou.croissance = taille;
     bambou.taille = taille;
 }
 
-//Création d'un bambou
+//CrÃ©ation d'un bambou
 void GrowBambou(Bambou bambou) {
     bambou.taille += bambou.croissance;
 }
