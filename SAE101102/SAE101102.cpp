@@ -14,10 +14,7 @@ struct Bambou {
 };
 
 
-
-
 // Fonction qui chrecher la bambou le plus grand
-
 int VerifMax(Bambou bambou, int TailleChoisie) {
     
 
@@ -35,11 +32,11 @@ int VerifMax(Bambou bambou, int TailleChoisie) {
 }
 
 // Fonction qui enleve le bambou  Reduce - Max()
-
 void ReduceMax(Bambou bambou, int tab[], int TailleChoisie) {
     int taille;
     int indice = VerifMax(bambou, TailleChoisie);
     tab[indice] = bambou.croissance;
+}
 
 //Création d'un bambou
 void CreateBambou(Bambou bambou, int taille) {
@@ -53,7 +50,6 @@ void GrowBambou(Bambou bambou) {
 }
  
 // Fonction qui permet d'effacer le bambou le plus grand en laissant sa taille = croissance
-
 void CutBambou(Bambou bambou) {
 
     bambou.taille = bambou.croissance;
@@ -75,10 +71,6 @@ int VerifMax(Bambou Bambou, int TailleChoisie) {
 
 }
 
-
-
-
-// Fonction 
 
 int main(){
     Bambou bambouseraie[TAILLE_MAX];
