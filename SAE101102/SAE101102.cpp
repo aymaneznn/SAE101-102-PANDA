@@ -1,8 +1,15 @@
 #include <iostream>
 using namespace std;
 
-int main(){
-    cout << "Hello World!\n";
-}
+// Taille maximale de la bambouseraie
+const int TAILLE_MAX = 100;
 
-// C'est ma branche
+// Definition des bambou
+struct Bambou {
+    int croissance;
+    int taille;
+};
+
+int main(){
+    Bambou bambouseraie[TAILLE_MAX];
+}
