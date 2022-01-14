@@ -13,3 +13,4 @@
 - [x] VerifMax : Reperage du bambou le plus grand
 - [x] ReduceMax : Coupe le bambou le plus grand
 - [x] GrowAll : Croissance simultané de la bambouraie
+- [x] ReduceFaster : Fonction Reduce-Fastest(x)
