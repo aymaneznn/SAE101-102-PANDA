@@ -12,7 +12,7 @@ struct Bambou {
     int taille;
 };
 
-void VerifMax(Bambou Bambou, int TailleChoisie) {
+int VerifMax(Bambou Bambou, int TailleChoisie) {
         
         int TailleMax = 0;
         int indiceBambou;
@@ -23,6 +23,7 @@ void VerifMax(Bambou Bambou, int TailleChoisie) {
                 indiceBambou = i;
             }
         }
+        return indiceBambou;
 }
 
 int main(){
