@@ -112,8 +112,7 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
         SDL_RenderDrawRect(rendu, &bambou);
         positionY -= 31;
-    }
-    
+    } 
 }
 
 // ----------------------------------------------Fin fonctions SDL----------------------------------------------------------- //
@@ -180,19 +179,19 @@ int main(int argn, char* argv[]) {
 
     //on crée la fenêtre
     SDL_Window* win = SDL_CreateWindow("PandaRobot",
-        SDL_WINDOWPOS_CENTERED,     //pos. X: autre option: SDL_WINDOWPOS_UNDEFINED
-        SDL_WINDOWPOS_CENTERED,     //pos. Y: autre option: SDL_WINDOWPOS_UNDEFINED 
-        1080, 			//largeur en pixels			
-        720, 			//hauteur en pixels
-        SDL_WINDOW_SHOWN //d’autres options (plein ecran, resizable, sans bordure...)
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED, 
+        1080,		
+        720, 
+        SDL_WINDOW_SHOWN 
     );
     if (win == NULL)
         cout << "erreur ouverture fenetre";
-    //Création d’un dessin associé à la fenêtre (1 seul renderer par fenetre)
+    
     SDL_Renderer* rendu = SDL_CreateRenderer(
-        win,  //nom de la fenêtre
-        -1, //par défaut
-        SDL_RENDERER_ACCELERATED); //utilisation du GPU, valeur recommandée
+        win,  
+        -1, 
+        SDL_RENDERER_ACCELERATED); 
 
 
     //fin parametres fenetres 
@@ -200,24 +199,24 @@ int main(int argn, char* argv[]) {
     // debut des dessin sur l'ecran
 
     //Fond 1 bleu
-    SDL_Rect rect1; //on définit le rectangle à tracer
-                   //SDL_Rect est un type struct	
-    rect1.x = 0;  //coin en haut à gauche
-    rect1.y = 0;  //coin en haut à gauche
-    rect1.w = 1080;		//largeur
-    rect1.h = 720;		//hauteur
+    SDL_Rect rect1; 
+                   
+    rect1.x = 0;
+    rect1.y = 0; 
+    rect1.w = 1080;	
+    rect1.h = 720;
     SDL_SetRenderDrawColor(rendu, 176, 224, 230,255);	//pinceau bleu
-    SDL_RenderFillRect(rendu, &rect1); //on trace un rectangle plein
+    SDL_RenderFillRect(rendu, &rect1);
 
     // Fond 2
-    SDL_Rect rect2; //on définit le rectangle à tracer
-                   //SDL_Rect est un type struct	
-    rect1.x = 0;  //coin en haut à gauche
-    rect1.y = 520;  //coin en haut à gauche
-    rect1.w = 1080;		//largeur
-    rect1.h = 200;		//hauteur
+    SDL_Rect rect2; 
+                   
+    rect1.x = 0;  
+    rect1.y = 520;  
+    rect1.w = 1080;		
+    rect1.h = 200;		
     SDL_SetRenderDrawColor(rendu, 0, 250, 154, 255);	//pinceau vert
-    SDL_RenderFillRect(rendu, &rect1); //on trace un rectangle plein
+    SDL_RenderFillRect(rendu, &rect1); 
 
     //////
 
@@ -231,18 +230,19 @@ int main(int argn, char* argv[]) {
     SDL_RenderDrawLine(rendu, 0,600 ,1080 , 600);
 
     SDL_RenderPresent(rendu);//on rafraichit
+
 		/*************BOUCLE D'evenements**************/
 
-	bool continuer = true;   //booléen fin de programme
-	SDL_Event event;//gestion des évènements souris/clavier, 
-					//SDL_Event est de type struct
+	bool continuer = true; 
+	SDL_Event event; 
+					
     while (continuer)
     {
-        SDL_WaitEvent(&event);//attente d’un évènement
-        switch (event.type) //test du type d’évènement
+        SDL_WaitEvent(&event);
+        switch (event.type)
         {
-        case SDL_QUIT: //clic sur la croix de fermeture
-                       //on peut enlever SDL_Delay
+        case SDL_QUIT: 
+                       
             continuer = false;
             break;
         }
@@ -250,10 +250,10 @@ int main(int argn, char* argv[]) {
 	//destruction du renderer à la fin
 	SDL_DestroyRenderer(rendu);
 	//destruction à la fin
-	SDL_DestroyWindow(win);   //equivalent du delete
+	SDL_DestroyWindow(win);
 
-	TTF_CloseFont(font); //on ferme la font
-	TTF_Quit(); //on quitte la TTF
+	TTF_CloseFont(font);
+	TTF_Quit(); 
 
 
 	//fermeture
