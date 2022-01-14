@@ -30,7 +30,7 @@ int StatTaillleMax(Bambou tab[], int TailleChoisie) {
 
 
 
-
+// (rand() % 9) + 1)
 
 
 // Création d'un bambou
@@ -40,14 +40,16 @@ void CreateBambou(Bambou& bambou, int taille) {
 }
 
 void InitBamboueraie(Bambou bambouraie[], int taille) {
+    int tab[5] = { 2,4,3,1,5 };
     for (int i = 0; i < taille; i++){
-        CreateBambou(bambouraie[i], (rand() % 9) + 1);
+        CreateBambou(bambouraie[i], tab[i]);
     }
 }
 
 // Croissance d'un bambou
-void GrowBambou(Bambou& bambou) {
+int GrowBambou(Bambou& bambou) {
     bambou.taille += bambou.croissance;
+    return bambou.taille;
 }
  
 // Coupe d'un bambou
@@ -70,10 +72,11 @@ int VerifMax(Bambou Bambou[], int TailleChoisie) {
 }
 
 // Coupe le bambou le plus grand
-void ReduceMax(Bambou bambou[], int TailleChoisie) {
+int ReduceMax(Bambou bambou[], int TailleChoisie) {
     int taille;
     int indice = VerifMax(bambou, TailleChoisie);
     bambou[indice].taille = bambou[indice].croissance;
+    return indice;
 }
 
 // Fonction Reduce-Fastest(x)
@@ -120,16 +123,20 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
 
 
 int main(int argn, char* argv[]) {
+
+
     Bambou bambouseraie[TAILLE_MAX];
     InitBamboueraie(bambouseraie, 5);
 
     // tests
 
-    cout << " Debut " << endl << endl;
+    /*cout << " Debut " << endl << endl;
     for (int i = 0; i < 5; i++) {
         cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
     }
     cout << endl;
+
+    
     GrowAll(bambouseraie, 5);
     for (int i = 0; i < 5; i++) {
         cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
@@ -160,13 +167,12 @@ int main(int argn, char* argv[]) {
     cout << "fini" << endl;
     cout << " Le bambou le plus grand est le bambou numero : " << VerifMax(bambouseraie, 5) + 1 << " avec une taille de : "<< bambouseraie[VerifMax(bambouseraie, 5)].taille << endl;
     ReduceMax(bambouseraie, 5);
-    ReduceFaster(6, bambouseraie, 5);
+    ReduceFaster(6, bambouseraie, 5);*/
     
-
     // SDL (interface graphique)
 
-        
-    
+
+
 
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -180,18 +186,18 @@ int main(int argn, char* argv[]) {
     //on crée la fenêtre
     SDL_Window* win = SDL_CreateWindow("PandaRobot",
         SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED, 
-        1080,		
-        720, 
-        SDL_WINDOW_SHOWN 
+        SDL_WINDOWPOS_CENTERED,
+        1080,
+        720,
+        SDL_WINDOW_SHOWN
     );
     if (win == NULL)
         cout << "erreur ouverture fenetre";
-    
+
     SDL_Renderer* rendu = SDL_CreateRenderer(
-        win,  
-        -1, 
-        SDL_RENDERER_ACCELERATED); 
+        win,
+        -1,
+        SDL_RENDERER_ACCELERATED);
 
 
     //fin parametres fenetres 
@@ -199,65 +205,77 @@ int main(int argn, char* argv[]) {
     // debut des dessin sur l'ecran
 
     //Fond 1 bleu
-    SDL_Rect rect1; 
-                   
+    SDL_Rect rect1;
+
     rect1.x = 0;
-    rect1.y = 0; 
-    rect1.w = 1080;	
+    rect1.y = 0;
+    rect1.w = 1080;
     rect1.h = 720;
-    SDL_SetRenderDrawColor(rendu, 176, 224, 230,255);	//pinceau bleu
+    SDL_SetRenderDrawColor(rendu, 176, 224, 230, 255);	//pinceau bleu
     SDL_RenderFillRect(rendu, &rect1);
 
     // Fond 2
-    SDL_Rect rect2; 
-                   
-    rect1.x = 0;  
-    rect1.y = 520;  
-    rect1.w = 1080;		
-    rect1.h = 200;		
+    SDL_Rect rect2;
+
+    rect1.x = 0;
+    rect1.y = 520;
+    rect1.w = 1080;
+    rect1.h = 200;
     SDL_SetRenderDrawColor(rendu, 0, 250, 154, 255);	//pinceau vert
-    SDL_RenderFillRect(rendu, &rect1); 
+    SDL_RenderFillRect(rendu, &rect1);
 
     //////
 
-    afficheBambou(rendu, 50, 570, 5);
+    int a = 2, b = 4, c = 3, d = 1, e = 5;
+    int j[5] = {a,b,c,d,e};
+    afficheBambou(rendu, 150, 570, GrowBambou(bambouseraie[j[0]]));
+    afficheBambou(rendu, 250, 570, GrowBambou(bambouseraie[j[1]]));
+    afficheBambou(rendu, 350, 570, GrowBambou(bambouseraie[j[2]]));
+    afficheBambou(rendu, 450, 570, GrowBambou(bambouseraie[j[3]]));
+    afficheBambou(rendu, 550, 570, GrowBambou(bambouseraie[j[4]]));
+        
+
+
 
     //////
-    
+
     // ligne pour le sol des bambou
 
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-    SDL_RenderDrawLine(rendu, 0,600 ,1080 , 600);
+    SDL_RenderDrawLine(rendu, 0, 600, 1080, 600);
 
     SDL_RenderPresent(rendu);//on rafraichit
 
-		/*************BOUCLE D'evenements**************/
+        /*************BOUCLE D'evenements**************/
 
-	bool continuer = true; 
-	SDL_Event event; 
-					
+    bool continuer = true;
+    SDL_Event event;
+
     while (continuer)
     {
         SDL_WaitEvent(&event);
         switch (event.type)
         {
-        case SDL_QUIT: 
-                       
+        case SDL_QUIT:
+
             continuer = false;
             break;
         }
     }
-	//destruction du renderer à la fin
-	SDL_DestroyRenderer(rendu);
-	//destruction à la fin
-	SDL_DestroyWindow(win);
+    //destruction du renderer à la fin
+    SDL_DestroyRenderer(rendu);
+    //destruction à la fin
+    SDL_DestroyWindow(win);
 
-	TTF_CloseFont(font);
-	TTF_Quit(); 
+    TTF_CloseFont(font);
+    TTF_Quit();
 
 
-	//fermeture
-	SDL_Quit();
+    //fermeture
+    SDL_Quit();
+
+    // -------------------------------------------------------------------------------------------------------------------------//
+
 
     return 0;
 }
