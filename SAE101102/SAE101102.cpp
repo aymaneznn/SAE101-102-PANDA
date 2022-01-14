@@ -43,8 +43,6 @@ void ReduceMax(Bambou bambou, int tab[], int TailleChoisie) {
 }
 
 // Fonction Reduce-Fastest(x)
-
-
 int ReduceFaster(Bambou bambou, int seuil, Bambou tab[], int TailleChoisie) {
     int maxCroissance = 0;
     if (bambou.taille = seuil) {
