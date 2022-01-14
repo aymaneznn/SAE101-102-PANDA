@@ -9,6 +9,12 @@ struct Bambou {
     int taille;
 };
 
+// Statistiques de la taille maximal 
+int StatTaillleMax(Bambou tab[], int TailleChoisie) {
+    int maximum = 0;
+    for (int i = 0; i < TailleChoisie; i++) {
+        if (tab[i].taille > maximum) {
+            maximum = tab[i].taille;
 
 // Création d'un bambou
 void CreateBambou(Bambou& bambou, int taille) {
@@ -60,6 +66,11 @@ void ReduceFaster(int seuil, Bambou tab[], int TailleChoisie) {
             if (tab[j].croissance > maxCroissance) {
                 maxCroissance = tab[j].croissance;
             }
+
+        }
+    }
+    return maximum;
+}
         }
     }
     CutBambou(tab[maxCroissance]);
