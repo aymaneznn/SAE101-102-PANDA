@@ -2,7 +2,6 @@
 using namespace std;
 
 
-
 // Taille maximale de la bambouseraie
 const int TAILLE_MAX = 100;
 
