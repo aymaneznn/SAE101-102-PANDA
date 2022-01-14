@@ -1,4 +1,7 @@
+#include<iostream>
+using namespace std;
 
+const int TAILLE_MAX = 100;
 
 // Definition des bambou
 struct Bambou {
