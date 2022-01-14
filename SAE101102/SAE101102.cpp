@@ -10,6 +10,19 @@ struct Bambou {
     int taille;
 };
 
-int main(){
+void VerifMax(Bambou Bambou, int TailleChoisie) {
+
+    int TailleMax = 0;
+    int indiceBambou;
+
+    for (int i = 0; i < TailleChoisie; i++) {
+        if (Bambou.taille > TailleMax) {
+            TailleMax = Bambou.taille;
+            indiceBambou = i;
+        }
+    }
+}
+
+int main() {
     Bambou bambouseraie[TAILLE_MAX];
 }
