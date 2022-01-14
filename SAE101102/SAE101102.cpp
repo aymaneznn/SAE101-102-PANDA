@@ -15,6 +15,13 @@ struct Bambou {
     int taille;
 };
 
+
+int StatTaillleMax(Bambou tab[], int TailleChoisie) {
+    int maximum = 0;
+    for (int i = 0; i < TailleChoisie; i++) {
+        if (tab[i].taille > maximum) {
+            maximum = tab[i].taille;
+
 // Création d'un bambou
 void CreateBambou(Bambou bambou, int taille) {
     bambou.croissance = taille;
@@ -55,24 +62,12 @@ void ReduceMax(Bambou bambou, int tab[], int TailleChoisie) {
 int ReduceFaster(Bambou bambou, int seuil, Bambou tab[], int TailleChoisie) {
     int maxCroissance = 0;
     if (bambou.taille = seuil) {
-        for (int i = 0; i < TailleChoisie, i++) {
+        for (int i = 0; i < TailleChoisie; i++) {
             if (tab[i].croissance > maxCroissance) {
                 maxCroissance = tab[i].croissance;
             }
+
         }
-
     }
-    return maxCroissance;
-}
-
-// Croissance simultané de la bambouraie
-void GrowAll(Bambou bambouraie[], int taille) {
-    for (int i = 0; i < taille; i++) {
-        GrowBambou(bambouraie[i]);
-    }
-}
-
-int main(){
-    Bambou bambouseraie[TAILLE_MAX];
-
+    return maximum;
 }
