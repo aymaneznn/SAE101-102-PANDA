@@ -46,6 +46,13 @@ void ReduceMax(Bambou bambou, int tab[], int TailleChoisie) {
     tab[indice] = bambou.croissance;
 }
 
+// Croissance simultané de la bambouraie
+void GrowAll(Bambou bambouraie[], int taille) {
+    for (int i = 0; i < taille; i++) {
+        GrowBambou(bambouraie[i]);
+    }
+}
+
 int main(){
     Bambou bambouseraie[TAILLE_MAX];
 }
