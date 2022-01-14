@@ -1,10 +1,4 @@
-#include <iostream>
-using namespace std;
 
-
-
-// Taille maximale de la bambouseraie
-const int TAILLE_MAX = 100;
 
 // Definition des bambou
 struct Bambou {
@@ -48,6 +42,22 @@ void ReduceMax(Bambou bambou, int tab[], int TailleChoisie) {
     tab[indice] = bambou.croissance;
 }
 
+// Fonction Reduce-Fastest(x)
+
+
+int ReduceFaster(Bambou bambou, int seuil, Bambou tab[], int TailleChoisie) {
+    int maxCroissance = 0;
+    if (bambou.taille = seuil) {
+        for (int i = 0; i < TailleChoisie, i++) {
+            if (tab[i].croissance > maxCroissance) {
+                maxCroissance = tab[i].croissance;
+            }
+        }
+
+    }
+    return maxCroissance;
+}
+
 // Croissance simultané de la bambouraie
 void GrowAll(Bambou bambouraie[], int taille) {
     for (int i = 0; i < taille; i++) {
@@ -57,4 +67,5 @@ void GrowAll(Bambou bambouraie[], int taille) {
 
 int main(){
     Bambou bambouseraie[TAILLE_MAX];
+
 }
