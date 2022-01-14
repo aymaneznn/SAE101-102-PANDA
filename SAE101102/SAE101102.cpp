@@ -15,7 +15,7 @@ struct Bambou {
     int taille;
 };
 
-
+// Statistiques de la taille maximal 
 int StatTaillleMax(Bambou tab[], int TailleChoisie) {
     int maximum = 0;
     for (int i = 0; i < TailleChoisie; i++) {
