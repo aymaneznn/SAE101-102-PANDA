@@ -16,6 +16,11 @@ int StatTaillleMax(Bambou tab[], int TailleChoisie) {
         if (tab[i].taille > maximum) {
             maximum = tab[i].taille;
 
+        }
+    }
+    return maximum;
+}
+
 // Création d'un bambou
 void CreateBambou(Bambou& bambou, int taille) {
     bambou.croissance = taille;
@@ -66,11 +71,6 @@ void ReduceFaster(int seuil, Bambou tab[], int TailleChoisie) {
             if (tab[j].croissance > maxCroissance) {
                 maxCroissance = tab[j].croissance;
             }
-
-        }
-    }
-    return maximum;
-}
         }
     }
     CutBambou(tab[maxCroissance]);
@@ -87,14 +87,14 @@ int main(){
     Bambou bambouseraie[TAILLE_MAX];
     InitBamboueraie(bambouseraie, 5);
 
-    cout << "Bambou 1 : " << bambouseraie[0].taille << "  " << bambouseraie[0].croissance << endl;
-    cout << "Bambou 2 : " << bambouseraie[1].taille << "  " << bambouseraie[1].croissance << endl;
+    cout << "Bambou 0 : " << bambouseraie[0].taille << "  " << bambouseraie[0].croissance << endl;
+    cout << "Bambou 1 : " << bambouseraie[1].taille << "  " << bambouseraie[1].croissance << endl;
     GrowBambou(bambouseraie[0]);
-    cout << "Bambou 1 : " << bambouseraie[0].taille << "  " << bambouseraie[0].croissance << endl;
-    cout << "Bambou 2 : " << bambouseraie[1].taille << "  " << bambouseraie[1].croissance << endl;
+    cout << "Bambou 0 : " << bambouseraie[0].taille << "  " << bambouseraie[0].croissance << endl;
+    cout << "Bambou 1 : " << bambouseraie[1].taille << "  " << bambouseraie[1].croissance << endl;
     CutBambou(bambouseraie[0]);
-    cout << "Bambou 1 : " << bambouseraie[0].taille << "  " << bambouseraie[0].croissance << endl;
-    cout << "Bambou 2 : " << bambouseraie[1].taille << "  " << bambouseraie[1].croissance << endl;
+    cout << "Bambou 0 : " << bambouseraie[0].taille << "  " << bambouseraie[0].croissance << endl;
+    cout << "Bambou 1 : " << bambouseraie[1].taille << "  " << bambouseraie[1].croissance << endl;
 
     cout << VerifMax(bambouseraie, 5);
     ReduceMax(bambouseraie, 5);
