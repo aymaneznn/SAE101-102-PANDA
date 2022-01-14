@@ -7,60 +7,31 @@ using namespace std;
 const int TAILLE_MAX = 100;
 
 // Definition des bambou
-
 struct Bambou {
     int croissance;
     int taille;
 };
 
-
-// Fonction qui chrecher la bambou le plus grand
-int VerifMax(Bambou bambou, int TailleChoisie) {
-    
-
-        int TailleMax = 0;
-        int indiceBambou;
-
-        for (int i = 0; i < TailleChoisie; i++) {
-            if (bambou.taille > TailleMax) {
-                TailleMax = bambou.taille;
-                indiceBambou = i;
-            }
-        }
-
-        return indiceBambou;
-}
-
-// Fonction qui enleve le bambou  Reduce - Max()
-void ReduceMax(Bambou bambou, int tab[], int TailleChoisie) {
-    int taille;
-    int indice = VerifMax(bambou, TailleChoisie);
-    tab[indice] = bambou.croissance;
-}
-
-//Création d'un bambou
+// Création d'un bambou
 void CreateBambou(Bambou bambou, int taille) {
     bambou.croissance = taille;
     bambou.taille = taille;
 }
 
-//Croissance d'un bambou
+// Croissance d'un bambou
 void GrowBambou(Bambou bambou) {
     bambou.taille += bambou.croissance;
 }
  
-// Fonction qui permet d'effacer le bambou le plus grand en laissant sa taille = croissance
+// Coupe d'un bambou
 void CutBambou(Bambou bambou) {
-
     bambou.taille = bambou.croissance;
-
 }
 
+// Reperage du bambou le plus grand
 int VerifMax(Bambou Bambou, int TailleChoisie) {
-        
         int TailleMax = 0;
         int indiceBambou;
-
         for (int i = 0 ; i < TailleChoisie; i++) {
             if (Bambou.taille > TailleMax) {
                 TailleMax = Bambou.taille;
@@ -68,9 +39,21 @@ int VerifMax(Bambou Bambou, int TailleChoisie) {
             }
         }
         return indiceBambou;
-
 }
 
+// Coupe le bambou le plus grand
+void ReduceMax(Bambou bambou, int tab[], int TailleChoisie) {
+    int taille;
+    int indice = VerifMax(bambou, TailleChoisie);
+    tab[indice] = bambou.croissance;
+}
+
+// Croissance simultané de la bambouraie
+void GrowAll(Bambou bambouraie[], int taille) {
+    for (int i = 0; i < taille; i++) {
+        GrowBambou(bambouraie[i]);
+    }
+}
 
 int main(){
     Bambou bambouseraie[TAILLE_MAX];
