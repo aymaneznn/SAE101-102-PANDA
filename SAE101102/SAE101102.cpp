@@ -3,11 +3,14 @@ using namespace std;
 
 const int TAILLE_MAX = 100;
 
-// Definition des bambou
-struct Bambou {
-    int croissance;
-    int taille;
-};
+// Statistiques tailles max
+
+
+int StatTaillleMax(Bambou tab[], int TailleChoisie) {
+    int maximum = 0;
+    for (int i = 0; i < TailleChoisie; i++) {
+        if (tab[i].taille > maximum) {
+            maximum = tab[i].taille;
 
 // Création d'un bambou
 void CreateBambou(Bambou bambou, int taille) {
@@ -53,20 +56,8 @@ int ReduceFaster(Bambou bambou, int seuil, Bambou tab[], int TailleChoisie) {
             if (tab[i].croissance > maxCroissance) {
                 maxCroissance = tab[i].croissance;
             }
+
         }
-
     }
-    return maxCroissance;
-}
-
-// Croissance simultané de la bambouraie
-void GrowAll(Bambou bambouraie[], int taille) {
-    for (int i = 0; i < taille; i++) {
-        GrowBambou(bambouraie[i]);
-    }
-}
-
-int main(){
-    Bambou bambouseraie[TAILLE_MAX];
-
+    return maximum;
 }
