@@ -1,17 +1,13 @@
 
 
+// Statistiques tailles max
 
-// Fonction Reduce-Fastest(x)
-
-void ReduceFaster(Bambou bambou, int seuil, Bambou tab[], int TailleChoisie) {
-    int maxCroissance = 0;
-    for (int j = 0; j < TailleChoisie; j++) {
-        if (tab[j].taille > seuil) {
-            if (tab[j].croissance > maxCroissance) {
-                maxCroissance = tab[j].croissance;
-            }
+int StatTaillleMax(Bambou tab[], int TailleChoisie) {
+    int maximum = 0;
+    for (int i = 0; i < TailleChoisie; i++) {
+        if (tab[i].taille > maximum) {
+            maximum = tab[i].taille;
         }
     }
-    CutBambou(tab[maxCroissance]);
+    return maximum;
 }
-
