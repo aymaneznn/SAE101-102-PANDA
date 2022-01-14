@@ -17,24 +17,11 @@ int StatTaillleMax(Bambou tab[], int TailleChoisie) {
     return maximum;
 }
 
-
 // Definition des bambou
 struct Bambou {
     int croissance;
     int taille;
 };
-
-// Statistiques de la taille maximal 
-int StatTaillleMax(Bambou tab[], int TailleChoisie) {
-    int maximum = 0;
-    for (int i = 0; i < TailleChoisie; i++) {
-        if (tab[i].taille > maximum) {
-            maximum = tab[i].taille;
-
-        }
-    }
-    return maximum;
-}
 
 // Création d'un bambou
 void CreateBambou(Bambou& bambou, int taille) {
