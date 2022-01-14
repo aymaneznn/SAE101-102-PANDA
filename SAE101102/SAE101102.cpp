@@ -3,6 +3,21 @@ using namespace std;
 
 const int TAILLE_MAX = 100;
 
+// Statistiques 
+
+// Statistiques tailles max
+
+int StatTaillleMax(Bambou tab[], int TailleChoisie) {
+    int maximum = 0;
+    for (int i = 0; i < TailleChoisie; i++) {
+        if (tab[i].taille > maximum) {
+            maximum = tab[i].taille;
+        }
+    }
+    return maximum;
+}
+
+
 // Definition des bambou
 struct Bambou {
     int croissance;
