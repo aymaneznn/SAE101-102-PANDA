@@ -1,16 +1,28 @@
 #include <iostream>
 using namespace std;
 
+
 // Taille maximale de la bambouseraie
 const int TAILLE_MAX = 100;
 
-// Definition des bambou
+// Definition des bambous
 struct Bambou {
     int croissance;
     int taille;
 };
 
-void VerifMax(Bambou Bambou, int TailleChoisie) {
+// Création d'un bambou
+void CreateBambou(Bambou bambou, int taille) {
+    bambou.croissance = taille;
+    bambou.taille = taille;
+}
+
+// Croissance d'un bambou
+void GrowBambou(Bambou bambou) {
+    bambou.taille += bambou.croissance;
+}
+
+int VerifMax(Bambou Bambou, int TailleChoisie) {
 
     int TailleMax = 0;
     int indiceBambou;
@@ -21,6 +33,7 @@ void VerifMax(Bambou Bambou, int TailleChoisie) {
             indiceBambou = i;
         }
     }
+    return indiceBambou;
 }
 
 int main() {
