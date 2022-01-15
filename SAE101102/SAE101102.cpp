@@ -291,6 +291,42 @@ void soleil(SDL_Renderer* rendu, int positionX, int positionY) {
 
 }
 
+// Lune
+
+void lune(SDL_Renderer* rendu, int positionX, int positionY) {
+
+    //lune
+    SDL_Rect lune;
+    lune.x = positionX;
+    lune.y = positionY;
+    lune.w = 100;
+    lune.h = 150;
+    SDL_SetRenderDrawColor(rendu,0, 0, 205, 255);	//pinceau jaune 
+    SDL_RenderFillRect(rendu, &lune);
+    SDL_RenderPresent(rendu);//on rafraichit
+
+        //lune
+    SDL_Rect lune1;
+    lune1.x = positionX;
+    lune1.y = positionY+100;
+    lune1.w = 150;
+    lune1.h = 100;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 205, 255);	//pinceau jaune 
+    SDL_RenderFillRect(rendu, &lune1);
+    SDL_RenderPresent(rendu);//on rafraichit
+
+        //lune
+    SDL_Rect lune2;
+    lune2.x = positionX+50;
+    lune2.y = positionY+50;
+    lune2.w = 80;
+    lune2.h = 80;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 205, 255);	//pinceau jaune 
+    SDL_RenderFillRect(rendu, &lune2);
+    SDL_RenderPresent(rendu);//on rafraichit
+
+}
+
 // ----------------------------------------------Fin fonctions SDL----------------------------------------------------------- //
 
 
@@ -498,7 +534,18 @@ int main(int argn, char* argv[]) {
 
         if (soleilx == 1000) {
             soleilx = 0;
+            
+            SDL_Rect rect1;
 
+            rect1.x = 0;
+            rect1.y = 0;
+            rect1.w = 1080;
+            rect1.h = 500;
+            SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau bleu
+            SDL_RenderFillRect(rendu, &rect1);
+            lune(rendu, 0, 0);
+            SDL_Delay(5000);
+            
         }
         soleilx += 50;
         if (soleily > 0) {
