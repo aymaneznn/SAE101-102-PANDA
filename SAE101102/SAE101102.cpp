@@ -114,6 +114,30 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
         SDL_RenderFillRect(rendu, &bambou);
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
         SDL_RenderDrawRect(rendu, &bambou);
+        
+        
+
+        SDL_Rect haut;
+        haut.x = positionX-2;
+        haut.y = positionY+31;
+        haut.w = 15;
+        haut.h = 5;
+        SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
+        SDL_RenderFillRect(rendu, &haut);
+        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
+        SDL_RenderDrawRect(rendu, &haut);
+        
+        
+
+        SDL_Rect bas;
+        bas.x = positionX-2;
+        bas.y = positionY;
+        bas.w = 15;
+        bas.h = 5;
+        SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
+        SDL_RenderFillRect(rendu, &bas);
+        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
+        SDL_RenderDrawRect(rendu, &bas);
         positionY -= 31;
         SDL_RenderPresent(rendu);//on rafraichit
     }
@@ -169,6 +193,18 @@ void afficheRobot(SDL_Renderer* rendu, int positionX, int positionY) {
     SDL_RenderDrawRect(rendu, &bras_gauche);
     SDL_RenderPresent(rendu);//on rafraichit
 
+    //bras
+    SDL_Rect outil;
+    outil.x = positionX - 70;
+    outil.y = positionY +5;
+    outil.w = 80;
+    outil.h = 2;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
+    SDL_RenderFillRect(rendu, &outil);
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
+    SDL_RenderDrawRect(rendu, &outil);
+    SDL_RenderPresent(rendu);//on rafraichit
+
     SDL_Rect bras_droite;
     bras_droite.x = positionX +30;
     bras_droite.y = positionY;
@@ -213,6 +249,24 @@ void afficheRobot(SDL_Renderer* rendu, int positionX, int positionY) {
     SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255); //pinceau noir
     SDL_RenderDrawRect(rendu, &oeil_droit);
     SDL_RenderPresent(rendu);//on rafraichit
+}
+
+// soleil
+
+void soleil(SDL_Renderer* rendu, int positionX, int positionY) {
+
+    //soleil
+    SDL_Rect soleil;
+    soleil.x = positionX;
+    soleil.y = positionY;
+    soleil.w = 150;
+    soleil.h = 150;
+    SDL_SetRenderDrawColor(rendu, 255, 255, 0, 255);	//pinceau jaune 
+    SDL_RenderFillRect(rendu, &soleil);
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
+    SDL_RenderDrawRect(rendu, &soleil);
+    SDL_RenderPresent(rendu);//on rafraichit
+
 }
 
 // ----------------------------------------------Fin fonctions SDL----------------------------------------------------------- //
@@ -331,7 +385,8 @@ int main(int argn, char* argv[]) {
 
 
     //////
-
+    int soleilx = 0;
+    int soleily = 500;
 
     int a = 2, b = 4, c = 3, d = 1, e = 5;
 
@@ -350,7 +405,7 @@ int main(int argn, char* argv[]) {
         afficheBambou(rendu, 450, 570, bambouseraie[3].taille);
         afficheBambou(rendu, 550, 570, bambouseraie[4].taille);
         afficheBambou(rendu, 550, 570, bambouseraie[0].taille);
-
+        SDL_Delay(900);
         // test dans la console
         for (int i = 0; i < 5; i++) {
             cout << " avant : " << bambouseraie[i].taille << endl;
@@ -400,7 +455,7 @@ int main(int argn, char* argv[]) {
 
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
         SDL_RenderDrawLine(rendu, 0, 600, 1080, 600);
-        system("pause");
+        //system("pause");
 
         if (indice_a_couper == 0) {
             afficheRobot(rendu, 200, 570);
@@ -418,6 +473,22 @@ int main(int argn, char* argv[]) {
             afficheRobot(rendu, 600, 570);
         }
 
+
+        if (soleilx == 1000) {
+            soleilx = 0;
+
+        }
+        soleilx += 50;
+        if (soleily > 0) {
+            soleily -= 50;
+        }
+        if (soleily == 0) {
+            soleily = +50;
+        }
+        
+        soleil(rendu, soleilx, soleily);
+        
+        
 
     }
 
