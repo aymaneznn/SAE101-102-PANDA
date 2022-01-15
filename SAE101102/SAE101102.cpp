@@ -115,6 +115,7 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
         SDL_RenderDrawRect(rendu, &bambou);
         positionY -= 31;
+        SDL_RenderPresent(rendu);//on rafraichit
     } 
 }
 
@@ -126,7 +127,6 @@ int main(int argn, char* argv[]) {
 
 
     Bambou bambouseraie[TAILLE_MAX];
-    InitBamboueraie(bambouseraie, 5);
 
     // tests
 
@@ -191,6 +191,10 @@ int main(int argn, char* argv[]) {
         720,
         SDL_WINDOW_SHOWN
     );
+
+
+
+
     if (win == NULL)
         cout << "erreur ouverture fenetre";
 
@@ -224,26 +228,83 @@ int main(int argn, char* argv[]) {
     SDL_SetRenderDrawColor(rendu, 0, 250, 154, 255);	//pinceau vert
     SDL_RenderFillRect(rendu, &rect1);
 
-    //////
-
-    int a = 2, b = 4, c = 3, d = 1, e = 5;
-    int j[5] = {a,b,c,d,e};
-    afficheBambou(rendu, 150, 570, GrowBambou(bambouseraie[j[0]]));
-    afficheBambou(rendu, 250, 570, GrowBambou(bambouseraie[j[1]]));
-    afficheBambou(rendu, 350, 570, GrowBambou(bambouseraie[j[2]]));
-    afficheBambou(rendu, 450, 570, GrowBambou(bambouseraie[j[3]]));
-    afficheBambou(rendu, 550, 570, GrowBambou(bambouseraie[j[4]]));
-        
-
-
-
-    //////
-
     // ligne pour le sol des bambou
 
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
     SDL_RenderDrawLine(rendu, 0, 600, 1080, 600);
 
+
+    //////
+
+
+    int a = 2, b = 4, c = 3, d = 1, e = 5;
+
+    CreateBambou(bambouseraie[0], a);
+    CreateBambou(bambouseraie[1], b);
+    CreateBambou(bambouseraie[2], c);
+    CreateBambou(bambouseraie[3], d);
+    CreateBambou(bambouseraie[4], e);
+
+    for (int i = 0; i < 1000; i++) {
+        
+        afficheBambou(rendu, 150, 570, bambouseraie[0].taille);
+        afficheBambou(rendu, 250, 570, bambouseraie[1].taille);
+        afficheBambou(rendu, 350, 570, bambouseraie[2].taille);
+        afficheBambou(rendu, 450, 570, bambouseraie[3].taille);
+        afficheBambou(rendu, 550, 570, bambouseraie[4].taille);
+        afficheBambou(rendu, 550, 570, bambouseraie[0].taille);
+
+        for (int i = 0; i < 5; i++) {
+            cout << " avant : " << bambouseraie[i].taille << endl;
+        }
+        cout << endl;
+
+        GrowBambou(bambouseraie[0]);
+        GrowBambou(bambouseraie[1]);
+        GrowBambou(bambouseraie[2]);
+        GrowBambou(bambouseraie[3]);
+        GrowBambou(bambouseraie[4]);
+
+        int indice_a_couper = ReduceMax(bambouseraie, 5);
+        bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
+        
+
+        for (int i = 0; i < 5; i++) {
+            cout << " apres : " << bambouseraie[i].taille << endl;
+        }
+        cout << endl;
+        //Fond 1 bleu
+        SDL_Rect rect1;
+
+        rect1.x = 0;
+        rect1.y = 0;
+        rect1.w = 1080;
+        rect1.h = 720;
+        SDL_SetRenderDrawColor(rendu, 176, 224, 230, 255);	//pinceau bleu
+        SDL_RenderFillRect(rendu, &rect1);
+
+        // Fond 2
+        SDL_Rect rect2;
+
+        rect1.x = 0;
+        rect1.y = 520;
+        rect1.w = 1080;
+        rect1.h = 200;
+        SDL_SetRenderDrawColor(rendu, 0, 250, 154, 255);	//pinceau vert
+        SDL_RenderFillRect(rendu, &rect1);
+
+        // ligne pour le sol des bambou
+
+        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+        SDL_RenderDrawLine(rendu, 0, 600, 1080, 600);
+        system("pause");
+    }
+    
+    
+
+    //////
+
+ 
     SDL_RenderPresent(rendu);//on rafraichit
 
         /*************BOUCLE D'evenements**************/
