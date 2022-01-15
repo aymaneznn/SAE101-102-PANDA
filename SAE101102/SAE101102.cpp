@@ -239,6 +239,7 @@ int main(int argn, char* argv[]) {
 
     int a = 2, b = 4, c = 3, d = 1, e = 5;
 
+    // creation des bambous 
     CreateBambou(bambouseraie[0], a);
     CreateBambou(bambouseraie[1], b);
     CreateBambou(bambouseraie[2], c);
@@ -246,7 +247,7 @@ int main(int argn, char* argv[]) {
     CreateBambou(bambouseraie[4], e);
 
     for (int i = 0; i < 1000; i++) {
-        
+        // affichage des bambous 
         afficheBambou(rendu, 150, 570, bambouseraie[0].taille);
         afficheBambou(rendu, 250, 570, bambouseraie[1].taille);
         afficheBambou(rendu, 350, 570, bambouseraie[2].taille);
@@ -254,11 +255,13 @@ int main(int argn, char* argv[]) {
         afficheBambou(rendu, 550, 570, bambouseraie[4].taille);
         afficheBambou(rendu, 550, 570, bambouseraie[0].taille);
 
+        // test dans la console
         for (int i = 0; i < 5; i++) {
             cout << " avant : " << bambouseraie[i].taille << endl;
         }
         cout << endl;
 
+        // croissance des bambous
         GrowBambou(bambouseraie[0]);
         GrowBambou(bambouseraie[1]);
         GrowBambou(bambouseraie[2]);
@@ -268,12 +271,14 @@ int main(int argn, char* argv[]) {
         int indice_a_couper = ReduceMax(bambouseraie, 5);
         bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
         
-
+        // test dans la console
         for (int i = 0; i < 5; i++) {
             cout << " apres : " << bambouseraie[i].taille << endl;
         }
         cout << endl;
-        //Fond 1 bleu
+        
+
+        // remet ajour l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
         SDL_Rect rect1;
 
         rect1.x = 0;
