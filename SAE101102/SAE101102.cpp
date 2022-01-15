@@ -249,6 +249,28 @@ void afficheRobot(SDL_Renderer* rendu, int positionX, int positionY) {
     SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255); //pinceau noir
     SDL_RenderDrawRect(rendu, &oeil_droit);
     SDL_RenderPresent(rendu);//on rafraichit
+
+    SDL_Rect oreille_droit;
+    oreille_droit.x = positionX + 16;
+    oreille_droit.y = positionY - 20;
+    oreille_droit.w = 10;
+    oreille_droit.h = 10;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
+    SDL_RenderFillRect(rendu, &oreille_droit);
+    SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255); //pinceau noir
+    SDL_RenderDrawRect(rendu, &oreille_droit);
+    SDL_RenderPresent(rendu);//on rafraichit
+
+    SDL_Rect oreille_gauche;
+    oreille_gauche.x = positionX +2;
+    oreille_gauche.y = positionY - 20;
+    oreille_gauche.w = 10;
+    oreille_gauche.h = 10;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
+    SDL_RenderFillRect(rendu, &oreille_gauche);
+    SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255); //pinceau noir
+    SDL_RenderDrawRect(rendu, &oreille_gauche);
+    SDL_RenderPresent(rendu);//on rafraichit
 }
 
 // soleil
