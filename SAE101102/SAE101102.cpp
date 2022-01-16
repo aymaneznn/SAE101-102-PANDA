@@ -393,7 +393,7 @@ int main(int argn, char* argv[]) {
     cout << " Le bambou le plus grand est le bambou numero : " << VerifMax(bambouseraie, 5) + 1 << " avec une taille de : "<< bambouseraie[VerifMax(bambouseraie, 5)].taille << endl;
     ReduceMax(bambouseraie, 5);
     ReduceFaster(6, bambouseraie, 5);*/
-    
+
     // SDL (interface graphique)
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -405,7 +405,7 @@ int main(int argn, char* argv[]) {
     TTF_Font* font = TTF_OpenFont("C:\\Windows\\Fonts\\calibri.ttf", 25);
 
     //on crée la fenêtre
-    SDL_Window* win = SDL_CreateWindow("PandaRobot",  SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 720, SDL_WINDOW_SHOWN);
+    SDL_Window* win = SDL_CreateWindow("PandaRobot", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 720, SDL_WINDOW_SHOWN);
 
     if (win == NULL)
         cout << "erreur ouverture fenetre";
@@ -439,28 +439,24 @@ int main(int argn, char* argv[]) {
 
         // test dans la console
         for (int i = 0; i < 5; i++) {
-            cout << " avant : " << bambouseraie[i].taille << endl;
+            cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
         }
         cout << endl;
 
         // croissance des bambous
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             GrowBambou(bambouseraie[i]);
         }
 
         int indice_a_couper = ReduceMax(bambouseraie, 5);
         bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
 
-        // test dans la console
-        for (int i = 0; i < 5; i++) {
-            cout << " apres : " << bambouseraie[i].taille << endl;
-        }
-        cout << endl;
+
 
         // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
         fond(rendu);
 
-        //system("pause");
+        system("pause");
 
         // les endroits ou le Robot spawn
         if (indice_a_couper == 0) {
