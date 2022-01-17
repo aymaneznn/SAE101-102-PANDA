@@ -344,7 +344,7 @@ Uint32 event1(Uint32 interval, void* param) {
     int number = 0;
     int parametres[6] = { 1,2,3,4,5,6 };
     int xx = 0;
-    int yy = 0;
+    int yy = -80;
     // creation des bambous 
     InitBamboueraie(bambouseraie, 6, parametres);
 
@@ -451,7 +451,7 @@ Uint32 event2(Uint32 interval, void* param) {
     int number = 0;
     int parametres[6] = { 1,2,3,4,5,6 };
     int xx = 0;
-    int yy = 0;
+    int yy = -80;
 
     // creation des bambous 
     InitBamboueraie(bambouseraie, 6, parametres);
