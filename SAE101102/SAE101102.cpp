@@ -159,7 +159,7 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
         SDL_RenderFillRect(rendu, &bas);
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
         SDL_RenderDrawRect(rendu, &bas);
-        positionY -= 31;
+        positionY -= 28;
         SDL_RenderPresent(rendu);//on rafraichit
     }
 }
