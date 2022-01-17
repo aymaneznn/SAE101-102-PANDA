@@ -419,9 +419,10 @@ int main(int argn, char* argv[]) {
     // variables
     int soleilx = 0;
     int soleily = 500;
+    int parametres[6] = { 1,2,3,4,5,6 };
 
     // creation des bambous 
-    InitBamboueraie(bambouseraie, 6);
+    InitBamboueraie(bambouseraie, 6, parametres);
 
     // boucle infinie
     bool boucle = true;
