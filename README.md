@@ -21,3 +21,5 @@
 #### Niveau 2 : En cours
 #### Niveau 3 : En cours
 #### Niveau + : En cours
+
+IMENE : Remplacer les bambous : https://www.google.com/search?q=bambou+minecraft+png&tbm=isch&chips=q:bambou+minecraft+png,online_chips:minecraft+wiki:SrI0dXeaq0Y%3D&rlz=1C1CHBD_frFR855FR855&hl=fr&sa=X&ved=2ahUKEwjNzMGY1Lj1AhV6QfEDHdyCBLAQ4lYoAnoECAEQHw&biw=1903&bih=969#imgrc=Xb4yCOFF_5twaM
