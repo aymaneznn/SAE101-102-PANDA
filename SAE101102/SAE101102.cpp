@@ -393,7 +393,7 @@ Uint32 event1(Uint32 interval, void* param) {
         }
         number++;
         string tmp = to_string(number);
-        char text[] = "Jour : ";
+        char text[200] = "Jour : ";
         char const* num_char = tmp.c_str();
         strcat_s(text, 200, num_char);
         SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
@@ -573,10 +573,10 @@ int main(int argn, char* argv[]) {
                 timer = SDL_AddTimer(interval, event2, NULL);
             }
             break;
+            SDL_RemoveTimer(timer);
         }
         
     }
-    SDL_RemoveTimer(timer);
     //destruction du renderer à la fin
     SDL_DestroyRenderer(rendu);
     //destruction à la fin
