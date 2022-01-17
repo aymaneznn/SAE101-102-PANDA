@@ -5,6 +5,7 @@ using namespace std;
 #include "config_sdl.h"
 #include <fstream>
 #include <sstream>
+#include "SDL_image.h"
 
 SDL_Renderer* rendu;
 TTF_Font* font;
@@ -126,76 +127,72 @@ void GrowAll(Bambou bambouraie[], int taille) {
 
 // Fond
 void fond(SDL_Renderer* rendu) {
-    SDL_Rect rect1;
-    rect1.x = 0;
-    rect1.y = 0;
-    rect1.w = 1080;
-    rect1.h = 720;
-    SDL_SetRenderDrawColor(rendu, 176, 224, 230, 255);	//pinceau bleu
-    SDL_RenderFillRect(rendu, &rect1);
+    char name[] = "fond_pixel.bmp";
+    char name2[] = "herbe.bmp";
 
-    // Fond 2
-    SDL_Rect rect2;
-    rect2.x = 0;
-    rect2.y = 520;
-    rect2.w = 1080;
-    rect2.h = 200;
-    SDL_SetRenderDrawColor(rendu, 0, 250, 154, 255);	//pinceau vert
-    SDL_RenderFillRect(rendu, &rect2);
+    SDL_Surface* image = SDL_LoadBMP(name);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
 
-    // ligne pour le sol des bambou
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-    SDL_RenderDrawLine(rendu, 0, 600, 1080, 600);
+    SDL_Rect dstrect = { 0,0,1100,700 };
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_RenderPresent(rendu);
 
-    // Fond 2
-    SDL_Rect noir;
-    noir.x = 800;
-    noir.y = 0;
-    noir.w = 300;
-    noir.h = 720;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
-    SDL_RenderFillRect(rendu, &noir);
+    SDL_Surface* image2 = SDL_LoadBMP(name2);
+    SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image2);
+
+    SDL_Rect dstrect2 = { 0,600,1080,100 };
+    SDL_RenderCopy(rendu, texture2, NULL, &dstrect2);
+    SDL_RenderPresent(rendu);
+
 }
 
 // Bambou
 void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBambou) {
-
+    char name[] = "bambouv2.bmp";
     for (int i = 0; i < nbBambou; i++) {
-        SDL_Rect bambou;
-        bambou.x = positionX;
-        bambou.y = positionY;
-        bambou.w = 10;
-        bambou.h = 30;
-        SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
-        SDL_RenderFillRect(rendu, &bambou);
-        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-        SDL_RenderDrawRect(rendu, &bambou);
+
+        SDL_Surface* image = SDL_LoadBMP(name);
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
+
+        SDL_Rect dstrect = { positionX,positionY,100,150 };
+        SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+        SDL_RenderPresent(rendu);
+        positionY -= 35;
+        //SDL_Rect bambou;
+        //bambou.x = positionX;
+        //bambou.y = positionY;
+        //bambou.w = 10;
+        //bambou.h = 30;
+        //SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
+        //SDL_RenderFillRect(rendu, &bambou);
+        //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
+        //SDL_RenderDrawRect(rendu, &bambou);
 
 
 
-        SDL_Rect haut;
-        haut.x = positionX - 2;
-        haut.y = positionY + 31;
-        haut.w = 15;
-        haut.h = 5;
-        SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
-        SDL_RenderFillRect(rendu, &haut);
-        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-        SDL_RenderDrawRect(rendu, &haut);
+        //SDL_Rect haut;
+        //haut.x = positionX - 2;
+        //haut.y = positionY + 31;
+        //haut.w = 15;
+        //haut.h = 5;
+        //SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
+        //SDL_RenderFillRect(rendu, &haut);
+        //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
+        //SDL_RenderDrawRect(rendu, &haut);
 
 
 
-        SDL_Rect bas;
-        bas.x = positionX - 2;
-        bas.y = positionY;
-        bas.w = 15;
-        bas.h = 5;
-        SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
-        SDL_RenderFillRect(rendu, &bas);
-        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-        SDL_RenderDrawRect(rendu, &bas);
-        positionY -= 28;
-        SDL_RenderPresent(rendu);//on rafraichit
+        //SDL_Rect bas;
+        //bas.x = positionX - 2;
+        //bas.y = positionY;
+        //bas.w = 15;
+        //bas.h = 5;
+        //SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
+        //SDL_RenderFillRect(rendu, &bas);
+        //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
+        //SDL_RenderDrawRect(rendu, &bas);
+        //positionY -= 28;
+        //SDL_RenderPresent(rendu);//on rafraichit
     }
 }
 
@@ -345,12 +342,12 @@ Uint32 event1(Uint32 interval, void* param) {
     for (int i = 0; boucle; i++) {
 
         // affichage des bambous 
-        afficheBambou(rendu, 150, 570, bambouseraie[0].taille);
-        afficheBambou(rendu, 250, 570, bambouseraie[1].taille);
-        afficheBambou(rendu, 350, 570, bambouseraie[2].taille);
-        afficheBambou(rendu, 450, 570, bambouseraie[3].taille);
-        afficheBambou(rendu, 550, 570, bambouseraie[4].taille);
-        afficheBambou(rendu, 550, 570, bambouseraie[0].taille);
+        afficheBambou(rendu, 150, 510, bambouseraie[0].taille);
+        afficheBambou(rendu, 250, 510, bambouseraie[1].taille);
+        afficheBambou(rendu, 350, 510, bambouseraie[2].taille);
+        afficheBambou(rendu, 450, 510, bambouseraie[3].taille);
+        afficheBambou(rendu, 550, 510, bambouseraie[4].taille);
+        afficheBambou(rendu, 550, 510, bambouseraie[0].taille);
 
         
 
@@ -545,10 +542,15 @@ int main(int argn, char* argv[]) {
     rendu = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
     //fin parametres fenetres 
 
-    // debut des dessin sur l'ecran
-    fond(rendu);
+    char name[] = "ROBOT_PANDA.bmp";
 
-    
+    SDL_Surface* image = SDL_LoadBMP(name);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
+
+    SDL_Rect dstrect = { 0,0,1100,700 };
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_RenderPresent(rendu);
+
 
     /*************BOUCLE D'evenements**************/
 
@@ -573,13 +575,14 @@ int main(int argn, char* argv[]) {
                 timer = SDL_AddTimer(interval, event2, NULL);
             }
             break;
+            SDL_RemoveTimer(timer);
         }
         
     }
-    SDL_RemoveTimer(timer);
     //destruction du renderer à la fin
     SDL_DestroyRenderer(rendu);
     //destruction à la fin
+
     SDL_DestroyWindow(win);
 
     TTF_CloseFont(font);
