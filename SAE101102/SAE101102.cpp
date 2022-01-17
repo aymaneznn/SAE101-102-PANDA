@@ -36,11 +36,11 @@ void CreateBambou(Bambou& bambou, int taille) {
     bambou.taille = taille;
 }
 
-void InitBamboueraie(Bambou bambouraie[], int taille) {
-    int tab[5] = { 2,4,3,1,5 };
-    for (int i = 0; i < taille; i++) {
-        CreateBambou(bambouraie[i], tab[i]);
-    }
+// Initialisation de bambouraie
+void InitBamboueraie(Bambou bambouraie[], int taille, tab[]) {
+	for (int i = 0; i < taille; i++) {
+		CreateBambou(bambouraie[i],tab[i]);
+	}
 }
 
 // Croissance d'un bambou
