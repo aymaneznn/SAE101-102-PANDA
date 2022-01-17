@@ -129,7 +129,7 @@ void GrowAll(Bambou bambouraie[], int taille) {
 // Fond
 void fond(SDL_Renderer* rendu) {
     char name[] = "fond_pixel.bmp";
-    char name2[] = "herbe.bmp";
+    char name2[] = "herbev2.bmp";
 
     SDL_Surface* image = SDL_LoadBMP(name);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
@@ -158,7 +158,7 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
         SDL_Rect dstrect = { positionX,positionY,100,150 };
         SDL_RenderCopy(rendu, texture, NULL, &dstrect);
         SDL_RenderPresent(rendu);
-        positionY -= 35;
+        positionY -= 40;
         SDL_DestroyTexture(texture);
         //SDL_Rect bambou;
         //bambou.x = positionX;
@@ -201,7 +201,7 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
 // Robot Panda
 void afficheRobot(SDL_Renderer* rendu, int positionX, int positionY) {
 
-    char name[] = "panda.bmp";
+    char name[] = "pandav2.bmp";
 
     SDL_Surface* image = SDL_LoadBMP(name);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
@@ -578,12 +578,12 @@ int main(int argn, char* argv[]) {
     rendu = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
     //fin parametres fenetres 
 
-    char name[] = "ROBOT_PANDA.bmp";
+    char name[] = "ROBOT_PANDAv2.bmp";
 
     SDL_Surface* image = SDL_LoadBMP(name);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
 
-    SDL_Rect dstrect = { 0,0,1100,700 };
+    SDL_Rect dstrect = { 0,0,1080,720 };
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
