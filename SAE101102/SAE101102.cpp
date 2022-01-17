@@ -19,6 +19,8 @@ struct Bambou {
     int taille;
 };
 
+
+
 Bambou bambouseraie[TAILLE_MAX];
 
 // Statistiques 
@@ -158,7 +160,10 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
         SDL_Rect dstrect = { positionX,positionY,100,150 };
         SDL_RenderCopy(rendu, texture, NULL, &dstrect);
         SDL_RenderPresent(rendu);
-        positionY -= 40;
+        if (positionY>0) {
+            positionY -= 40;
+        }
+        
         SDL_DestroyTexture(texture);
         //SDL_Rect bambou;
         //bambou.x = positionX;
@@ -336,6 +341,31 @@ void afficheRobot(SDL_Renderer* rendu, int positionX, int positionY) {
     //SDL_RenderPresent(rendu);//on rafraichit
 }
 
+//exit
+void exit() {
+    char name[] = "exit.bmp";
+
+    SDL_Surface* image = SDL_LoadBMP(name);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
+
+    SDL_Rect dstrect = { 950,650,100,50 };
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_RenderPresent(rendu);
+    SDL_DestroyTexture(texture);
+}
+
+// menu
+void menu() {
+    char name[] = "menu.bmp";
+
+    SDL_Surface* image = SDL_LoadBMP(name);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
+
+    SDL_Rect dstrect = { 0,0,1080,720 };
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_RenderPresent(rendu);
+    SDL_DestroyTexture(texture);
+}
 
 int interval = 500;
 Uint32 event1(Uint32 interval, void* param) {
@@ -445,6 +475,8 @@ Uint32 event1(Uint32 interval, void* param) {
 }
 
 
+
+
 Uint32 event2(Uint32 interval, void* param) {
 
     // variables
@@ -528,7 +560,9 @@ Uint32 event2(Uint32 interval, void* param) {
         positionTexte.h *= 3;
         //on copie la texture dans le rendu
         SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        exit();
         //on détruit la texture
+        exit();
         SDL_DestroyTexture(texture);
 
         char soleil[] = "soleiv2.bmp";
@@ -537,6 +571,7 @@ Uint32 event2(Uint32 interval, void* param) {
         SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
 
         SDL_Rect dstrect5 = { xx,yy,300,300 };
+        
         SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
         SDL_RenderPresent(rendu);
         if (xx == 1000) {
@@ -551,6 +586,8 @@ Uint32 event2(Uint32 interval, void* param) {
 
     return interval;
 }
+
+
 
 
 // ----------------------------------------------Fin fonctions SDL----------------------------------------------------------- //
@@ -578,16 +615,43 @@ int main(int argn, char* argv[]) {
     rendu = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
     //fin parametres fenetres 
 
-    char name[] = "ROBOT_PANDAv2.bmp";
+    menu();
 
-    SDL_Surface* image = SDL_LoadBMP(name);
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
+    SDL_Rect ss;
+    ss.x = 520;
+    ss.y = 350;
+    ss.w = 450;
+    ss.h = 100;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);	//pinceau vert
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0); //pinceau noir
 
-    SDL_Rect dstrect = { 0,0,1080,720 };
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_RenderPresent(rendu);
-    SDL_DestroyTexture(texture);
 
+    SDL_Rect rect2;
+    rect2.x = 770;
+    rect2.y = 200;
+    rect2.w = 260;
+    rect2.h = 80;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);	//pinceau vert
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0); //pinceau noir
+
+    SDL_Rect rect3;
+    rect3.x = 490;
+    rect3.y = 200;
+    rect3.w = 260;
+    rect3.h = 80;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);	//pinceau vert
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0); //pinceau noir  
+
+    SDL_Rect retour;
+    retour.x = 950;
+    retour.y = 650;
+    retour.w = 100;
+    retour.h = 50;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
+    SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255); //pinceau noir
+    exit();
+
+    
     /*************BOUCLE D'evenements**************/
 
     bool continuer = true;
@@ -612,6 +676,35 @@ int main(int argn, char* argv[]) {
             }
             break;
             SDL_RemoveTimer(timer);
+        case SDL_MOUSEBUTTONUP://appui souris
+            if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
+                if (event.button.x > rect2.x && event.button.x<rect2.x + rect2.w && event.button.y>rect2.y && event.button.y < rect2.y + rect2.h) { //dans 	le rectangle
+                    cout << "max" << endl;
+                    timer = SDL_AddTimer(interval, event2, NULL);
+                }
+            }
+            if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
+                if (event.button.x > ss.x && event.button.x<ss.x + ss.w && event.button.y>ss.y && event.button.y < ss.y + ss.h) { //dans 	le rectangle
+                    cout << "manuelle" << endl;
+                    
+                }
+            }
+            if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
+                if (event.button.x > rect3.x && event.button.x<rect3.x + rect3.w && event.button.y>rect3.y && event.button.y < rect3.y + rect3.h) { //dans 	le rectangle
+                    cout << "faster" << endl;
+                    timer = SDL_AddTimer(interval, event1, NULL);
+                }
+            }
+            if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
+                if (event.button.x > retour.x && event.button.x<retour.x + retour.w && event.button.y>retour.y && event.button.y < retour.y + retour.h) { //dans 	le rectangle
+                    cout << "retour" << endl;
+                    
+                    
+                    continuer = false;
+                    break;
+                }
+            }
+            break;
         }
         
     }
