@@ -10,7 +10,7 @@ SDL_Renderer* rendu;
 TTF_Font* font;
 const int TAILLE_MAX = 100;
 
-const int soeil = 10;
+const int seuil = 15;
 // Definition des bambou
 struct Bambou {
     int croissance;
@@ -95,23 +95,24 @@ int VerifMax(Bambou Bambou[], int TailleChoisie) {
 
 // Coupe le bambou le plus grand
 int ReduceMax(Bambou bambou[], int TailleChoisie) {
-    int taille;
     int indice = VerifMax(bambou, TailleChoisie);
     bambou[indice].taille = bambou[indice].croissance;
     return indice;
 }
 
 // Fonction Reduce-Fastest(x)
-void ReduceFaster(int seuil, Bambou tab[], int TailleChoisie) {
+int ReduceFaster(int seuil, Bambou tab[], int TailleChoisie) {
     int maxCroissance = 0;
+    int indice = 0;
     for (int j = 0; j < TailleChoisie; j++) {
         if (tab[j].taille > seuil) {
             if (tab[j].croissance > maxCroissance) {
                 maxCroissance = tab[j].croissance;
+                indice = j;
             }
         }
     }
-    CutBambou(tab[maxCroissance]);
+    return indice;
 }
 
 // Croissance simultané de la bambouraie
@@ -457,7 +458,7 @@ Uint32 event2(Uint32 interval, void* param) {
             GrowBambou(bambouseraie[i]);
         }
 
-        int indice_a_couper = ReduceMax(bambouseraie, 5);
+        int indice_a_couper = ReduceFaster(seuil,bambouseraie,5);
         bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
 
         SDL_Delay(300);
@@ -486,7 +487,7 @@ Uint32 event2(Uint32 interval, void* param) {
 
         number++;
         string tmp = to_string(number);
-        char text[] = "Jour : ";
+        char text[200] = "Jour : ";
         char const* num_char = tmp.c_str();
         strcat_s(text, 200, num_char);
         SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
@@ -522,44 +523,6 @@ Uint32 event2(Uint32 interval, void* param) {
 
 
 int main(int argn, char* argv[]) {
-
-    // tests
-
-    /*cout << " Debut " << endl << endl;
-    for (int i = 0; i < 5; i++) {
-        cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
-    }
-    cout << endl;
-    GrowAll(bambouseraie, 5);
-    for (int i = 0; i < 5; i++) {
-        cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
-    }
-    cout << endl;
-    cout << "Premiere decoupe"<<endl;
-    ReduceMax(bambouseraie, 5);
-    GrowAll(bambouseraie, 5);
-    for (int i = 0; i < 5; i++) {
-        cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
-    }
-    cout << endl;
-    cout << "deuxieme decoupe" << endl;
-    ReduceMax(bambouseraie, 5);
-    GrowAll(bambouseraie, 5);
-    for (int i = 0; i < 5; i++) {
-        cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
-    }
-    cout << endl;
-    cout << "troisieme decoupe"<<endl;
-    ReduceMax(bambouseraie, 5);
-    GrowAll(bambouseraie, 5);
-    for (int i = 0; i < 5; i++) {
-        cout << "Bambou " << i + 1 <<" : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
-    }
-    cout << endl;
-    cout << "fini" << endl;
-    cout << " Le bambou le plus grand est le bambou numero : " << VerifMax(bambouseraie, 5) + 1 << " avec une taille de : "<< bambouseraie[VerifMax(bambouseraie, 5)].taille << endl;
-    ReduceMax(bambouseraie, 5);
-    ReduceFaster(6, bambouseraie, 5);*/
 
     // SDL (interface graphique)
 
