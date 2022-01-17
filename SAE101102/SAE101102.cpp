@@ -9,6 +9,7 @@ using namespace std;
 
 SDL_Renderer* rendu;
 TTF_Font* font;
+SDL_TimerID timer;
 const int TAILLE_MAX = 100;
 
 const int seuil = 15;
@@ -136,6 +137,7 @@ void fond(SDL_Renderer* rendu) {
     SDL_Rect dstrect = { 0,0,1100,700 };
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
     SDL_RenderPresent(rendu);
+    SDL_DestroyTexture(texture);
 
     SDL_Surface* image2 = SDL_LoadBMP(name2);
     SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image2);
@@ -143,7 +145,7 @@ void fond(SDL_Renderer* rendu) {
     SDL_Rect dstrect2 = { 0,600,1080,100 };
     SDL_RenderCopy(rendu, texture2, NULL, &dstrect2);
     SDL_RenderPresent(rendu);
-
+    SDL_DestroyTexture(texture2);
 }
 
 // Bambou
@@ -153,11 +155,11 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
 
         SDL_Surface* image = SDL_LoadBMP(name);
         SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
-
         SDL_Rect dstrect = { positionX,positionY,100,150 };
         SDL_RenderCopy(rendu, texture, NULL, &dstrect);
         SDL_RenderPresent(rendu);
         positionY -= 35;
+        SDL_DestroyTexture(texture);
         //SDL_Rect bambou;
         //bambou.x = positionX;
         //bambou.y = positionY;
@@ -207,6 +209,7 @@ void afficheRobot(SDL_Renderer* rendu, int positionX, int positionY) {
     SDL_Rect dstrect = { positionX,positionY,100,100 };
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
     SDL_RenderPresent(rendu);
+    SDL_DestroyTexture(texture);
     //SDL_Rect RobotPanda;
     //RobotPanda.x = positionX;
     //RobotPanda.y = positionY;
@@ -377,7 +380,7 @@ Uint32 event1(Uint32 interval, void* param) {
 
         // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
         fond(rendu);
-
+        
         //system("pause");
 
         // les endroits ou le Robot spawn
@@ -398,7 +401,7 @@ Uint32 event1(Uint32 interval, void* param) {
         }
         number++;
         string tmp = to_string(number);
-        char text[200] = "Jour : ";
+        char text[200] = "Jours : ";
         char const* num_char = tmp.c_str();
         strcat_s(text, 200, num_char);
         SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
@@ -419,9 +422,9 @@ Uint32 event1(Uint32 interval, void* param) {
         //on détruit la texture
         SDL_DestroyTexture(texture);
 
-        char solei[] = "soleiv2.bmp";
+        char soleil[] = "soleiv2.bmp";
 
-        SDL_Surface* image5 = SDL_LoadBMP(solei);
+        SDL_Surface* image5 = SDL_LoadBMP(soleil);
         SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
 
         SDL_Rect dstrect5 = { xx,yy,300,300 };
@@ -431,7 +434,10 @@ Uint32 event1(Uint32 interval, void* param) {
             xx = 0 ;
         }
         xx += 50;
+        SDL_DestroyTexture(texture5);
+
     }
+
 
     SDL_RenderPresent(rendu);//on rafraichit
 
@@ -444,6 +450,8 @@ Uint32 event2(Uint32 interval, void* param) {
     // variables
     int number = 0;
     int parametres[6] = { 1,2,3,4,5,6 };
+    int xx = 0;
+    int yy = 0;
 
     // creation des bambous 
     InitBamboueraie(bambouseraie, 6, parametres);
@@ -502,7 +510,7 @@ Uint32 event2(Uint32 interval, void* param) {
 
         number++;
         string tmp = to_string(number);
-        char text[200] = "Jour : ";
+        char text[200] = "Jours : ";
         char const* num_char = tmp.c_str();
         strcat_s(text, 200, num_char);
         SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
@@ -523,6 +531,20 @@ Uint32 event2(Uint32 interval, void* param) {
         //on détruit la texture
         SDL_DestroyTexture(texture);
 
+        char soleil[] = "soleiv2.bmp";
+
+        SDL_Surface* image5 = SDL_LoadBMP(soleil);
+        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
+
+        SDL_Rect dstrect5 = { xx,yy,300,300 };
+        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
+        SDL_RenderPresent(rendu);
+        if (xx == 1000) {
+            xx = 0;
+        }
+        xx += 50;
+        SDL_DestroyTexture(texture5);
+
     }
 
     SDL_RenderPresent(rendu);//on rafraichit
@@ -531,10 +553,7 @@ Uint32 event2(Uint32 interval, void* param) {
 }
 
 
-
-
 // ----------------------------------------------Fin fonctions SDL----------------------------------------------------------- //
-
 
 
 int main(int argn, char* argv[]) {
@@ -549,7 +568,6 @@ int main(int argn, char* argv[]) {
     TTF_Init();
     font = TTF_OpenFont("C:\\Windows\\Fonts\\calibri.ttf", 15);
 
-    SDL_TimerID timer;
 
     //on crée la fenêtre
     SDL_Window* win = SDL_CreateWindow("PandaRobot", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 720, SDL_WINDOW_SHOWN);
@@ -568,7 +586,7 @@ int main(int argn, char* argv[]) {
     SDL_Rect dstrect = { 0,0,1100,700 };
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
     SDL_RenderPresent(rendu);
-
+    SDL_DestroyTexture(texture);
 
     /*************BOUCLE D'evenements**************/
 
