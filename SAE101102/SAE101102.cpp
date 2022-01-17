@@ -340,7 +340,8 @@ Uint32 event1(Uint32 interval, void* param) {
     // variables
     int number = 0;
     int parametres[6] = { 1,2,3,4,5,6 };
-
+    int xx = 0;
+    int yy = 0;
     // creation des bambous 
     InitBamboueraie(bambouseraie, 6, parametres);
 
@@ -372,7 +373,7 @@ Uint32 event1(Uint32 interval, void* param) {
         int indice_a_couper = ReduceMax(bambouseraie, 5);
         bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
 
-        SDL_Delay(300);
+        SDL_Delay(900);
 
         // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
         fond(rendu);
@@ -418,8 +419,18 @@ Uint32 event1(Uint32 interval, void* param) {
         //on détruit la texture
         SDL_DestroyTexture(texture);
 
+        char solei[] = "soleiv2.bmp";
 
+        SDL_Surface* image5 = SDL_LoadBMP(solei);
+        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
 
+        SDL_Rect dstrect5 = { xx,yy,300,300 };
+        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
+        SDL_RenderPresent(rendu);
+        if (xx == 1000) {
+            xx = 0 ;
+        }
+        xx += 50;
     }
 
     SDL_RenderPresent(rendu);//on rafraichit
