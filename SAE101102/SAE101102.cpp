@@ -1,3 +1,14 @@
+using namespace std;
+#include<iostream>
+
+const int TAILLE_MAX = 100;
+
+// Definition des bambou
+struct Bambou {
+    int croissance;
+    int taille;
+};
+
 // Statistique de la taille moyenne de la bambouseraie
 float TailleMoy(Bambou tab[], int taille) {
     float total = 0;
