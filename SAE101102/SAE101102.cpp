@@ -4,12 +4,13 @@ using namespace std;
 #include<iostream>
 #include "config_sdl.h"
 #include <fstream>
+#include <sstream>
 
 SDL_Renderer* rendu;
+TTF_Font* font;
 const int TAILLE_MAX = 100;
-const int y_premier_bambou = 570;
 
-
+const int soeil = 10;
 // Definition des bambou
 struct Bambou {
     int croissance;
@@ -327,66 +328,12 @@ void afficheRobot(SDL_Renderer* rendu, int positionX, int positionY) {
     SDL_RenderPresent(rendu);//on rafraichit
 }
 
-// soleil
 
-void soleil(SDL_Renderer* rendu, int positionX, int positionY) {
-
-    //soleil
-    SDL_Rect soleil;
-    soleil.x = positionX;
-    soleil.y = positionY;
-    soleil.w = 150;
-    soleil.h = 150;
-    SDL_SetRenderDrawColor(rendu, 255, 255, 0, 255);	//pinceau jaune 
-    SDL_RenderFillRect(rendu, &soleil);
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-    SDL_RenderDrawRect(rendu, &soleil);
-    SDL_RenderPresent(rendu);//on rafraichit
-
-}
-
-// Lune
-
-void lune(SDL_Renderer* rendu, int positionX, int positionY) {
-
-    //lune
-    SDL_Rect lune;
-    lune.x = positionX;
-    lune.y = positionY;
-    lune.w = 100;
-    lune.h = 150;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 205, 255);	//pinceau jaune 
-    SDL_RenderFillRect(rendu, &lune);
-    SDL_RenderPresent(rendu);//on rafraichit
-
-        //lune
-    SDL_Rect lune1;
-    lune1.x = positionX;
-    lune1.y = positionY + 100;
-    lune1.w = 150;
-    lune1.h = 100;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 205, 255);	//pinceau jaune 
-    SDL_RenderFillRect(rendu, &lune1);
-    SDL_RenderPresent(rendu);//on rafraichit
-
-        //lune
-    SDL_Rect lune2;
-    lune2.x = positionX + 50;
-    lune2.y = positionY + 50;
-    lune2.w = 80;
-    lune2.h = 80;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 205, 255);	//pinceau jaune 
-    SDL_RenderFillRect(rendu, &lune2);
-    SDL_RenderPresent(rendu);//on rafraichit
-
-}
-
-int interval = 1000;
+int interval = 500;
 Uint32 event1(Uint32 interval, void* param) {
     
     // variables
-    int soleilx = 0;
-    int soleily = 500;
+    int number = 0;
     int parametres[6] = { 1,2,3,4,5,6 };
 
     // creation des bambous 
@@ -420,7 +367,100 @@ Uint32 event1(Uint32 interval, void* param) {
         int indice_a_couper = ReduceMax(bambouseraie, 5);
         bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
 
-        SDL_Delay(900);
+        SDL_Delay(300);
+
+        // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
+        fond(rendu);
+
+        //system("pause");
+
+        // les endroits ou le Robot spawn
+        if (indice_a_couper == 0) {
+            afficheRobot(rendu, 200, 570);
+        }
+        else if (indice_a_couper == 1) {
+            afficheRobot(rendu, 300, 570);
+        }
+        else if (indice_a_couper == 2) {
+            afficheRobot(rendu, 400, 570);
+        }
+        else if (indice_a_couper == 3) {
+            afficheRobot(rendu, 500, 570);
+        }
+        else if (indice_a_couper == 4) {
+            afficheRobot(rendu, 600, 570);
+        }
+        number++;
+        string tmp = to_string(number);
+        char text[] = "Jour : ";
+        char const* num_char = tmp.c_str();
+        strcat_s(text, 200, num_char);
+        SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
+        SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
+
+        //on place le texte au point (100,100)
+        positionTexte.x = 850;
+        positionTexte.y = 0;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        SDL_Texture* texture = loadText(rendu, text, blanc, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //si on veut modifier le cadre du texte
+        positionTexte.w *= 3;
+        positionTexte.h *= 3;
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
+
+
+
+    }
+
+    SDL_RenderPresent(rendu);//on rafraichit
+
+    return interval;
+}
+
+
+Uint32 event2(Uint32 interval, void* param) {
+
+    // variables
+    int number = 0;
+    int parametres[6] = { 1,2,3,4,5,6 };
+
+    // creation des bambous 
+    InitBamboueraie(bambouseraie, 6, parametres);
+
+    // boucle infinie
+    bool boucle = true;
+    for (int i = 0; boucle; i++) {
+
+        // affichage des bambous 
+        afficheBambou(rendu, 150, 570, bambouseraie[0].taille);
+        afficheBambou(rendu, 250, 570, bambouseraie[1].taille);
+        afficheBambou(rendu, 350, 570, bambouseraie[2].taille);
+        afficheBambou(rendu, 450, 570, bambouseraie[3].taille);
+        afficheBambou(rendu, 550, 570, bambouseraie[4].taille);
+        afficheBambou(rendu, 550, 570, bambouseraie[0].taille);
+
+
+
+        // test dans la console
+        for (int i = 0; i < 5; i++) {
+            cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
+        }
+        cout << endl;
+
+        // croissance des bambous
+        for (int i = 0; i < 5; i++) {
+            GrowBambou(bambouseraie[i]);
+        }
+
+        int indice_a_couper = ReduceMax(bambouseraie, 5);
+        bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
+
+        SDL_Delay(300);
 
         // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
         fond(rendu);
@@ -444,27 +484,28 @@ Uint32 event1(Uint32 interval, void* param) {
             afficheRobot(rendu, 600, 570);
         }
 
-        if (soleilx == 1000) {
-            soleilx = 0;
-            SDL_Rect rect1;
-            rect1.x = 0;
-            rect1.y = 0;
-            rect1.w = 1080;
-            rect1.h = 500;
-            SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau bleu
-            SDL_RenderFillRect(rendu, &rect1);
-            lune(rendu, 0, 0);
-            SDL_Delay(5000);
-        }
-        soleilx += 50;
-        if (soleily > 0) {
-            soleily -= 50;
-        }
-        if (soleily == 0) {
-            soleily = +50;
-        }
+        number++;
+        string tmp = to_string(number);
+        char text[] = "Jour : ";
+        char const* num_char = tmp.c_str();
+        strcat_s(text, 200, num_char);
+        SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
+        SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
 
-        soleil(rendu, soleilx, soleily);
+        //on place le texte au point (100,100)
+        positionTexte.x = 850;
+        positionTexte.y = 0;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        SDL_Texture* texture = loadText(rendu, text, blanc, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //si on veut modifier le cadre du texte
+        positionTexte.w *= 3;
+        positionTexte.h *= 3;
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
 
     }
 
@@ -474,96 +515,7 @@ Uint32 event1(Uint32 interval, void* param) {
 }
 
 
-//Uint32 event2(Uint32 interval, void* param) {
-//
-//    // variables
-//    int soleilx = 0;
-//    int soleily = 500;
-//    int parametres[6] = { 1,2,3,4,5,6 };
-//
-//    // creation des bambous 
-//    InitBamboueraie(bambouseraie, 6, parametres);
-//
-//    // boucle infinie
-//    bool boucle = true;
-//    for (int i = 0; boucle; i++) {
-//
-//        // affichage des bambous 
-//        afficheBambou(rendu, 150, 570, bambouseraie[0].taille);
-//        afficheBambou(rendu, 250, 570, bambouseraie[1].taille);
-//        afficheBambou(rendu, 350, 570, bambouseraie[2].taille);
-//        afficheBambou(rendu, 450, 570, bambouseraie[3].taille);
-//        afficheBambou(rendu, 550, 570, bambouseraie[4].taille);
-//        afficheBambou(rendu, 550, 570, bambouseraie[0].taille);
-//
-//
-//
-//        // test dans la console
-//        for (int i = 0; i < 5; i++) {
-//            cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
-//        }
-//        cout << endl;
-//
-//        // croissance des bambous
-//        for (int i = 0; i < 5; i++) {
-//            GrowBambou(bambouseraie[i]);
-//        }
-//
-//        int indice_a_couper = ReduceMax(bambouseraie, 5);
-//        bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
-//
-//        SDL_Delay(900);
-//
-//        // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
-//        fond(rendu);
-//
-//        //system("pause");
-//
-//        // les endroits ou le Robot spawn
-//        if (indice_a_couper == 0) {
-//            afficheRobot(rendu, 200, 570);
-//        }
-//        else if (indice_a_couper == 1) {
-//            afficheRobot(rendu, 300, 570);
-//        }
-//        else if (indice_a_couper == 2) {
-//            afficheRobot(rendu, 400, 570);
-//        }
-//        else if (indice_a_couper == 3) {
-//            afficheRobot(rendu, 500, 570);
-//        }
-//        else if (indice_a_couper == 4) {
-//            afficheRobot(rendu, 600, 570);
-//        }
-//
-//        if (soleilx == 1000) {
-//            soleilx = 0;
-//            SDL_Rect rect1;
-//            rect1.x = 0;
-//            rect1.y = 0;
-//            rect1.w = 1080;
-//            rect1.h = 500;
-//            SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau bleu
-//            SDL_RenderFillRect(rendu, &rect1);
-//            lune(rendu, 0, 0);
-//            SDL_Delay(5000);
-//        }
-//        soleilx += 50;
-//        if (soleily > 0) {
-//            soleily -= 50;
-//        }
-//        if (soleily == 0) {
-//            soleily = +50;
-//        }
-//
-//        soleil(rendu, soleilx, soleily);
-//
-//    }
-//
-//    SDL_RenderPresent(rendu);//on rafraichit
-//
-//    return interval;
-//}
+
 
 // ----------------------------------------------Fin fonctions SDL----------------------------------------------------------- //
 
@@ -617,7 +569,7 @@ int main(int argn, char* argv[]) {
     }
     //on ouvre la police de caractères
     TTF_Init();
-    TTF_Font* font = TTF_OpenFont("C:\\Windows\\Fonts\\calibri.ttf", 25);
+    font = TTF_OpenFont("C:\\Windows\\Fonts\\calibri.ttf", 15);
 
     SDL_TimerID timer;
 
@@ -653,12 +605,11 @@ int main(int argn, char* argv[]) {
             if (event.key.keysym.sym == SDLK_a) { //touche a
                 timer = SDL_AddTimer(interval, event1, NULL);
             }
+            
+            if (event.key.keysym.sym == SDLK_b) { //touche b
+                timer = SDL_AddTimer(interval, event2, NULL);
+            }
             break;
-        //case SDL_KEYDOWN:
-        //    if (event.key.keysym.sym == SDLK_b) { //touche b
-        //        timer = SDL_AddTimer(interval, event2, NULL);
-        //    }
-        //    break;
         }
         
     }
