@@ -456,7 +456,7 @@ int main(int argn, char* argv[]) {
         // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
         fond(rendu);
 
-        system("pause");
+        //system("pause");
 
         // les endroits ou le Robot spawn
         if (indice_a_couper == 0) {
