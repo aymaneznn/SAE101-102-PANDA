@@ -5,7 +5,7 @@ using namespace std;
 #include "config_sdl.h"
 #include <fstream>
 
-const int TAILLE_MAX = 100;
+const int TAILLE_MAX = 10;
 const int y_premier_bambou = 570;
 
 // Definition des bambou
