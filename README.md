@@ -15,3 +15,9 @@
 - [x] GrowAll : Croissance simultané de la bambouraie
 - [x] ReduceFaster : Fonction Reduce-Fastest(x)
 - [x] StatTaillleMax : Statistiques de la taille maximal 
+
+##Niveau 0 : Terminé
+##Niveau 1 : Terminé
+##Niveau 2 : En cours
+##Niveau 3 : En cours
+##Niveau + : En cours
