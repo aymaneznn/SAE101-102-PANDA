@@ -19,8 +19,6 @@ struct Bambou {
     int taille;
 };
 
-
-
 Bambou bambouseraie[TAILLE_MAX];
 
 // Statistiques 
@@ -474,9 +472,6 @@ Uint32 event1(Uint32 interval, void* param) {
     return interval;
 }
 
-
-
-
 Uint32 event2(Uint32 interval, void* param) {
 
     // variables
@@ -588,8 +583,6 @@ Uint32 event2(Uint32 interval, void* param) {
 }
 
 
-
-
 // ----------------------------------------------Fin fonctions SDL----------------------------------------------------------- //
 
 
@@ -679,8 +672,9 @@ int main(int argn, char* argv[]) {
         case SDL_MOUSEBUTTONUP://appui souris
             if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
                 if (event.button.x > rect2.x && event.button.x<rect2.x + rect2.w && event.button.y>rect2.y && event.button.y < rect2.y + rect2.h) { //dans 	le rectangle
-                    cout << "max" << endl;
+                    cout << "faster" << endl;
                     timer = SDL_AddTimer(interval, event2, NULL);
+                    
                 }
             }
             if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
@@ -691,8 +685,9 @@ int main(int argn, char* argv[]) {
             }
             if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
                 if (event.button.x > rect3.x && event.button.x<rect3.x + rect3.w && event.button.y>rect3.y && event.button.y < rect3.y + rect3.h) { //dans 	le rectangle
-                    cout << "faster" << endl;
+                    cout << "max" << endl;
                     timer = SDL_AddTimer(interval, event1, NULL);
+                    
                 }
             }
             if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
