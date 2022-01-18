@@ -13,21 +13,19 @@ SDL_TimerID timer;
 const int TAILLE_MAX = 100;
 
 const int seuil = 15;
+
 // Definition des bambou
 struct Bambou {
     int croissance;
     int taille;
 };
 
-
-
 Bambou bambouseraie[TAILLE_MAX];
 
 // Statistiques 
 
-// Statistiques tailles max
-
-int StatTaillleMax(Bambou tab[], int TailleChoisie) {
+// Statistique de la taille maximum de la bambouseraie
+int TaillleMax(Bambou tab[], int TailleChoisie) {
     int maximum = 0;
     for (int i = 0; i < TailleChoisie; i++) {
         if (tab[i].taille > maximum) {
@@ -56,8 +54,6 @@ int TailleMin(Bambou tab[], int taille) {
     }
     return min;
 }
-
-// (rand() % 9) + 1)
 
 // Création d'un bambou
 void CreateBambou(Bambou& bambou, int taille) {
@@ -148,6 +144,8 @@ void fond(SDL_Renderer* rendu) {
     SDL_RenderCopy(rendu, texture2, NULL, &dstrect2);
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture2);
+
+
 }
 
 // Bambou
