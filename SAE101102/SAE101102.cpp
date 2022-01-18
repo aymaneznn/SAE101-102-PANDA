@@ -199,42 +199,6 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
         }
         
         SDL_DestroyTexture(texture);
-
-        //SDL_Rect bambou;
-        //bambou.x = positionX;
-        //bambou.y = positionY;
-        //bambou.w = 10;
-        //bambou.h = 30;
-        //SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
-        //SDL_RenderFillRect(rendu, &bambou);
-        //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-        //SDL_RenderDrawRect(rendu, &bambou);
-
-
-
-        //SDL_Rect haut;
-        //haut.x = positionX - 2;
-        //haut.y = positionY + 31;
-        //haut.w = 15;
-        //haut.h = 5;
-        //SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
-        //SDL_RenderFillRect(rendu, &haut);
-        //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-        //SDL_RenderDrawRect(rendu, &haut);
-
-
-
-        //SDL_Rect bas;
-        //bas.x = positionX - 2;
-        //bas.y = positionY;
-        //bas.w = 15;
-        //bas.h = 5;
-        //SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
-        //SDL_RenderFillRect(rendu, &bas);
-        //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-        //SDL_RenderDrawRect(rendu, &bas);
-        //positionY -= 28;
-        //SDL_RenderPresent(rendu);//on rafraichit
     }
 }
 
@@ -250,130 +214,6 @@ void afficheRobot(SDL_Renderer* rendu, int positionX, int positionY) {
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
-    //SDL_Rect RobotPanda;
-    //RobotPanda.x = positionX;
-    //RobotPanda.y = positionY;
-    //RobotPanda.w = 30;
-    //RobotPanda.h = 30;
-    //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
-    //SDL_RenderFillRect(rendu, &RobotPanda);
-    //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-    //SDL_RenderDrawRect(rendu, &RobotPanda);
-    //SDL_RenderPresent(rendu);//on rafraichit
-
-    ////pieds
-    //SDL_Rect pied_gauche;
-    //pied_gauche.x = positionX;
-    //pied_gauche.y = positionY + 30;
-    //pied_gauche.w = 10;
-    //pied_gauche.h = 10;
-    //SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);	//pinceau vert
-    //SDL_RenderFillRect(rendu, &pied_gauche);
-    //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-    //SDL_RenderDrawRect(rendu, &pied_gauche);
-    //SDL_RenderPresent(rendu);//on rafraichit
-
-    //SDL_Rect pied_droite;
-    //pied_droite.x = positionX + 20;
-    //pied_droite.y = positionY + 30;
-    //pied_droite.w = 10;
-    //pied_droite.h = 10;
-    //SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);	//pinceau vert
-    //SDL_RenderFillRect(rendu, &pied_droite);
-    //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-    //SDL_RenderDrawRect(rendu, &pied_droite);
-    //SDL_RenderPresent(rendu);//on rafraichit
-
-    ////bras
-    //SDL_Rect bras_gauche;
-    //bras_gauche.x = positionX - 10;
-    //bras_gauche.y = positionY;
-    //bras_gauche.w = 10;
-    //bras_gauche.h = 10;
-    //SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);	//pinceau vert
-    //SDL_RenderFillRect(rendu, &bras_gauche);
-    //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-    //SDL_RenderDrawRect(rendu, &bras_gauche);
-    //SDL_RenderPresent(rendu);//on rafraichit
-
-    ////bras
-    //SDL_Rect outil;
-    //outil.x = positionX - 70;
-    //outil.y = positionY + 5;
-    //outil.w = 80;
-    //outil.h = 2;
-    //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
-    //SDL_RenderFillRect(rendu, &outil);
-    //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-    //SDL_RenderDrawRect(rendu, &outil);
-    //SDL_RenderPresent(rendu);//on rafraichit
-
-    //SDL_Rect bras_droite;
-    //bras_droite.x = positionX + 30;
-    //bras_droite.y = positionY;
-    //bras_droite.w = 10;
-    //bras_droite.h = 10;
-    //SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);	//pinceau vert
-    //SDL_RenderFillRect(rendu, &bras_droite);
-    //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-    //SDL_RenderDrawRect(rendu, &bras_droite);
-    //SDL_RenderPresent(rendu);//on rafraichit
-
-    ////tête
-    //SDL_Rect tete;
-    //tete.x = positionX + 5;
-    //tete.y = positionY - 10;
-    //tete.w = 20;
-    //tete.h = 20;
-    //SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);	//pinceau vert
-    //SDL_RenderFillRect(rendu, &tete);
-    //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-    //SDL_RenderDrawRect(rendu, &tete);
-    //SDL_RenderPresent(rendu);//on rafraichit
-
-    //SDL_Rect oeil_gauche;
-    //oeil_gauche.x = positionX + 8;
-    //oeil_gauche.y = positionY - 5;
-    //oeil_gauche.w = 5;
-    //oeil_gauche.h = 5;
-    //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
-    //SDL_RenderFillRect(rendu, &oeil_gauche);
-    //SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255); //pinceau noir
-    //SDL_RenderDrawRect(rendu, &oeil_gauche);
-    //SDL_RenderPresent(rendu);//on rafraichit
-
-    //SDL_Rect oeil_droit;
-    //oeil_droit.x = positionX + 15;
-    //oeil_droit.y = positionY - 5;
-    //oeil_droit.w = 5;
-    //oeil_droit.h = 5;
-    //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
-    //SDL_RenderFillRect(rendu, &oeil_droit);
-    //SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255); //pinceau noir
-    //SDL_RenderDrawRect(rendu, &oeil_droit);
-    //SDL_RenderPresent(rendu);//on rafraichit
-
-    //SDL_Rect oreille_droit;
-    //oreille_droit.x = positionX + 16;
-    //oreille_droit.y = positionY - 20;
-    //oreille_droit.w = 10;
-    //oreille_droit.h = 10;
-    //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
-    //SDL_RenderFillRect(rendu, &oreille_droit);
-    //SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255); //pinceau noir
-    //SDL_RenderDrawRect(rendu, &oreille_droit);
-    //SDL_RenderPresent(rendu);//on rafraichit
-
-    //SDL_Rect oreille_gauche;
-    //oreille_gauche.x = positionX + 2;
-    //oreille_gauche.y = positionY - 20;
-    //oreille_gauche.w = 10;
-    //oreille_gauche.h = 10;
-    //SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
-    //SDL_RenderFillRect(rendu, &oreille_gauche);
-    //SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255); //pinceau noir
-    //SDL_RenderDrawRect(rendu, &oreille_gauche);
-    //SDL_RenderPresent(rendu);//on rafraichit
 }
 
 //exit
@@ -1134,6 +974,70 @@ int main(int argn, char* argv[]) {
     //fin parametres fenetres 
 
     menu();
+
+    SDL_Rect bb1;
+    bb1.x = 612;
+    bb1.y = 485;
+    bb1.w = 50;
+    bb1.h = 75;
+    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+    SDL_RenderDrawRect(rendu, &bb1);
+
+    SDL_Rect bb2;
+    bb2.x = 682;
+    bb2.y = 485;
+    bb2.w = 50;
+    bb2.h = 75;
+    SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+    SDL_RenderDrawRect(rendu, &bb2);
+
+    SDL_Rect bb3;
+    bb3.x = 752;
+    bb3.y = 485;
+    bb3.w = 50;
+    bb3.h = 75;
+    SDL_SetRenderDrawColor(rendu, 255, 255, 0, 255);
+    SDL_RenderDrawRect(rendu, &bb3);
+
+    SDL_Rect bb4;
+    bb4.x = 822;
+    bb4.y = 485;
+    bb4.w = 50;
+    bb4.h = 75;
+    SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
+    SDL_RenderDrawRect(rendu, &bb4);
+
+    SDL_Rect bb5;
+    bb5.x = 892;
+    bb5.y = 485;
+    bb5.w = 50;
+    bb5.h = 75;
+    SDL_SetRenderDrawColor(rendu, 0, 255, 255, 255);
+    SDL_RenderDrawRect(rendu, &bb5);
+
+    SDL_Rect bb6;
+    bb6.x = 962;
+    bb6.y = 485;
+    bb6.w = 50;
+    bb6.h = 75;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
+    SDL_RenderDrawRect(rendu, &bb6);
+
+    SDL_Rect bb7;
+    bb7.x = 1032;
+    bb7.y = 485;
+    bb7.w = 50;
+    bb7.h = 75;
+    SDL_SetRenderDrawColor(rendu, 255, 0, 255, 255);
+    SDL_RenderDrawRect(rendu, &bb7);
+
+    SDL_Rect bb8;
+    bb8.x = 1102;
+    bb8.y = 485;
+    bb8.w = 50;
+    bb8.h = 75;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+    SDL_RenderDrawRect(rendu, &bb8);
 
     SDL_Rect ss;
     ss.x = 612;
