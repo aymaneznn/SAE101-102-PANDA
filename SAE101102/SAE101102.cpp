@@ -36,8 +36,8 @@ int TaillleMax(Bambou tab[], int TailleChoisie) {
 }
 
 // Statistique de la taille moyenne de la bambouseraie
-float TailleMoy(Bambou tab[], int taille) {
-    float total = 0;
+int TailleMoy(Bambou tab[], int taille) {
+    int total = 0;
     for (int i = 0; i < taille; i++) {
         total += tab[i].taille;
     }
@@ -363,6 +363,26 @@ void menu() {
     SDL_DestroyTexture(texture);
 }
 
+// definition des tableaux des stats
+int tabMax[19] = { 0 };
+int tabMoy[19] = { 0 };
+int tabMin[19] = { 0 };
+
+// Echange deux nombres dans un tableau
+void exch(int tab[], int i, int j) {
+    int temp = tab[i];
+    tab[i] = tab[j];
+    tab[j] = temp;
+}
+
+// Ajout dynamique dans un tableau de taille 18
+void ajout(int tab[], int truc) {
+    for (int i = 1; i < 19; i++) {
+        exch(tab, i, i - 1);
+    }
+    tab[18] = truc;
+}
+
 int interval = 500;
 Uint32 event1(Uint32 interval, void* param) {
     
@@ -461,6 +481,107 @@ Uint32 event1(Uint32 interval, void* param) {
         }
         xx += 50;
         SDL_DestroyTexture(texture5);
+
+        SDL_Rect Noir = { 1080,0,280,720 };
+        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+        SDL_RenderFillRect(rendu, &Noir);
+
+        SDL_Color rouge = { 255,0,0 }; //on définit une couleur de texte
+        positionTexte.x = 1130;
+        positionTexte.y = 100;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        texture = loadText(rendu, "Maximum", rouge, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
+        SDL_Rect graphMax;
+        graphMax.x = 1130;
+        graphMax.y = 125;
+        graphMax.w = 180;
+        graphMax.h = 80;
+        SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+        ajout(tabMax, TaillleMax(bambouseraie, 5));
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 205 - (tabMax[i - 1] * 4), 1130 + (i * 10), 205 - (tabMax[i] * 4));
+        }
+        SDL_RenderDrawRect(rendu, &graphMax);
+
+        SDL_Color vert = { 0,255,0 }; //on définit une couleur de texte
+        positionTexte.x = 1130;
+        positionTexte.y = 255;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        texture = loadText(rendu, "Moyenne", vert, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
+        graphMax.x = 1130;
+        graphMax.y = 280;
+        graphMax.w = 180;
+        graphMax.h = 80;
+        SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
+        ajout(tabMoy, TailleMoy(bambouseraie, 5));
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 360 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 360 - (tabMoy[i] * 4));
+        }
+        SDL_RenderDrawRect(rendu, &graphMax);
+
+        SDL_Color bleu = { 0,0,255 }; //on définit une couleur de texte
+        positionTexte.x = 1130;
+        positionTexte.y = 410;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        texture = loadText(rendu, "Minimum", bleu, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
+        graphMax.x = 1130;
+        graphMax.y = 435;
+        graphMax.w = 180;
+        graphMax.h = 80;
+        SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
+        ajout(tabMin, TailleMin(bambouseraie, 5));
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * 4), 1130 + (i * 10), 515 - (tabMin[i] * 4));
+        }
+        SDL_RenderDrawRect(rendu, &graphMax);
+
+        blanc = { 255,255,255 }; //on définit une couleur de texte
+        positionTexte.x = 1130;
+        positionTexte.y = 565;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        texture = loadText(rendu, "Overview", blanc, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
+        graphMax.x = 1130;
+        graphMax.y = 590;
+        graphMax.w = 180;
+        graphMax.h = 80;
+        SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMax[i - 1] * 4), 1130 + (i * 10), 670 - (tabMax[i] * 4));
+        }
+        SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 670 - (tabMoy[i] * 4));
+        }
+        SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMin[i - 1] * 4), 1130 + (i * 10), 670 - (tabMin[i] * 4));
+        }
+        SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+        SDL_RenderDrawRect(rendu, &graphMax);
 
     }
 
@@ -576,6 +697,106 @@ Uint32 event2(Uint32 interval, void* param) {
         xx += 50;
         SDL_DestroyTexture(texture5);
 
+        SDL_Rect Noir = { 1080,0,280,720 };
+        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+        SDL_RenderFillRect(rendu, &Noir);
+
+        SDL_Color rouge = { 255,0,0 }; //on définit une couleur de texte
+        positionTexte.x = 1130;
+        positionTexte.y = 100;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        texture = loadText(rendu, "Maximum", rouge, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
+        SDL_Rect graphMax;
+        graphMax.x = 1130;
+        graphMax.y = 125;
+        graphMax.w = 180;
+        graphMax.h = 80;
+        SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+        ajout(tabMax, TaillleMax(bambouseraie, 5));
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 205 - (tabMax[i - 1] * 4), 1130 + (i * 10), 205 - (tabMax[i] * 4));
+        }
+        SDL_RenderDrawRect(rendu, &graphMax);
+
+        SDL_Color vert = { 0,255,0 }; //on définit une couleur de texte
+        positionTexte.x = 1130;
+        positionTexte.y = 255;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        texture = loadText(rendu, "Moyenne", vert, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
+        graphMax.x = 1130;
+        graphMax.y = 280;
+        graphMax.w = 180;
+        graphMax.h = 80;
+        SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
+        ajout(tabMoy, TailleMoy(bambouseraie, 5));
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 360 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 360 - (tabMoy[i] * 4));
+        }
+        SDL_RenderDrawRect(rendu, &graphMax);
+
+        SDL_Color bleu = { 0,0,255 }; //on définit une couleur de texte
+        positionTexte.x = 1130;
+        positionTexte.y = 410;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        texture = loadText(rendu, "Minimum", bleu, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
+        graphMax.x = 1130;
+        graphMax.y = 435;
+        graphMax.w = 180;
+        graphMax.h = 80;
+        SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
+        ajout(tabMin, TailleMin(bambouseraie, 5));
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * 4), 1130 + (i * 10), 515 - (tabMin[i] * 4));
+        }
+        SDL_RenderDrawRect(rendu, &graphMax);
+
+        blanc = { 255,255,255 }; //on définit une couleur de texte
+        positionTexte.x = 1130;
+        positionTexte.y = 565;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        texture = loadText(rendu, "Overview", blanc, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
+        graphMax.x = 1130;
+        graphMax.y = 590;
+        graphMax.w = 180;
+        graphMax.h = 80;
+        SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMax[i - 1] * 4), 1130 + (i * 10), 670 - (tabMax[i] * 4));
+        }
+        SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 670 - (tabMoy[i] * 4));
+        }
+        SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMin[i - 1] * 4), 1130 + (i * 10), 670 - (tabMin[i] * 4));
+        }
+        SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+        SDL_RenderDrawRect(rendu, &graphMax);
     }
 
     SDL_RenderPresent(rendu);//on rafraichit
