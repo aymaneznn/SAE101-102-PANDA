@@ -157,8 +157,8 @@ void GrowAll(Bambou bambouraie[], int taille) {
 
 // Fond
 void fond(SDL_Renderer* rendu) {
-    char name[] = "fond_pixel.bmp";
-    char name2[] = "herbev2.bmp";
+    char name[] = "fond_pixelv2.bmp";
+    //char name2[] = "herbev2.bmp";
 
     SDL_Surface* image = SDL_LoadBMP(name);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
@@ -168,13 +168,13 @@ void fond(SDL_Renderer* rendu) {
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
 
-    SDL_Surface* image2 = SDL_LoadBMP(name2);
+    /*SDL_Surface* image2 = SDL_LoadBMP(name2);
     SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image2);
 
     SDL_Rect dstrect2 = { 0,600,1080,100 };
     SDL_RenderCopy(rendu, texture2, NULL, &dstrect2);
     SDL_RenderPresent(rendu);
-    SDL_DestroyTexture(texture2);
+    SDL_DestroyTexture(texture2);*/
 }
 
 // Bambou
@@ -333,6 +333,19 @@ Uint32 event1(Uint32 interval, void* param) {
             afficheRobot(rendu, 900, 570);
         }
 
+        // Le soleil se lève à tout jamais
+        char soleil[] = "soleiv2.bmp";
+        SDL_Surface* image5 = SDL_LoadBMP(soleil);
+        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
+        SDL_Rect dstrect5 = { xx,yy,300,300 };
+        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
+        SDL_RenderPresent(rendu);
+        if (xx == 1000) {
+            xx = 0;
+        }
+        xx += 50;
+        SDL_DestroyTexture(texture5);
+
         SDL_Rect Noir = { 1080,0,280,720 };
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
         SDL_RenderFillRect(rendu, &Noir);
@@ -362,19 +375,6 @@ Uint32 event1(Uint32 interval, void* param) {
 
         //on détruit la texture
         SDL_DestroyTexture(texture);
-
-        // Le soleil se lève à tout jamais
-        char soleil[] = "soleiv2.bmp";
-        SDL_Surface* image5 = SDL_LoadBMP(soleil);
-        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-        SDL_Rect dstrect5 = { xx,yy,300,300 };
-        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-        SDL_RenderPresent(rendu);
-        if (xx == 1000) {
-            xx = 0;
-        }
-        xx += 50;
-        SDL_DestroyTexture(texture5);
 
         //on détruit la texture
         SDL_DestroyTexture(texture);
@@ -561,6 +561,19 @@ Uint32 event2(Uint32 interval, void* param) {
             afficheRobot(rendu, 900, 570);
         }
 
+        // Le soleil se lève à tout jamais
+        char soleil[] = "soleiv2.bmp";
+        SDL_Surface* image5 = SDL_LoadBMP(soleil);
+        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
+        SDL_Rect dstrect5 = { xx,yy,300,300 };
+        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
+        SDL_RenderPresent(rendu);
+        if (xx == 1000) {
+            xx = 0;
+        }
+        xx += 50;
+        SDL_DestroyTexture(texture5);
+
         SDL_Rect Noir = { 1080,0,280,720 };
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
         SDL_RenderFillRect(rendu, &Noir);
@@ -593,19 +606,6 @@ Uint32 event2(Uint32 interval, void* param) {
         //on détruit la texture
         exit();
         SDL_DestroyTexture(texture);
-
-        // Le soleil se lève à tout jamais
-        char soleil[] = "soleiv2.bmp";
-        SDL_Surface* image5 = SDL_LoadBMP(soleil);
-        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-        SDL_Rect dstrect5 = { xx,yy,300,300 };
-        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-        SDL_RenderPresent(rendu);
-        if (xx == 1000) {
-            xx = 0;
-        }
-        xx += 50;
-        SDL_DestroyTexture(texture5);
 
         SDL_Color rouge = { 255,0,0 }; //on définit une couleur de texte
         positionTexte.x = 1130;
@@ -820,6 +820,19 @@ Uint32 event3(Uint32 interval, void* param) {
         else if (indice_a_couper2 == 7) {
             afficheRobot(rendu, 900, 570);
         }
+        
+        // Le soleil se lève à tout jamais
+        char soleil[] = "soleiv2.bmp";
+        SDL_Surface* image5 = SDL_LoadBMP(soleil);
+        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
+        SDL_Rect dstrect5 = { xx,yy,300,300 };
+        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
+        SDL_RenderPresent(rendu);
+        if (xx == 1000) {
+            xx = 0;
+        }
+        xx += 50;
+        SDL_DestroyTexture(texture5);
 
         SDL_Rect Noir = { 1080,0,280,720 };
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
@@ -851,19 +864,6 @@ Uint32 event3(Uint32 interval, void* param) {
 
         //on détruit la texture
         SDL_DestroyTexture(texture);
-
-        // Le soleil se lève à tout jamais
-        char soleil[] = "soleiv2.bmp";
-        SDL_Surface* image5 = SDL_LoadBMP(soleil);
-        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-        SDL_Rect dstrect5 = { xx,yy,300,300 };
-        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-        SDL_RenderPresent(rendu);
-        if (xx == 1000) {
-            xx = 0;
-        }
-        xx += 50;
-        SDL_DestroyTexture(texture5);
 
         //on détruit la texture
         SDL_DestroyTexture(texture);
@@ -1026,6 +1026,19 @@ Uint32 manual(Uint32 interval, void* param) {
 
         fond(rendu);
 
+        // Le soleil se lève à tout jamais
+        char soleil[] = "soleiv2.bmp";
+        SDL_Surface* image5 = SDL_LoadBMP(soleil);
+        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
+        SDL_Rect dstrect5 = { xx,yy,300,300 };
+        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
+        SDL_RenderPresent(rendu);
+        if (xx == 1000) {
+            xx = 0;
+        }
+        xx += 50;
+        SDL_DestroyTexture(texture5);
+
         // Graphes
         SDL_Rect Noir = { 1080,0,280,720 };
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
@@ -1058,19 +1071,6 @@ Uint32 manual(Uint32 interval, void* param) {
 
         //on détruit la texture
         SDL_DestroyTexture(texture);
-
-        // Le soleil se lève à tout jamais
-        char soleil[] = "soleiv2.bmp";
-        SDL_Surface* image5 = SDL_LoadBMP(soleil);
-        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-        SDL_Rect dstrect5 = { xx,yy,300,300 };
-        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-        SDL_RenderPresent(rendu);
-        if (xx == 1000) {
-            xx = 0;
-        }
-        xx += 50;
-        SDL_DestroyTexture(texture5);
 
         //on détruit la texture
         SDL_DestroyTexture(texture);
@@ -1525,6 +1525,11 @@ int main(int argn, char* argv[]) {
                     fond(rendu);
                     timer = SDL_AddTimer(interval, event1, NULL);
                 }
+                if (event.button.x > manuel.x && event.button.x<manuel.x + manuel.w && event.button.y>manuel.y && event.button.y < manuel.y + manuel.h) { //dans 	le rectangle
+                    cout << "Manuel" << endl;
+                    fond(rendu);
+                    timer = SDL_AddTimer(interval, manual, NULL);
+                }
                 if (event.button.x > retour.x && event.button.x<retour.x + retour.w && event.button.y>retour.y && event.button.y < retour.y + retour.h) { //dans 	le rectangle
                     cout << "retour" << endl;
                     continuer = false;
@@ -1626,8 +1631,7 @@ int main(int argn, char* argv[]) {
                     break;
                 }
             }
-
-        break;
+            break;
         }
     }
 
