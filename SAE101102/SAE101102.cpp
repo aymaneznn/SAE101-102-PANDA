@@ -29,6 +29,7 @@ struct Bambou {
     int taille;
 };
 
+
 Bambou bambouseraie[TAILLE_MAX];
 
 
@@ -74,6 +75,13 @@ int TailleMin(Bambou tab[], int taille) {
 void CreateBambou(Bambou& bambou, int taille) {
     bambou.croissance = taille;
     bambou.taille = taille;
+}
+// Initialisation de bambouraie
+void InitBamboueraie(Bambou bambouraie[], int taille, int tab[]) {
+    srand(time(NULL));
+    for (int i = 0; i < taille; i++) {
+        CreateBambou(bambouraie[i], rand()%5+1);
+    }
 }
 
 // Initialisation de bambouraie
@@ -132,6 +140,8 @@ void VerifMax2BOT(Bambou bambouseraie[]) {
     }
 }
 
+}
+
 // Coupe le bambou le plus grand
 int ReduceMax(Bambou bambou[], int TailleChoisie) {
     int indice = VerifMax(bambou, TailleChoisie);
@@ -153,6 +163,7 @@ int ReduceFaster(int seuil, Bambou tab[], int TailleChoisie) {
     }
     return indice;
 }
+
 
 // Croissance simultané de la bambouraie
 void GrowAll(Bambou bambouraie[], int taille) {
@@ -345,6 +356,7 @@ Uint32 event1(Uint32 interval, void* param) {
         SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
 
         //on place le texte au point (100,100)
+
         positionTexte.x = 850;
         positionTexte.y = 0;
 
@@ -503,6 +515,7 @@ Uint32 event2(Uint32 interval, void* param) {
     // boucle infinie
     bool boucle = true;
     for (int i = 0; boucle; i++) {
+
         exit();
 
         // affichage des bambous 
@@ -524,7 +537,11 @@ Uint32 event2(Uint32 interval, void* param) {
             GrowBambou(bambouseraie[i]);
         }
 
+
         int indice_a_couper = ReduceFaster(seuil, bambouseraie, 5);
+
+        int indice_a_couper = ReduceFaster(seuil,bambouseraie,5);
+
         bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
 
         SDL_Delay(300);
@@ -564,6 +581,7 @@ Uint32 event2(Uint32 interval, void* param) {
         SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
 
         //on place le texte au point (100,100)
+
         positionTexte.x = 850;
         positionTexte.y = 0;
 
@@ -738,6 +756,7 @@ Uint32 event3(Uint32 interval, void* param) {
 
         VerifMax2BOT(bambouseraie);
 
+
         // croissance des bambous
         for (int i = 0; i < 5; i++) {
             GrowBambou(bambouseraie[i]);
@@ -792,6 +811,41 @@ Uint32 event3(Uint32 interval, void* param) {
             afficheRobot(rendu, 600, 570);
         }
 
+        if (indice_a_couper == 0) {
+            afficheRobot(rendu, 200, 570);
+        }
+        else if (indice_a_couper == 1) {
+            afficheRobot(rendu, 300, 570);
+        }
+        else if (indice_a_couper == 2) {
+            afficheRobot(rendu, 400, 570);
+        }
+        else if (indice_a_couper == 3) {
+            afficheRobot(rendu, 500, 570);
+        }
+        else if (indice_a_couper == 4) {
+            afficheRobot(rendu, 600, 570);
+        }
+
+        char soleil[] = "soleiv2.bmp";
+
+        SDL_Surface* image5 = SDL_LoadBMP(soleil);
+        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
+
+        SDL_Rect dstrect5 = { xx,yy,300,300 };
+        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
+        SDL_RenderPresent(rendu);
+        if (xx == 1000) {
+            xx = 0;
+        }
+        xx += 50;
+        SDL_DestroyTexture(texture5);
+
+        SDL_Rect Noir = { 1080,0,280,720 };
+        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+        SDL_RenderFillRect(rendu, &Noir);
+
+
         SDL_Rect Noir = { 1080,0,280,720 };
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
         SDL_RenderFillRect(rendu, &Noir);
@@ -805,6 +859,7 @@ Uint32 event3(Uint32 interval, void* param) {
         SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
 
         //on place le texte au point (100,100)
+
         positionTexte.x = 850;
         positionTexte.y = 0;
         positionTexte.x = 1130;
@@ -1170,6 +1225,9 @@ int main(int argn, char* argv[]) {
     //on crée la fenêtre
     SDL_Window* win = SDL_CreateWindow("PandaRobot", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1360, 720, SDL_WINDOW_SHOWN);
 
+    SDL_Window* win = SDL_CreateWindow("PandaRobot", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1360, 720, SDL_WINDOW_SHOWN);
+
+
     if (win == NULL)
         cout << "erreur ouverture fenetre";
 
@@ -1276,6 +1334,7 @@ int main(int argn, char* argv[]) {
                 timer = SDL_AddTimer(interval, manual, NULL);
             }
 
+
             if (event.key.keysym.sym == SDLK_b) { //touche b
                 timer = SDL_AddTimer(interval, event2, NULL);
             }
@@ -1295,6 +1354,7 @@ int main(int argn, char* argv[]) {
                     cout << "manuel" << endl;
                     fond(rendu);
                     timer = SDL_AddTimer(interval, event3, NULL);
+
                 }
             }
             if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
