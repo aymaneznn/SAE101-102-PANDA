@@ -6,7 +6,6 @@ using namespace std;
 #include <fstream>
 #include <sstream>
 #include "SDL_image.h"
-
 #include<ctime>
 
 
@@ -14,14 +13,12 @@ SDL_Renderer* rendu;
 TTF_Font* font;
 SDL_TimerID timer;
 const int TAILLE_MAX = 100;
-const int seuil = 15;
+const int seuil = 10;
 
 
 int max1 = 0;
 int max2 = 0;
 const int taille = 5;
-
-const int seuil = 15;
 
 
 // Definition des bambou
@@ -38,12 +35,6 @@ Bambou bambouseraie[TAILLE_MAX];
 // Statistiques tailles max
 
 
-
-Bambou bambouseraie[TAILLE_MAX];
-
-
-// Statistiques 
-
 // Statistique de la taille maximum de la bambouseraie
 int TaillleMax(Bambou tab[], int TailleChoisie) {
     int maximum = 0;
@@ -56,9 +47,6 @@ int TaillleMax(Bambou tab[], int TailleChoisie) {
 }
 
 // Statistique de la taille moyenne de la bambouseraie
-
-float TailleMoy(Bambou tab[], int taille) {
-    float total = 0;
 
 int TailleMoy(Bambou tab[], int taille) {
     int total = 0;
@@ -80,24 +68,17 @@ int TailleMin(Bambou tab[], int taille) {
     return min;
 }
 
-
 // Création d'un bambou
 void CreateBambou(Bambou& bambou, int taille) {
     bambou.croissance = taille;
     bambou.taille = taille;
 }
+
 // Initialisation de bambouraie
 void InitBamboueraie(Bambou bambouraie[], int taille, int tab[]) {
     srand(time(NULL));
     for (int i = 0; i < taille; i++) {
-        CreateBambou(bambouraie[i], rand()%5+1);
-    }
-}
-
-// Initialisation de bambouraie
-void InitBamboueraie(Bambou bambouraie[], int taille, int tab[]) {
-    for (int i = 0; i < taille; i++) {
-        CreateBambou(bambouraie[i], tab[i]);
+        CreateBambou(bambouraie[i], rand() % 2 + 1);
     }
 }
 
@@ -147,47 +128,6 @@ void VerifMax2BOT(Bambou bambouseraie[]) {
         }
 
     }
-
-    //int tab[taille];
-    //int tmp = 0;
-    //int TailleMax1 = 0;
-    //int TailleMax2 = 0;
-
-    //// initialisation de tab avec les valeurs de bambouseraie
-    //for (int i = 0; i < taille; i++) {
-    //    tab[i] = bambouseraie[i].taille;
-    //}
-    //// trie du tableau tab
-    //for (int i = 0; i < taille; i++) {
-    //    if (tab[i + 1] > tab[i]) {
-    //        tmp = tab[i];
-    //        tab[i] = tab[i + 1];
-    //        tab[i + 1] = tmp;
-    //        i = 0;
-    //    }
-    //}  
-    //TailleMax1 = tab[4];
-    //TailleMax2 = tab[3];
-
-    //for (int i = 0; i < taille; i++) {
-    //    if (bambouseraie[i].taille == TailleMax1) {
-    //        max1 = i;
-    //    }
-    //    if (bambouseraie[i].taille == TailleMax2) {
-    //        max2 = i;
-    //    }
-    //}
-
-    cout << "Taille 1 " << TailleMax1 << endl;
-    cout << "max1 : " << max1 << endl;
-
-    cout << "Taille 2 " << TailleMax2 << endl;
-    cout << "max2 : " << max2 << endl;
-
-        }
-    }
-    return indiceBambou;
-
 }
 
 // Coupe le bambou le plus grand
@@ -212,7 +152,6 @@ int ReduceFaster(int seuil, Bambou tab[], int TailleChoisie) {
     return indice;
 }
 
-
 // Croissance simultané de la bambouraie
 void GrowAll(Bambou bambouraie[], int taille) {
     for (int i = 0; i < taille; i++) {
@@ -220,7 +159,7 @@ void GrowAll(Bambou bambouraie[], int taille) {
     }
 }
 
-// --------------------------------------------------Fonctions SDL----------------------------------------------------------- //
+//--------------------------------------------------Fonctions SDL----------------------------------------------------------- //
 
 // Fond
 void fond(SDL_Renderer* rendu) {
@@ -243,40 +182,6 @@ void fond(SDL_Renderer* rendu) {
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture2);
 }
-
-=======
-
-// Croissance simultané de la bambouraie
-void GrowAll(Bambou bambouraie[], int taille) {
-    for (int i = 0; i < taille; i++) {
-        GrowBambou(bambouraie[i]);
-    }
-}
-
-// --------------------------------------------------Fonctions SDL----------------------------------------------------------- //
-
-// Fond
-void fond(SDL_Renderer* rendu) {
-    char name[] = "fond_pixel.bmp";
-    char name2[] = "herbev2.bmp";
-
-    SDL_Surface* image = SDL_LoadBMP(name);
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
-
-    SDL_Rect dstrect = { 0,0,1100,700 };
-    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_RenderPresent(rendu);
-    SDL_DestroyTexture(texture);
-
-    SDL_Surface* image2 = SDL_LoadBMP(name2);
-    SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image2);
-
-    SDL_Rect dstrect2 = { 0,600,1080,100 };
-    SDL_RenderCopy(rendu, texture2, NULL, &dstrect2);
-    SDL_RenderPresent(rendu);
-    SDL_DestroyTexture(texture2);
-}
-
 
 // Bambou
 void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBambou) {
@@ -290,13 +195,6 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
         SDL_RenderPresent(rendu);
 
         if (positionY > 0) {
-            positionY -= 40;
-        }
-
-        //SDL_DestroyTexture(texture);
-
-
-        if (positionY>0) {
             positionY -= 40;
         }
         
@@ -504,16 +402,6 @@ void menu() {
     SDL_DestroyTexture(texture);
 }
 
-
-int interval = 10;
-Uint32 event1(Uint32 interval, void* param) {
-
-
-// definition des tableaux des stats
-int tabMax[19] = { 0 };
-int tabMoy[19] = { 0 };
-int tabMin[19] = { 0 };
-
 // Echange deux nombres dans un tableau
 void exch(int tab[], int i, int j) {
     int temp = tab[i];
@@ -523,255 +411,240 @@ void exch(int tab[], int i, int j) {
 
 // Ajout dynamique dans un tableau de taille 18
 void ajout(int tab[], int truc) {
-    for (int i = 1; i < 19; i++) {
-        exch(tab, i, i - 1);
+        for (int i = 1; i < 19; i++) {
+            exch(tab, i, i - 1);
+        }
+        tab[18] = truc;
     }
-    tab[18] = truc;
-}
 
 int interval = 10;
 Uint32 event1(Uint32 interval, void* param) {
-    
 
-    // variables
-    int number = 0;
-    int parametres[6] = { 1,2,3,4,5,6 };
-    int xx = 0;
-    int yy = -80;
-    // creation des bambous 
-    InitBamboueraie(bambouseraie, 6, parametres);
+        // definition des tableaux des stats
+        int tabMax[19] = { 0 };
+        int tabMoy[19] = { 0 };
+        int tabMin[19] = { 0 };
 
-    // boucle infinie
-    bool boucle = true;
-    for (int i = 0; boucle; i++) {
+        // variables
+        int number = 0;
+        int parametres[6] = { 1,2,3,4,5,6 };
+        int xx = 0;
+        int yy = -80;
 
-        exit();
+        // creation des bambous 
+        InitBamboueraie(bambouseraie, 6, parametres);
 
+        // boucle infinie
+        bool boucle = true;
+        for (int i = 0; boucle; i++) {
 
-        // affichage des bambous 
-        afficheBambou(rendu, 150, 510, bambouseraie[0].taille);
-        afficheBambou(rendu, 250, 510, bambouseraie[1].taille);
-        afficheBambou(rendu, 350, 510, bambouseraie[2].taille);
-        afficheBambou(rendu, 450, 510, bambouseraie[3].taille);
-        afficheBambou(rendu, 550, 510, bambouseraie[4].taille);
-        afficheBambou(rendu, 550, 510, bambouseraie[0].taille);
+            exit();
 
+            // affichage des bambous 
+            afficheBambou(rendu, 150, 510, bambouseraie[0].taille);
+            afficheBambou(rendu, 250, 510, bambouseraie[1].taille);
+            afficheBambou(rendu, 350, 510, bambouseraie[2].taille);
+            afficheBambou(rendu, 450, 510, bambouseraie[3].taille);
+            afficheBambou(rendu, 550, 510, bambouseraie[4].taille);
+            afficheBambou(rendu, 550, 510, bambouseraie[0].taille);
 
+            // test dans la console
+            for (int i = 0; i < 5; i++) {
+                cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
+            }
+            cout << endl;
 
+            // croissance des bambous
+            for (int i = 0; i < 5; i++) {
+                GrowBambou(bambouseraie[i]);
+            }
 
-        // test dans la console
-        for (int i = 0; i < 5; i++) {
-            cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
+            int indice_a_couper = ReduceMax(bambouseraie, 5);
+            bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
+
+            SDL_Delay(900);
+
+            // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
+            fond(rendu);
+
+            //system("pause");
+
+            // les endroits ou le Robot spawn
+            if (indice_a_couper == 0) {
+                afficheRobot(rendu, 200, 570);
+            }
+            else if (indice_a_couper == 1) {
+                afficheRobot(rendu, 300, 570);
+            }
+            else if (indice_a_couper == 2) {
+                afficheRobot(rendu, 400, 570);
+            }
+            else if (indice_a_couper == 3) {
+                afficheRobot(rendu, 500, 570);
+            }
+            else if (indice_a_couper == 4) {
+                afficheRobot(rendu, 600, 570);
+            }
+
+            SDL_Rect Noir = { 1080,0,280,720 };
+            SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+            SDL_RenderFillRect(rendu, &Noir);
+
+            number++;
+            string tmp = to_string(number);
+            char text[200] = "Jours : ";
+            char const* num_char = tmp.c_str();
+            strcat_s(text, 200, num_char);
+            SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
+            SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
+
+            //on place le texte au point (100,100)
+            positionTexte.x = 850;
+            positionTexte.y = 0;
+
+            positionTexte.x = 1130;
+            positionTexte.y = 25;
+
+            //on crée une texture à partir du texte, de sa couleur, et de la fonte
+            SDL_Texture* texture = loadText(rendu, text, blanc, font);
+            //on maj le rectangle couvrant cette texture
+            SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+            //si on veut modifier le cadre du texte
+            positionTexte.w *= 3;
+            positionTexte.h *= 3;
+            //on copie la texture dans le rendu
+            SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+
+            //on détruit la texture
+            SDL_DestroyTexture(texture);
+
+            // Le soleil se lève à tout jamais
+            char soleil[] = "soleiv2.bmp";
+            SDL_Surface* image5 = SDL_LoadBMP(soleil);
+            SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
+            SDL_Rect dstrect5 = { xx,yy,300,300 };
+            SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
+            SDL_RenderPresent(rendu);
+            if (xx == 1000) {
+                xx = 0;
+            }
+            xx += 50;
+            SDL_DestroyTexture(texture5);
+
+            //on détruit la texture
+            SDL_DestroyTexture(texture);
+
+            SDL_Color rouge = { 255,0,0 }; //on définit une couleur de texte
+            positionTexte.x = 1130;
+            positionTexte.y = 100;
+            //on crée une texture à partir du texte, de sa couleur, et de la fonte
+            texture = loadText(rendu, "Maximum", rouge, font);
+            //on maj le rectangle couvrant cette texture
+            SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+            //on copie la texture dans le rendu
+            SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+            //on détruit la texture
+            SDL_DestroyTexture(texture);
+            SDL_Rect graphMax;
+            graphMax.x = 1130;
+            graphMax.y = 125;
+            graphMax.w = 180;
+            graphMax.h = 80;
+            SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+            ajout(tabMax, TaillleMax(bambouseraie, 5));
+            for (int i = 1; i < 19; i++) {
+                SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 205 - (tabMax[i - 1] * 4), 1130 + (i * 10), 205 - (tabMax[i] * 4));
+            }
+            SDL_RenderDrawRect(rendu, &graphMax);
+
+            SDL_Color vert = { 0,255,0 }; //on définit une couleur de texte
+            positionTexte.x = 1130;
+            positionTexte.y = 255;
+            //on crée une texture à partir du texte, de sa couleur, et de la fonte
+            texture = loadText(rendu, "Moyenne", vert, font);
+            //on maj le rectangle couvrant cette texture
+            SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+            //on copie la texture dans le rendu
+            SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+            //on détruit la texture
+            SDL_DestroyTexture(texture);
+            graphMax.x = 1130;
+            graphMax.y = 280;
+            graphMax.w = 180;
+            graphMax.h = 80;
+            SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
+            ajout(tabMoy, TailleMoy(bambouseraie, 5));
+            for (int i = 1; i < 19; i++) {
+                SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 360 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 360 - (tabMoy[i] * 4));
+            }
+            SDL_RenderDrawRect(rendu, &graphMax);
+
+            SDL_Color bleu = { 100,100,255 }; //on définit une couleur de texte
+            positionTexte.x = 1130;
+            positionTexte.y = 410;
+            //on crée une texture à partir du texte, de sa couleur, et de la fonte
+            texture = loadText(rendu, "Minimum", bleu, font);
+            //on maj le rectangle couvrant cette texture
+            SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+            //on copie la texture dans le rendu
+            SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+            //on détruit la texture
+            SDL_DestroyTexture(texture);
+            graphMax.x = 1130;
+            graphMax.y = 435;
+            graphMax.w = 180;
+            graphMax.h = 80;
+            SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
+            ajout(tabMin, TailleMin(bambouseraie, 5));
+            for (int i = 1; i < 19; i++) {
+                SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * 4), 1130 + (i * 10), 515 - (tabMin[i] * 4));
+            }
+            SDL_RenderDrawRect(rendu, &graphMax);
+
+            blanc = { 255,255,255 }; //on définit une couleur de texte
+            positionTexte.x = 1130;
+            positionTexte.y = 565;
+            //on crée une texture à partir du texte, de sa couleur, et de la fonte
+            texture = loadText(rendu, "Overview", blanc, font);
+            //on maj le rectangle couvrant cette texture
+            SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+            //on copie la texture dans le rendu
+            SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+            //on détruit la texture
+            SDL_DestroyTexture(texture);
+            graphMax.x = 1130;
+            graphMax.y = 590;
+            graphMax.w = 180;
+            graphMax.h = 80;
+            SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+            for (int i = 1; i < 19; i++) {
+                SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMax[i - 1] * 4), 1130 + (i * 10), 670 - (tabMax[i] * 4));
+            }
+            SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
+            for (int i = 1; i < 19; i++) {
+                SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 670 - (tabMoy[i] * 4));
+            }
+            SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
+            for (int i = 1; i < 19; i++) {
+                SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMin[i - 1] * 4), 1130 + (i * 10), 670 - (tabMin[i] * 4));
+            }
+            SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+            SDL_RenderDrawRect(rendu, &graphMax);
+
         }
-        cout << endl;
 
-        // croissance des bambous
-        for (int i = 0; i < 5; i++) {
-            GrowBambou(bambouseraie[i]);
-        }
+        SDL_RenderPresent(rendu);//on rafraichit
 
-        int indice_a_couper = ReduceMax(bambouseraie, 5);
-        bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
-
-        SDL_Delay(900);
-
-        // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
-        fond(rendu);
-
-        //system("pause");
-
-        // les endroits ou le Robot spawn
-        if (indice_a_couper == 0) {
-            afficheRobot(rendu, 200, 570);
-        }
-        else if (indice_a_couper == 1) {
-            afficheRobot(rendu, 300, 570);
-        }
-        else if (indice_a_couper == 2) {
-            afficheRobot(rendu, 400, 570);
-        }
-        else if (indice_a_couper == 3) {
-            afficheRobot(rendu, 500, 570);
-        }
-        else if (indice_a_couper == 4) {
-            afficheRobot(rendu, 600, 570);
-        }
-
-
-        char soleil[] = "soleiv2.bmp";
-
-        SDL_Surface* image5 = SDL_LoadBMP(soleil);
-        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-
-        SDL_Rect dstrect5 = { xx,yy,300,300 };
-        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-        SDL_RenderPresent(rendu);
-        if (xx == 1000) {
-            xx = 0 ;
-        }
-        xx += 50;
-        SDL_DestroyTexture(texture5);
-
-        SDL_Rect Noir = { 1080,0,280,720 };
-        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-        SDL_RenderFillRect(rendu, &Noir);
-
-        number++;
-        string tmp = to_string(number);
-        char text[200] = "Jours : ";
-        char const* num_char = tmp.c_str();
-        strcat_s(text, 200, num_char);
-        SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
-        SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
-
-        //on place le texte au point (100,100)
-
-        positionTexte.x = 850;
-        positionTexte.y = 0;
-
-        positionTexte.x = 1130;
-        positionTexte.y = 25;
-
-        //on crée une texture à partir du texte, de sa couleur, et de la fonte
-        SDL_Texture* texture = loadText(rendu, text, blanc, font);
-        //on maj le rectangle couvrant cette texture
-        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
-        //si on veut modifier le cadre du texte
-        positionTexte.w *= 3;
-        positionTexte.h *= 3;
-        //on copie la texture dans le rendu
-        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
-
-        //on détruit la texture
-        SDL_DestroyTexture(texture);
-
-        char soleil[] = "soleiv2.bmp";
-
-        SDL_Surface* image5 = SDL_LoadBMP(soleil);
-        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-
-        SDL_Rect dstrect5 = { xx,yy,300,300 };
-        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-        SDL_RenderPresent(rendu);
-        if (xx == 1000) {
-            xx = 0;
-        }
-        xx += 50;
-        SDL_DestroyTexture(texture5);
-
-        exit();
-        //on détruit la texture
-        exit();
-        SDL_DestroyTexture(texture);
-
-        SDL_Color rouge = { 255,0,0 }; //on définit une couleur de texte
-        positionTexte.x = 1130;
-        positionTexte.y = 100;
-        //on crée une texture à partir du texte, de sa couleur, et de la fonte
-        texture = loadText(rendu, "Maximum", rouge, font);
-        //on maj le rectangle couvrant cette texture
-        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
-        //on copie la texture dans le rendu
-        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
-        //on détruit la texture
-        SDL_DestroyTexture(texture);
-        SDL_Rect graphMax;
-        graphMax.x = 1130;
-        graphMax.y = 125;
-        graphMax.w = 180;
-        graphMax.h = 80;
-        SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
-        ajout(tabMax, TaillleMax(bambouseraie, 5));
-        for (int i = 1; i < 19; i++) {
-            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 205 - (tabMax[i - 1] * 4), 1130 + (i * 10), 205 - (tabMax[i] * 4));
-        }
-        SDL_RenderDrawRect(rendu, &graphMax);
-
-        SDL_Color vert = { 0,255,0 }; //on définit une couleur de texte
-        positionTexte.x = 1130;
-        positionTexte.y = 255;
-        //on crée une texture à partir du texte, de sa couleur, et de la fonte
-        texture = loadText(rendu, "Moyenne", vert, font);
-        //on maj le rectangle couvrant cette texture
-        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
-        //on copie la texture dans le rendu
-        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
-        //on détruit la texture
-        SDL_DestroyTexture(texture);
-        graphMax.x = 1130;
-        graphMax.y = 280;
-        graphMax.w = 180;
-        graphMax.h = 80;
-        SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
-        ajout(tabMoy, TailleMoy(bambouseraie, 5));
-        for (int i = 1; i < 19; i++) {
-            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 360 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 360 - (tabMoy[i] * 4));
-        }
-        SDL_RenderDrawRect(rendu, &graphMax);
-
-        SDL_Color bleu = { 100,100,255 }; //on définit une couleur de texte
-        positionTexte.x = 1130;
-        positionTexte.y = 410;
-        //on crée une texture à partir du texte, de sa couleur, et de la fonte
-        texture = loadText(rendu, "Minimum", bleu, font);
-        //on maj le rectangle couvrant cette texture
-        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
-        //on copie la texture dans le rendu
-        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
-        //on détruit la texture
-        SDL_DestroyTexture(texture);
-        graphMax.x = 1130;
-        graphMax.y = 435;
-        graphMax.w = 180;
-        graphMax.h = 80;
-        SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
-        ajout(tabMin, TailleMin(bambouseraie, 5));
-        for (int i = 1; i < 19; i++) {
-            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * 4), 1130 + (i * 10), 515 - (tabMin[i] * 4));
-        }
-        SDL_RenderDrawRect(rendu, &graphMax);
-
-        blanc = { 255,255,255 }; //on définit une couleur de texte
-        positionTexte.x = 1130;
-        positionTexte.y = 565;
-        //on crée une texture à partir du texte, de sa couleur, et de la fonte
-        texture = loadText(rendu, "Overview", blanc, font);
-        //on maj le rectangle couvrant cette texture
-        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
-        //on copie la texture dans le rendu
-        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
-        //on détruit la texture
-        SDL_DestroyTexture(texture);
-        graphMax.x = 1130;
-        graphMax.y = 590;
-        graphMax.w = 180;
-        graphMax.h = 80;
-        SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
-        for (int i = 1; i < 19; i++) {
-            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMax[i - 1] * 4), 1130 + (i * 10), 670 - (tabMax[i] * 4));
-        }
-        SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
-        for (int i = 1; i < 19; i++) {
-            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 670 - (tabMoy[i] * 4));
-        }
-        SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
-        for (int i = 1; i < 19; i++) {
-            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMin[i - 1] * 4), 1130 + (i * 10), 670 - (tabMin[i] * 4));
-        }
-        SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
-        SDL_RenderDrawRect(rendu, &graphMax);
-
-
-    }
-
-
-    SDL_RenderPresent(rendu);//on rafraichit
-
-    return interval;
+        return interval;
 }
 
 Uint32 event2(Uint32 interval, void* param) {
 
+    // definition des tableaux des stats
+    int tabMax[19] = { 0 };
+    int tabMoy[19] = { 0 };
+    int tabMin[19] = { 0 };
+
     // variables
     int number = 0;
     int parametres[6] = { 1,2,3,4,5,6 };
@@ -786,8 +659,6 @@ Uint32 event2(Uint32 interval, void* param) {
     for (int i = 0; boucle; i++) {
 
         exit();
-
-
 
         // affichage des bambous 
         afficheBambou(rendu, 150, 570, bambouseraie[0].taille);
@@ -797,8 +668,6 @@ Uint32 event2(Uint32 interval, void* param) {
         afficheBambou(rendu, 550, 570, bambouseraie[4].taille);
         afficheBambou(rendu, 550, 570, bambouseraie[0].taille);
 
-
-
         // test dans la console
         for (int i = 0; i < 5; i++) {
             cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
@@ -810,11 +679,7 @@ Uint32 event2(Uint32 interval, void* param) {
             GrowBambou(bambouseraie[i]);
         }
 
-
         int indice_a_couper = ReduceFaster(seuil, bambouseraie, 5);
-
-        int indice_a_couper = ReduceFaster(seuil,bambouseraie,5);
-
         bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
 
         SDL_Delay(300);
@@ -841,26 +706,9 @@ Uint32 event2(Uint32 interval, void* param) {
             afficheRobot(rendu, 600, 570);
         }
 
-
-        char soleil[] = "soleiv2.bmp";
-
-        SDL_Surface* image5 = SDL_LoadBMP(soleil);
-        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-
-        SDL_Rect dstrect5 = { xx,yy,300,300 };
-        
-        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-        SDL_RenderPresent(rendu);
-        if (xx == 1000) {
-            xx = 0;
-        }
-        xx += 50;
-        SDL_DestroyTexture(texture5);
-
         SDL_Rect Noir = { 1080,0,280,720 };
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
         SDL_RenderFillRect(rendu, &Noir);
-
 
         number++;
         string tmp = to_string(number);
@@ -871,7 +719,6 @@ Uint32 event2(Uint32 interval, void* param) {
         SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
 
         //on place le texte au point (100,100)
-
         positionTexte.x = 850;
         positionTexte.y = 0;
 
@@ -892,14 +739,11 @@ Uint32 event2(Uint32 interval, void* param) {
         exit();
         SDL_DestroyTexture(texture);
 
-
+        // Le soleil se lève à tout jamais
         char soleil[] = "soleiv2.bmp";
-
         SDL_Surface* image5 = SDL_LoadBMP(soleil);
         SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-
         SDL_Rect dstrect5 = { xx,yy,300,300 };
-
         SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
         SDL_RenderPresent(rendu);
         if (xx == 1000) {
@@ -907,7 +751,6 @@ Uint32 event2(Uint32 interval, void* param) {
         }
         xx += 50;
         SDL_DestroyTexture(texture5);
-
 
         SDL_Color rouge = { 255,0,0 }; //on définit une couleur de texte
         positionTexte.x = 1130;
@@ -1015,6 +858,11 @@ Uint32 event2(Uint32 interval, void* param) {
 
 Uint32 event3(Uint32 interval, void* param) {
 
+    // definition des tableaux des stats
+    int tabMax[19] = { 0 };
+    int tabMoy[19] = { 0 };
+    int tabMin[19] = { 0 };
+
     // variables
     int number = 0;
     int parametres[6] = { 1,2,3,4,5,6 };
@@ -1027,6 +875,8 @@ Uint32 event3(Uint32 interval, void* param) {
     bool boucle = true;
     for (int i = 0; boucle; i++) {
 
+        exit();
+
         // affichage des bambous 
         afficheBambou(rendu, 150, 510, bambouseraie[0].taille);
         afficheBambou(rendu, 250, 510, bambouseraie[1].taille);
@@ -1035,8 +885,6 @@ Uint32 event3(Uint32 interval, void* param) {
         afficheBambou(rendu, 550, 510, bambouseraie[4].taille);
         afficheBambou(rendu, 550, 510, bambouseraie[0].taille);
 
-
-
         // test dans la console
         for (int i = 0; i < 5; i++) {
             cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
@@ -1044,7 +892,6 @@ Uint32 event3(Uint32 interval, void* param) {
         cout << endl;
 
         VerifMax2BOT(bambouseraie);
-
 
         // croissance des bambous
         for (int i = 0; i < 5; i++) {
@@ -1059,12 +906,6 @@ Uint32 event3(Uint32 interval, void* param) {
         bambouseraie[indice_a_couper2].taille = bambouseraie[indice_a_couper2].croissance;
 
         SDL_Delay(900);
-
-        int indice_a_couper = ReduceMax(bambouseraie, 5);
-        bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
-
-        SDL_Delay(900);
-
 
         // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
         fond(rendu);
@@ -1106,40 +947,9 @@ Uint32 event3(Uint32 interval, void* param) {
             afficheRobot(rendu, 600, 570);
         }
 
-        if (indice_a_couper == 0) {
-            afficheRobot(rendu, 200, 570);
-        }
-        else if (indice_a_couper == 1) {
-            afficheRobot(rendu, 300, 570);
-        }
-        else if (indice_a_couper == 2) {
-            afficheRobot(rendu, 400, 570);
-        }
-        else if (indice_a_couper == 3) {
-            afficheRobot(rendu, 500, 570);
-        }
-        else if (indice_a_couper == 4) {
-            afficheRobot(rendu, 600, 570);
-        }
-
-        char soleil[] = "soleiv2.bmp";
-
-        SDL_Surface* image5 = SDL_LoadBMP(soleil);
-        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-
-        SDL_Rect dstrect5 = { xx,yy,300,300 };
-        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-        SDL_RenderPresent(rendu);
-        if (xx == 1000) {
-            xx = 0;
-        }
-        xx += 50;
-        SDL_DestroyTexture(texture5);
-
         SDL_Rect Noir = { 1080,0,280,720 };
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
         SDL_RenderFillRect(rendu, &Noir);
-
 
         number++;
         string tmp = to_string(number);
@@ -1150,10 +960,8 @@ Uint32 event3(Uint32 interval, void* param) {
         SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
 
         //on place le texte au point (100,100)
-
         positionTexte.x = 850;
         positionTexte.y = 0;
-
         positionTexte.x = 1130;
         positionTexte.y = 25;
 
@@ -1170,11 +978,10 @@ Uint32 event3(Uint32 interval, void* param) {
         //on détruit la texture
         SDL_DestroyTexture(texture);
 
+        // Le soleil se lève à tout jamais
         char soleil[] = "soleiv2.bmp";
-
         SDL_Surface* image5 = SDL_LoadBMP(soleil);
         SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-
         SDL_Rect dstrect5 = { xx,yy,300,300 };
         SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
         SDL_RenderPresent(rendu);
@@ -1184,9 +991,7 @@ Uint32 event3(Uint32 interval, void* param) {
         xx += 50;
         SDL_DestroyTexture(texture5);
 
-        exit();
         //on détruit la texture
-        exit();
         SDL_DestroyTexture(texture);
 
         SDL_Color rouge = { 255,0,0 }; //on définit une couleur de texte
@@ -1286,9 +1091,7 @@ Uint32 event3(Uint32 interval, void* param) {
         SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
         SDL_RenderDrawRect(rendu, &graphMax);
 
-
     }
-
 
     SDL_RenderPresent(rendu);//on rafraichit
 
@@ -1297,31 +1100,20 @@ Uint32 event3(Uint32 interval, void* param) {
 
 // ----------------------------------------------Fin fonctions SDL----------------------------------------------------------- //
 
-
 int main(int argn, char* argv[]) {
 
     // SDL (interface graphique)
-
-
-
-    // SDL (interface graphique)
-
-
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         cout << "Echec à l’ouverture";
         return 1;
     }
+
     //on ouvre la police de caractères
     TTF_Init();
     font = TTF_OpenFont("C:\\Windows\\Fonts\\calibri.ttf", 15);
 
-
     //on crée la fenêtre
-
-    SDL_Window* win = SDL_CreateWindow("PandaRobot", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 720, SDL_WINDOW_SHOWN);
-
     SDL_Window* win = SDL_CreateWindow("PandaRobot", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1360, 720, SDL_WINDOW_SHOWN);
-
 
     if (win == NULL)
         cout << "erreur ouverture fenetre";
@@ -1338,7 +1130,6 @@ int main(int argn, char* argv[]) {
     ss.h = 100;
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);	//pinceau vert
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0); //pinceau noir
-
 
     SDL_Rect rect2;
     rect2.x = 770;
@@ -1365,8 +1156,6 @@ int main(int argn, char* argv[]) {
     SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255); //pinceau noir
     exit();
 
-
-
     /*************BOUCLE D'evenements**************/
 
     bool continuer = true;
@@ -1386,7 +1175,6 @@ int main(int argn, char* argv[]) {
                 timer = SDL_AddTimer(interval, event1, NULL);
             }
 
-
             if (event.key.keysym.sym == SDLK_b) { //touche b
                 timer = SDL_AddTimer(interval, event2, NULL);
             }
@@ -1398,16 +1186,13 @@ int main(int argn, char* argv[]) {
                     cout << "faster" << endl;
                     fond(rendu);
                     timer = SDL_AddTimer(interval, event2, NULL);
-
                 }
             }
             if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
                 if (event.button.x > ss.x && event.button.x<ss.x + ss.w && event.button.y>ss.y && event.button.y < ss.y + ss.h) { //dans 	le rectangle
-                    cout << "manuelle" << endl;
-
+                    cout << "manuel" << endl;
                     fond(rendu);
                     timer = SDL_AddTimer(interval, event3, NULL);
-
                 }
             }
             if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
@@ -1415,7 +1200,6 @@ int main(int argn, char* argv[]) {
                     cout << "max" << endl;
                     fond(rendu);
                     timer = SDL_AddTimer(interval, event1, NULL);
-
                 }
             }
             if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
@@ -1430,10 +1214,11 @@ int main(int argn, char* argv[]) {
         }
 
     }
+
     //destruction du renderer à la fin
     SDL_DestroyRenderer(rendu);
-    //destruction à la fin
 
+    //destruction à la fin
     SDL_DestroyWindow(win);
 
     TTF_CloseFont(font);
