@@ -18,7 +18,7 @@ int parametres[8] = { 0 };
 
 int max1 = 0;
 int max2 = 0;
-const int taille = 5;
+const int taille = 8;
 
 
 // Definition des bambou
@@ -50,18 +50,21 @@ int TaillleMax(Bambou tab[], int TailleChoisie) {
 
 int TailleMoy(Bambou tab[], int taille) {
     int total = 0;
-
+    int nb = 0;
     for (int i = 0; i < taille; i++) {
+        if (tab[i].taille != 0) {
+            nb++;
+        }
         total += tab[i].taille;
     }
-    return total / taille;
+    return total / nb;
 }
 
 // Statistique de la taille minimum de la bambouseraie
 int TailleMin(Bambou tab[], int taille) {
-    int min = tab[0].taille;
+    int min = TaillleMax(tab, 8);
     for (int i = 0; i < taille; i++) {
-        if (tab[i].taille < min) {
+        if (tab[i].taille < min && tab[i].taille>0) {
             min = tab[i].taille;
         }
     }
@@ -297,9 +300,9 @@ Uint32 event1(Uint32 interval, void* param) {
             afficheBambou(rendu, 350, 510, bambouseraie[2].taille);
             afficheBambou(rendu, 450, 510, bambouseraie[3].taille);
             afficheBambou(rendu, 550, 510, bambouseraie[4].taille);
-            afficheBambou(rendu, 550, 510, bambouseraie[5].taille);
-            afficheBambou(rendu, 550, 510, bambouseraie[6].taille);
-            afficheBambou(rendu, 550, 510, bambouseraie[7].taille);
+            afficheBambou(rendu, 650, 510, bambouseraie[5].taille);
+            afficheBambou(rendu, 750, 510, bambouseraie[6].taille);
+            afficheBambou(rendu, 850, 510, bambouseraie[7].taille);
 
             // test dans la console
             for (int i = 0; i < 8; i++) {
@@ -337,6 +340,15 @@ Uint32 event1(Uint32 interval, void* param) {
             }
             else if (indice_a_couper == 4) {
                 afficheRobot(rendu, 600, 570);
+            }
+            else if (indice_a_couper == 5) {
+                afficheRobot(rendu, 700, 570);
+            }
+            else if (indice_a_couper == 6) {
+                afficheRobot(rendu, 800, 570);
+            }
+            else if (indice_a_couper == 7) {
+                afficheRobot(rendu, 900, 570);
             }
 
             SDL_Rect Noir = { 1080,0,280,720 };
@@ -402,7 +414,7 @@ Uint32 event1(Uint32 interval, void* param) {
             graphMax.w = 180;
             graphMax.h = 80;
             SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
-            ajout(tabMax, TaillleMax(bambouseraie, 5));
+            ajout(tabMax, TaillleMax(bambouseraie, 8));
             for (int i = 1; i < 19; i++) {
                 SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 205 - (tabMax[i - 1] * 4), 1130 + (i * 10), 205 - (tabMax[i] * 4));
             }
@@ -424,7 +436,7 @@ Uint32 event1(Uint32 interval, void* param) {
             graphMax.w = 180;
             graphMax.h = 80;
             SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
-            ajout(tabMoy, TailleMoy(bambouseraie, 5));
+            ajout(tabMoy, TailleMoy(bambouseraie, 8));
             for (int i = 1; i < 19; i++) {
                 SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 360 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 360 - (tabMoy[i] * 4));
             }
@@ -446,7 +458,7 @@ Uint32 event1(Uint32 interval, void* param) {
             graphMax.w = 180;
             graphMax.h = 80;
             SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
-            ajout(tabMin, TailleMin(bambouseraie, 5));
+            ajout(tabMin, TailleMin(bambouseraie, 8));
             for (int i = 1; i < 19; i++) {
                 SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * 4), 1130 + (i * 10), 515 - (tabMin[i] * 4));
             }
@@ -511,25 +523,27 @@ Uint32 event2(Uint32 interval, void* param) {
         exit();
 
         // affichage des bambous 
-        afficheBambou(rendu, 150, 570, bambouseraie[0].taille);
-        afficheBambou(rendu, 250, 570, bambouseraie[1].taille);
-        afficheBambou(rendu, 350, 570, bambouseraie[2].taille);
-        afficheBambou(rendu, 450, 570, bambouseraie[3].taille);
-        afficheBambou(rendu, 550, 570, bambouseraie[4].taille);
-        afficheBambou(rendu, 550, 570, bambouseraie[0].taille);
+        afficheBambou(rendu, 150, 510, bambouseraie[0].taille);
+        afficheBambou(rendu, 250, 510, bambouseraie[1].taille);
+        afficheBambou(rendu, 350, 510, bambouseraie[2].taille);
+        afficheBambou(rendu, 450, 510, bambouseraie[3].taille);
+        afficheBambou(rendu, 550, 510, bambouseraie[4].taille);
+        afficheBambou(rendu, 650, 510, bambouseraie[5].taille);
+        afficheBambou(rendu, 750, 510, bambouseraie[6].taille);
+        afficheBambou(rendu, 850, 510, bambouseraie[7].taille);
 
         // test dans la console
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
         }
         cout << endl;
 
         // croissance des bambous
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             GrowBambou(bambouseraie[i]);
         }
 
-        int indice_a_couper = ReduceFaster(seuil, bambouseraie, 5);
+        int indice_a_couper = ReduceFaster(seuil, bambouseraie, 8);
         bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
 
         SDL_Delay(300);
@@ -554,6 +568,15 @@ Uint32 event2(Uint32 interval, void* param) {
         }
         else if (indice_a_couper == 4) {
             afficheRobot(rendu, 600, 570);
+        }
+        else if (indice_a_couper == 5) {
+            afficheRobot(rendu, 700, 570);
+        }
+        else if (indice_a_couper == 6) {
+            afficheRobot(rendu, 800, 570);
+        }
+        else if (indice_a_couper == 7) {
+            afficheRobot(rendu, 900, 570);
         }
 
         SDL_Rect Noir = { 1080,0,280,720 };
@@ -619,7 +642,7 @@ Uint32 event2(Uint32 interval, void* param) {
         graphMax.w = 180;
         graphMax.h = 80;
         SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
-        ajout(tabMax, TaillleMax(bambouseraie, 5));
+        ajout(tabMax, TaillleMax(bambouseraie, 8));
         for (int i = 1; i < 19; i++) {
             SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 205 - (tabMax[i - 1] * 4), 1130 + (i * 10), 205 - (tabMax[i] * 4));
         }
@@ -641,7 +664,7 @@ Uint32 event2(Uint32 interval, void* param) {
         graphMax.w = 180;
         graphMax.h = 80;
         SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
-        ajout(tabMoy, TailleMoy(bambouseraie, 5));
+        ajout(tabMoy, TailleMoy(bambouseraie, 8));
         for (int i = 1; i < 19; i++) {
             SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 360 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 360 - (tabMoy[i] * 4));
         }
@@ -663,7 +686,7 @@ Uint32 event2(Uint32 interval, void* param) {
         graphMax.w = 180;
         graphMax.h = 80;
         SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
-        ajout(tabMin, TailleMin(bambouseraie, 5));
+        ajout(tabMin, TailleMin(bambouseraie, 8));
         for (int i = 1; i < 19; i++) {
             SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * 4), 1130 + (i * 10), 515 - (tabMin[i] * 4));
         }
@@ -732,10 +755,12 @@ Uint32 event3(Uint32 interval, void* param) {
         afficheBambou(rendu, 350, 510, bambouseraie[2].taille);
         afficheBambou(rendu, 450, 510, bambouseraie[3].taille);
         afficheBambou(rendu, 550, 510, bambouseraie[4].taille);
-        afficheBambou(rendu, 550, 510, bambouseraie[0].taille);
+        afficheBambou(rendu, 650, 510, bambouseraie[5].taille);
+        afficheBambou(rendu, 750, 510, bambouseraie[6].taille);
+        afficheBambou(rendu, 850, 510, bambouseraie[7].taille);
 
         // test dans la console
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
         }
         cout << endl;
@@ -743,7 +768,7 @@ Uint32 event3(Uint32 interval, void* param) {
         VerifMax2BOT(bambouseraie);
 
         // croissance des bambous
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             GrowBambou(bambouseraie[i]);
         }
 
@@ -778,6 +803,15 @@ Uint32 event3(Uint32 interval, void* param) {
         else if (indice_a_couper1 == 4) {
             afficheRobot(rendu, 600, 570);
         }
+        else if (indice_a_couper1 == 5) {
+            afficheRobot(rendu, 700, 570);
+        }
+        else if (indice_a_couper1 == 6) {
+            afficheRobot(rendu, 800, 570);
+        }
+        else if (indice_a_couper1 == 7) {
+            afficheRobot(rendu, 900, 570);
+        }
 
         // les endroits ou le Robot spawn
         if (indice_a_couper2 == 0) {
@@ -794,6 +828,15 @@ Uint32 event3(Uint32 interval, void* param) {
         }
         else if (indice_a_couper2 == 4) {
             afficheRobot(rendu, 600, 570);
+        }
+        else if (indice_a_couper2 == 5) {
+            afficheRobot(rendu, 700, 570);
+        }
+        else if (indice_a_couper2 == 6) {
+            afficheRobot(rendu, 800, 570);
+        }
+        else if (indice_a_couper2 == 7) {
+            afficheRobot(rendu, 900, 570);
         }
 
         SDL_Rect Noir = { 1080,0,280,720 };
@@ -860,7 +903,7 @@ Uint32 event3(Uint32 interval, void* param) {
         graphMax.w = 180;
         graphMax.h = 80;
         SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
-        ajout(tabMax, TaillleMax(bambouseraie, 5));
+        ajout(tabMax, TaillleMax(bambouseraie, 8));
         for (int i = 1; i < 19; i++) {
             SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 205 - (tabMax[i - 1] * 4), 1130 + (i * 10), 205 - (tabMax[i] * 4));
         }
@@ -882,7 +925,7 @@ Uint32 event3(Uint32 interval, void* param) {
         graphMax.w = 180;
         graphMax.h = 80;
         SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
-        ajout(tabMoy, TailleMoy(bambouseraie, 5));
+        ajout(tabMoy, TailleMoy(bambouseraie, 8));
         for (int i = 1; i < 19; i++) {
             SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 360 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 360 - (tabMoy[i] * 4));
         }
@@ -904,7 +947,7 @@ Uint32 event3(Uint32 interval, void* param) {
         graphMax.w = 180;
         graphMax.h = 80;
         SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
-        ajout(tabMin, TailleMin(bambouseraie, 5));
+        ajout(tabMin, TailleMin(bambouseraie, 8));
         for (int i = 1; i < 19; i++) {
             SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * 4), 1130 + (i * 10), 515 - (tabMin[i] * 4));
         }
