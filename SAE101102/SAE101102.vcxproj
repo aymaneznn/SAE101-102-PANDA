@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="config_sdl.cpp" />
     <ClCompile Include="SAE101102.cpp" />
-    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
