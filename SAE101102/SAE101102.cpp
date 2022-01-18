@@ -1136,41 +1136,47 @@ int main(int argn, char* argv[]) {
     menu();
 
     SDL_Rect ss;
-    ss.x = 612;
-    ss.y = 346;
-    ss.w = 540;
-    ss.h = 100;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);	//pinceau vert
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0); //pinceau noir
+    ss.x = 730;
+    ss.y = 54;
+    ss.w = 310;
+    ss.h = 86;
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0); 
 
     SDL_Rect rect2;
     rect2.x = 884;
     rect2.y = 208;
     rect2.w = 260;
     rect2.h = 80;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);	//pinceau vert
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0); //pinceau noir
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);
 
     SDL_Rect rect3;
     rect3.x = 624;
     rect3.y = 208;
     rect3.w = 260;
     rect3.h = 80;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);	//pinceau vert
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0); //pinceau noir  
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);
 
     SDL_Rect retour;
     retour.x = 1150;
     retour.y = 590;
     retour.w = 100;
     retour.h = 50;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
-    SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255); //pinceau noir
-    SDL_RenderDrawRect(rendu, &ss);
-    SDL_RenderDrawRect(rendu, &rect2);
-    SDL_RenderDrawRect(rendu, &rect3);
-    SDL_RenderDrawRect(rendu, &retour);
-    SDL_RenderPresent(rendu);//on rafraichit
+
+    SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255);
+
+    SDL_Rect exit;
+    exit.x = 950;
+    exit.y = 650;
+    exit.w = 100;
+    exit.h = 50;
+    SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255);
+
+    SDL_Rect manuel;
+    manuel.x = 612;
+    manuel.y = 346;
+    manuel.w = 540;
+    manuel.h = 100;
+    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 0);
     exit_menu();
 
     /*************BOUCLE D'evenements**************/
@@ -1220,7 +1226,7 @@ int main(int argn, char* argv[]) {
                 }
             }
             if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
-                if (event.button.x > retour.x && event.button.x<retour.x + retour.w && event.button.y>retour.y && event.button.y < retour.y + retour.h) { //dans 	le rectangle
+               if (event.button.x > retour.x && event.button.x<retour.x + retour.w && event.button.y>retour.y && event.button.y < retour.y + retour.h || event.button.x > exit.x && event.button.x<exit.x + exit.w && event.button.y>exit.y && event.button.y < exit.y + exit.h) { //dans 	le rectangle
                     cout << "retour" << endl;
 
                     continuer = false;
