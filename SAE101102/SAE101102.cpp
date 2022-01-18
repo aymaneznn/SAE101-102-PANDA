@@ -6,6 +6,7 @@ using namespace std;
 #include <fstream>
 #include <sstream>
 #include "SDL_image.h"
+#include<ctime>
 
 SDL_Renderer* rendu;
 TTF_Font* font;
@@ -62,11 +63,11 @@ void CreateBambou(Bambou& bambou, int taille) {
     bambou.croissance = taille;
     bambou.taille = taille;
 }
-
 // Initialisation de bambouraie
 void InitBamboueraie(Bambou bambouraie[], int taille, int tab[]) {
+    srand(time(NULL));
     for (int i = 0; i < taille; i++) {
-        CreateBambou(bambouraie[i], tab[i]);
+        CreateBambou(bambouraie[i], rand()%5+1);
     }
 }
 
