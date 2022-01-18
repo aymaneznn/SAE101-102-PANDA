@@ -144,8 +144,6 @@ void fond(SDL_Renderer* rendu) {
     SDL_RenderCopy(rendu, texture2, NULL, &dstrect2);
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture2);
-
-
 }
 
 // Bambou
@@ -605,7 +603,7 @@ int main(int argn, char* argv[]) {
 
 
     //on crée la fenêtre
-    SDL_Window* win = SDL_CreateWindow("PandaRobot", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 720, SDL_WINDOW_SHOWN);
+    SDL_Window* win = SDL_CreateWindow("PandaRobot", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1360, 720, SDL_WINDOW_SHOWN);
 
     if (win == NULL)
         cout << "erreur ouverture fenetre";
