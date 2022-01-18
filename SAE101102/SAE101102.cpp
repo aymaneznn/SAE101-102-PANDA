@@ -447,28 +447,6 @@ Uint32 event1(Uint32 interval, void* param) {
         else if (indice_a_couper == 4) {
             afficheRobot(rendu, 600, 570);
         }
-        number++;
-        string tmp = to_string(number);
-        char text[200] = "Jours : ";
-        char const* num_char = tmp.c_str();
-        strcat_s(text, 200, num_char);
-        SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
-        SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
-
-        //on place le texte au point (100,100)
-        positionTexte.x = 850;
-        positionTexte.y = 0;
-        //on crée une texture à partir du texte, de sa couleur, et de la fonte
-        SDL_Texture* texture = loadText(rendu, text, blanc, font);
-        //on maj le rectangle couvrant cette texture
-        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
-        //si on veut modifier le cadre du texte
-        positionTexte.w *= 3;
-        positionTexte.h *= 3;
-        //on copie la texture dans le rendu
-        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
-        //on détruit la texture
-        SDL_DestroyTexture(texture);
 
         char soleil[] = "soleiv2.bmp";
 
@@ -487,6 +465,31 @@ Uint32 event1(Uint32 interval, void* param) {
         SDL_Rect Noir = { 1080,0,280,720 };
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
         SDL_RenderFillRect(rendu, &Noir);
+
+        number++;
+        string tmp = to_string(number);
+        char text[200] = "Jours : ";
+        char const* num_char = tmp.c_str();
+        strcat_s(text, 200, num_char);
+        SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
+        SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
+
+        //on place le texte au point (100,100)
+        positionTexte.x = 1130;
+        positionTexte.y = 25;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        SDL_Texture* texture = loadText(rendu, text, blanc, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //si on veut modifier le cadre du texte
+        positionTexte.w *= 3;
+        positionTexte.h *= 3;
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        exit();
+        //on détruit la texture
+        exit();
+        SDL_DestroyTexture(texture);
 
         SDL_Color rouge = { 255,0,0 }; //on définit une couleur de texte
         positionTexte.x = 1130;
@@ -533,7 +536,7 @@ Uint32 event1(Uint32 interval, void* param) {
         }
         SDL_RenderDrawRect(rendu, &graphMax);
 
-        SDL_Color bleu = { 0,0,255 }; //on définit une couleur de texte
+        SDL_Color bleu = { 100,100,255 }; //on définit une couleur de texte
         positionTexte.x = 1130;
         positionTexte.y = 410;
         //on crée une texture à partir du texte, de sa couleur, et de la fonte
@@ -548,7 +551,7 @@ Uint32 event1(Uint32 interval, void* param) {
         graphMax.y = 435;
         graphMax.w = 180;
         graphMax.h = 80;
-        SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
+        SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
         ajout(tabMin, TailleMin(bambouseraie, 5));
         for (int i = 1; i < 19; i++) {
             SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * 4), 1130 + (i * 10), 515 - (tabMin[i] * 4));
@@ -578,7 +581,7 @@ Uint32 event1(Uint32 interval, void* param) {
         for (int i = 1; i < 19; i++) {
             SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 670 - (tabMoy[i] * 4));
         }
-        SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
+        SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
         for (int i = 1; i < 19; i++) {
             SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMin[i - 1] * 4), 1130 + (i * 10), 670 - (tabMin[i] * 4));
         }
@@ -656,31 +659,6 @@ Uint32 event2(Uint32 interval, void* param) {
             afficheRobot(rendu, 600, 570);
         }
 
-        number++;
-        string tmp = to_string(number);
-        char text[200] = "Jours : ";
-        char const* num_char = tmp.c_str();
-        strcat_s(text, 200, num_char);
-        SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
-        SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
-
-        //on place le texte au point (100,100)
-        positionTexte.x = 850;
-        positionTexte.y = 0;
-        //on crée une texture à partir du texte, de sa couleur, et de la fonte
-        SDL_Texture* texture = loadText(rendu, text, blanc, font);
-        //on maj le rectangle couvrant cette texture
-        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
-        //si on veut modifier le cadre du texte
-        positionTexte.w *= 3;
-        positionTexte.h *= 3;
-        //on copie la texture dans le rendu
-        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
-        exit();
-        //on détruit la texture
-        exit();
-        SDL_DestroyTexture(texture);
-
         char soleil[] = "soleiv2.bmp";
 
         SDL_Surface* image5 = SDL_LoadBMP(soleil);
@@ -699,6 +677,31 @@ Uint32 event2(Uint32 interval, void* param) {
         SDL_Rect Noir = { 1080,0,280,720 };
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
         SDL_RenderFillRect(rendu, &Noir);
+
+        number++;
+        string tmp = to_string(number);
+        char text[200] = "Jours : ";
+        char const* num_char = tmp.c_str();
+        strcat_s(text, 200, num_char);
+        SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
+        SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
+
+        //on place le texte au point (100,100)
+        positionTexte.x = 1130;
+        positionTexte.y = 25;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        SDL_Texture* texture = loadText(rendu, text, blanc, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //si on veut modifier le cadre du texte
+        positionTexte.w *= 3;
+        positionTexte.h *= 3;
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        exit();
+        //on détruit la texture
+        exit();
+        SDL_DestroyTexture(texture);
 
         SDL_Color rouge = { 255,0,0 }; //on définit une couleur de texte
         positionTexte.x = 1130;
@@ -745,7 +748,7 @@ Uint32 event2(Uint32 interval, void* param) {
         }
         SDL_RenderDrawRect(rendu, &graphMax);
 
-        SDL_Color bleu = { 0,0,255 }; //on définit une couleur de texte
+        SDL_Color bleu = { 100,100,255 }; //on définit une couleur de texte
         positionTexte.x = 1130;
         positionTexte.y = 410;
         //on crée une texture à partir du texte, de sa couleur, et de la fonte
@@ -760,7 +763,7 @@ Uint32 event2(Uint32 interval, void* param) {
         graphMax.y = 435;
         graphMax.w = 180;
         graphMax.h = 80;
-        SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
+        SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
         ajout(tabMin, TailleMin(bambouseraie, 5));
         for (int i = 1; i < 19; i++) {
             SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * 4), 1130 + (i * 10), 515 - (tabMin[i] * 4));
@@ -790,7 +793,7 @@ Uint32 event2(Uint32 interval, void* param) {
         for (int i = 1; i < 19; i++) {
             SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 670 - (tabMoy[i] * 4));
         }
-        SDL_SetRenderDrawColor(rendu, 0, 0, 255, 255);
+        SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
         for (int i = 1; i < 19; i++) {
             SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMin[i - 1] * 4), 1130 + (i * 10), 670 - (tabMin[i] * 4));
         }
@@ -864,28 +867,6 @@ Uint32 event3(Uint32 interval, void* param) {
         else if (indice_a_couper == 4) {
             afficheRobot(rendu, 600, 570);
         }
-        number++;
-        string tmp = to_string(number);
-        char text[200] = "Jours : ";
-        char const* num_char = tmp.c_str();
-        strcat_s(text, 200, num_char);
-        SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
-        SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
-
-        //on place le texte au point (100,100)
-        positionTexte.x = 850;
-        positionTexte.y = 0;
-        //on crée une texture à partir du texte, de sa couleur, et de la fonte
-        SDL_Texture* texture = loadText(rendu, text, blanc, font);
-        //on maj le rectangle couvrant cette texture
-        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
-        //si on veut modifier le cadre du texte
-        positionTexte.w *= 3;
-        positionTexte.h *= 3;
-        //on copie la texture dans le rendu
-        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
-        //on détruit la texture
-        SDL_DestroyTexture(texture);
 
         char soleil[] = "soleiv2.bmp";
 
@@ -900,6 +881,132 @@ Uint32 event3(Uint32 interval, void* param) {
         }
         xx += 50;
         SDL_DestroyTexture(texture5);
+
+        SDL_Rect Noir = { 1080,0,280,720 };
+        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
+        SDL_RenderFillRect(rendu, &Noir);
+
+        number++;
+        string tmp = to_string(number);
+        char text[200] = "Jours : ";
+        char const* num_char = tmp.c_str();
+        strcat_s(text, 200, num_char);
+        SDL_Color blanc = { 255,255,255 }; //on définit une couleur de texte
+        SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
+
+        //on place le texte au point (100,100)
+        positionTexte.x = 1130;
+        positionTexte.y = 25;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        SDL_Texture* texture = loadText(rendu, text, blanc, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //si on veut modifier le cadre du texte
+        positionTexte.w *= 3;
+        positionTexte.h *= 3;
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        exit();
+        //on détruit la texture
+        exit();
+        SDL_DestroyTexture(texture);
+
+        SDL_Color rouge = { 255,0,0 }; //on définit une couleur de texte
+        positionTexte.x = 1130;
+        positionTexte.y = 100;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        texture = loadText(rendu, "Maximum", rouge, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
+        SDL_Rect graphMax;
+        graphMax.x = 1130;
+        graphMax.y = 125;
+        graphMax.w = 180;
+        graphMax.h = 80;
+        SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+        ajout(tabMax, TaillleMax(bambouseraie, 5));
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 205 - (tabMax[i - 1] * 4), 1130 + (i * 10), 205 - (tabMax[i] * 4));
+        }
+        SDL_RenderDrawRect(rendu, &graphMax);
+
+        SDL_Color vert = { 0,255,0 }; //on définit une couleur de texte
+        positionTexte.x = 1130;
+        positionTexte.y = 255;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        texture = loadText(rendu, "Moyenne", vert, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
+        graphMax.x = 1130;
+        graphMax.y = 280;
+        graphMax.w = 180;
+        graphMax.h = 80;
+        SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
+        ajout(tabMoy, TailleMoy(bambouseraie, 5));
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 360 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 360 - (tabMoy[i] * 4));
+        }
+        SDL_RenderDrawRect(rendu, &graphMax);
+
+        SDL_Color bleu = { 100,100,255 }; //on définit une couleur de texte
+        positionTexte.x = 1130;
+        positionTexte.y = 410;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        texture = loadText(rendu, "Minimum", bleu, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
+        graphMax.x = 1130;
+        graphMax.y = 435;
+        graphMax.w = 180;
+        graphMax.h = 80;
+        SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
+        ajout(tabMin, TailleMin(bambouseraie, 5));
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * 4), 1130 + (i * 10), 515 - (tabMin[i] * 4));
+        }
+        SDL_RenderDrawRect(rendu, &graphMax);
+
+        blanc = { 255,255,255 }; //on définit une couleur de texte
+        positionTexte.x = 1130;
+        positionTexte.y = 565;
+        //on crée une texture à partir du texte, de sa couleur, et de la fonte
+        texture = loadText(rendu, "Overview", blanc, font);
+        //on maj le rectangle couvrant cette texture
+        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+        //on copie la texture dans le rendu
+        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+        //on détruit la texture
+        SDL_DestroyTexture(texture);
+        graphMax.x = 1130;
+        graphMax.y = 590;
+        graphMax.w = 180;
+        graphMax.h = 80;
+        SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMax[i - 1] * 4), 1130 + (i * 10), 670 - (tabMax[i] * 4));
+        }
+        SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 670 - (tabMoy[i] * 4));
+        }
+        SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
+        for (int i = 1; i < 19; i++) {
+            SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMin[i - 1] * 4), 1130 + (i * 10), 670 - (tabMin[i] * 4));
+        }
+        SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
+        SDL_RenderDrawRect(rendu, &graphMax);
 
     }
 
