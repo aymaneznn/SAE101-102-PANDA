@@ -78,7 +78,7 @@ void CreateBambou(Bambou& bambou, int taille) {
 void InitBamboueraie(Bambou bambouraie[], int taille, int tab[]) {
     srand(time(NULL));
     for (int i = 0; i < taille; i++) {
-        CreateBambou(bambouraie[i], rand() % 2 + 1);
+        CreateBambou(bambouraie[i], parametres[i]);
     }
 }
 
@@ -297,20 +297,22 @@ Uint32 event1(Uint32 interval, void* param) {
             afficheBambou(rendu, 350, 510, bambouseraie[2].taille);
             afficheBambou(rendu, 450, 510, bambouseraie[3].taille);
             afficheBambou(rendu, 550, 510, bambouseraie[4].taille);
-            afficheBambou(rendu, 550, 510, bambouseraie[0].taille);
+            afficheBambou(rendu, 550, 510, bambouseraie[5].taille);
+            afficheBambou(rendu, 550, 510, bambouseraie[6].taille);
+            afficheBambou(rendu, 550, 510, bambouseraie[7].taille);
 
             // test dans la console
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 8; i++) {
                 cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
             }
             cout << endl;
 
             // croissance des bambous
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 8; i++) {
                 GrowBambou(bambouseraie[i]);
             }
 
-            int indice_a_couper = ReduceMax(bambouseraie, 5);
+            int indice_a_couper = ReduceMax(bambouseraie, 8);
             bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
 
             SDL_Delay(900);
@@ -496,12 +498,11 @@ Uint32 event2(Uint32 interval, void* param) {
 
     // variables
     int number = 0;
-    int parametres[6] = { 1,2,3,4,5,6 };
     int xx = 0;
     int yy = -80;
 
     // creation des bambous 
-    InitBamboueraie(bambouseraie, 6, parametres);
+    InitBamboueraie(bambouseraie, 8, parametres);
 
     // boucle infinie
     bool boucle = true;
@@ -714,11 +715,10 @@ Uint32 event3(Uint32 interval, void* param) {
 
     // variables
     int number = 0;
-    int parametres[6] = { 1,2,3,4,5,6 };
     int xx = 0;
     int yy = -80;
     // creation des bambous 
-    InitBamboueraie(bambouseraie, 6, parametres);
+    InitBamboueraie(bambouseraie, 8, parametres);
 
     // boucle infinie
     bool boucle = true;
