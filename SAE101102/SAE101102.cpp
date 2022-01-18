@@ -389,14 +389,26 @@ void exit() {
     SDL_DestroyTexture(texture);
 }
 
-// menu
-void menu() {
-    char name[] = "menu.bmp";
+void exit_menu() {
+    char name[] = "exit.bmp";
 
     SDL_Surface* image = SDL_LoadBMP(name);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
 
-    SDL_Rect dstrect = { 0,0,1080,720 };
+    SDL_Rect dstrect = { 1150,590,100,50 };
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_RenderPresent(rendu);
+    SDL_DestroyTexture(texture);
+}
+
+// menu
+void menu() {
+    char name[] = "menuv2.bmp";
+
+    SDL_Surface* image = SDL_LoadBMP(name);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
+
+    SDL_Rect dstrect = { 0,0,1360,720 };
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
@@ -1124,37 +1136,42 @@ int main(int argn, char* argv[]) {
     menu();
 
     SDL_Rect ss;
-    ss.x = 520;
-    ss.y = 350;
-    ss.w = 450;
+    ss.x = 612;
+    ss.y = 346;
+    ss.w = 540;
     ss.h = 100;
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);	//pinceau vert
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0); //pinceau noir
 
     SDL_Rect rect2;
-    rect2.x = 770;
-    rect2.y = 200;
+    rect2.x = 884;
+    rect2.y = 208;
     rect2.w = 260;
     rect2.h = 80;
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);	//pinceau vert
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0); //pinceau noir
 
     SDL_Rect rect3;
-    rect3.x = 490;
-    rect3.y = 200;
+    rect3.x = 624;
+    rect3.y = 208;
     rect3.w = 260;
     rect3.h = 80;
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);	//pinceau vert
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0); //pinceau noir  
 
     SDL_Rect retour;
-    retour.x = 950;
-    retour.y = 650;
+    retour.x = 1150;
+    retour.y = 590;
     retour.w = 100;
     retour.h = 50;
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
     SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255); //pinceau noir
-    exit();
+    SDL_RenderDrawRect(rendu, &ss);
+    SDL_RenderDrawRect(rendu, &rect2);
+    SDL_RenderDrawRect(rendu, &rect3);
+    SDL_RenderDrawRect(rendu, &retour);
+    SDL_RenderPresent(rendu);//on rafraichit
+    exit_menu();
 
     /*************BOUCLE D'evenements**************/
 
