@@ -1348,7 +1348,7 @@ int main(int argn, char* argv[]) {
     ss.y = 54;
     ss.w = 310;
     ss.h = 86;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0); 
+    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);
 
     SDL_Rect rect2;
     rect2.x = 884;
@@ -1386,7 +1386,7 @@ int main(int argn, char* argv[]) {
     manuel.h = 100;
     SDL_SetRenderDrawColor(rendu, 255, 255, 255, 0);
     exit_menu();
-    
+
     SDL_Rect bambou1;
     bambou1.x = 200;
     bambou1.y = 370;
@@ -1471,7 +1471,7 @@ int main(int argn, char* argv[]) {
                     fond(rendu);
                     timer = SDL_AddTimer(interval, event1, NULL);
                 }
-                
+
                 if (event.button.x > bambou1.x && event.button.x<bambou1.x + bambou1.w && event.button.y>bambou1.y && event.button.y < bambou1.y + bambou1.h) { //dans 	le rectangle
                     cout << "bambou 1 " << endl;
 
@@ -1498,18 +1498,16 @@ int main(int argn, char* argv[]) {
                     fond(rendu);
                     manuell = 5;
                 }
-            }
-                
-               if (event.button.x > retour.x && event.button.x<retour.x + retour.w && event.button.y>retour.y && event.button.y < retour.y + retour.h || event.button.x > exit.x && event.button.x<exit.x + exit.w && event.button.y>exit.y && event.button.y < exit.y + exit.h) { //dans 	le rectangle
+                if (event.button.x > retour.x && event.button.x<retour.x + retour.w && event.button.y>retour.y && event.button.y < retour.y + retour.h || event.button.x > exit.x && event.button.x<exit.x + exit.w && event.button.y>exit.y && event.button.y < exit.y + exit.h) { //dans 	le rectangle
                     cout << "retour" << endl;
 
                     continuer = false;
                     break;
                 }
             }
-            break;
-        }
 
+        break;
+        }
     }
 
     //destruction du renderer à la fin
