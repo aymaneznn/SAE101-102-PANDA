@@ -266,6 +266,17 @@ void afficheRobot(SDL_Renderer* rendu, int positionX, int positionY) {
     SDL_DestroyTexture(texture);
 }
 
+// Robot Panda2
+void afficheRobot2(SDL_Renderer* rendu, int positionX, int positionY) {
+    char name[] = "panda2.bmp";
+    SDL_Surface* image = SDL_LoadBMP(name);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
+    SDL_Rect dstrect = { positionX,positionY,100,100 };
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_RenderPresent(rendu);
+    SDL_DestroyTexture(texture);
+}
+
 //exit
 void exit() {
     char name[] = "exit.bmp";
@@ -822,28 +833,28 @@ Uint32 event3(Uint32 interval, void* param) {
 
                     // les endroits ou le Robot spawn
                     if (indice_a_couper2 == 0) {
-                        afficheRobot(rendu, 150, 570);
+                        afficheRobot2(rendu, 150, 570);
                     }
                     else if (indice_a_couper2 == 1) {
-                        afficheRobot(rendu, 250, 570);
+                        afficheRobot2(rendu, 250, 570);
                     }
                     else if (indice_a_couper2 == 2) {
-                        afficheRobot(rendu, 350, 570);
+                        afficheRobot2(rendu, 350, 570);
                     }
                     else if (indice_a_couper2 == 3) {
-                        afficheRobot(rendu, 450, 570);
+                        afficheRobot2(rendu, 450, 570);
                     }
                     else if (indice_a_couper2 == 4) {
-                        afficheRobot(rendu, 550, 570);
+                        afficheRobot2(rendu, 550, 570);
                     }
                     else if (indice_a_couper2 == 5) {
-                        afficheRobot(rendu, 650, 570);
+                        afficheRobot2(rendu, 650, 570);
                     }
                     else if (indice_a_couper2 == 6) {
-                        afficheRobot(rendu, 750, 570);
+                        afficheRobot2(rendu, 750, 570);
                     }
                     else if (indice_a_couper2 == 7) {
-                        afficheRobot(rendu, 850, 570);
+                        afficheRobot2(rendu, 850, 570);
                     }
                 }
                 // Le soleil se lève à tout jamais
@@ -949,28 +960,28 @@ Uint32 event4(Uint32 interval, void* param) {
 
                     // les endroits ou le Robot spawn
                     if (indice_a_couper2 == 0) {
-                        afficheRobot(rendu, 150, 570);
+                        afficheRobot2(rendu, 150, 570);
                     }
                     else if (indice_a_couper2 == 1) {
-                        afficheRobot(rendu, 250, 570);
+                        afficheRobot2(rendu, 250, 570);
                     }
                     else if (indice_a_couper2 == 2) {
-                        afficheRobot(rendu, 350, 570);
+                        afficheRobot2(rendu, 350, 570);
                     }
                     else if (indice_a_couper2 == 3) {
-                        afficheRobot(rendu, 450, 570);
+                        afficheRobot2(rendu, 450, 570);
                     }
                     else if (indice_a_couper2 == 4) {
-                        afficheRobot(rendu, 550, 570);
+                        afficheRobot2(rendu, 550, 570);
                     }
                     else if (indice_a_couper2 == 5) {
-                        afficheRobot(rendu, 650, 570);
+                        afficheRobot2(rendu, 650, 570);
                     }
                     else if (indice_a_couper2 == 6) {
-                        afficheRobot(rendu, 750, 570);
+                        afficheRobot2(rendu, 750, 570);
                     }
                     else if (indice_a_couper2 == 7) {
-                        afficheRobot(rendu, 850, 570);
+                        afficheRobot2(rendu, 850, 570);
                     }
                 }
                 // Le soleil se lève à tout jamais
