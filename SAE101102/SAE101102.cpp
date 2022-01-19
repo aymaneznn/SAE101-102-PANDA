@@ -27,7 +27,7 @@ struct Bambou {
     int croissance;
     int taille;
 };
-
+void SDL_UpdateRect(SDL_Surface* screen, Sint32 x, Sint32 y, Sint32 w, Sint32 h);
 Bambou bambouseraie[TAILLE_MAX];
 
 // Statistiques 
@@ -109,6 +109,7 @@ int VerifMax(Bambou Bambou[], int TailleChoisie) {
     }
     return indiceBambou;
 }
+
 
 void VerifMax2BOT(Bambou bambouseraie[]) {
     int TailleMax1 = 0;
@@ -199,23 +200,65 @@ void fond(SDL_Renderer* rendu) {
 }
 
 // Bambou
+//void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBambou) {
+//    char name[] = "bambouv2.bmp";
+//    for (int i = 0; i < nbBambou; i++) {
+//
+//        SDL_Surface* image = SDL_LoadBMP(name);
+//        SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
+//        SDL_Rect dstrect = { positionX,positionY,100,150 };
+//        SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+//
+//        if (positionY > 0) {
+//            positionY -= 40;
+//        }
+//        
+//        //SDL_DestroyTexture(texture);
+//    }
+//    SDL_RenderPresent(rendu);
+//}
+
 void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBambou) {
-    char name[] = "bambouv2.bmp";
+
     for (int i = 0; i < nbBambou; i++) {
+        SDL_Rect bambou;
+        bambou.x = positionX;
+        bambou.y = positionY;
+        bambou.w = 10;
+        bambou.h = 30;
+        SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
+        SDL_RenderFillRect(rendu, &bambou);
+        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
+        SDL_RenderDrawRect(rendu, &bambou);
 
-        SDL_Surface* image = SDL_LoadBMP(name);
-        SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
-        SDL_Rect dstrect = { positionX,positionY,100,150 };
-        SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-        SDL_RenderPresent(rendu);
 
-        if (positionY > 0) {
-            positionY -= 40;
-        }
-        
-        SDL_DestroyTexture(texture);
+
+        SDL_Rect haut;
+        haut.x = positionX - 2;
+        haut.y = positionY + 31;
+        haut.w = 15;
+        haut.h = 5;
+        SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
+        SDL_RenderFillRect(rendu, &haut);
+        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
+        SDL_RenderDrawRect(rendu, &haut);
+
+
+
+        SDL_Rect bas;
+        bas.x = positionX - 2;
+        bas.y = positionY;
+        bas.w = 15;
+        bas.h = 5;
+        SDL_SetRenderDrawColor(rendu, 173, 255, 47, 255);	//pinceau vert
+        SDL_RenderFillRect(rendu, &bas);
+        SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
+        SDL_RenderDrawRect(rendu, &bas);
+        positionY -= 31;
+        SDL_RenderPresent(rendu);//on rafraichit
     }
 }
+
 
 // Robot Panda
 void afficheRobot(SDL_Renderer* rendu, int positionX, int positionY) {
@@ -235,7 +278,7 @@ void exit() {
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
     SDL_Rect dstrect = { 950,650,100,50 };
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_RenderPresent(rendu);
+    //SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
 }
 
@@ -245,7 +288,7 @@ void exit_menu() {
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
     SDL_Rect dstrect = { 1150,590,100,50 };
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_RenderPresent(rendu);
+    //SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
 }
 
@@ -256,7 +299,7 @@ void menu() {
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
     SDL_Rect dstrect = { 0,0,1360,720 };
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_RenderPresent(rendu);
+    //SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
 }
 
@@ -281,7 +324,7 @@ void batterie(char nom[]) {
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
     SDL_Rect dstrect = { 900,10,200 ,100 };
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_RenderPresent(rendu);
+    //SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
 }
 
@@ -291,15 +334,15 @@ void fond_recharge() {
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
     SDL_Rect dstrect = { 0,0,1080 ,700 };
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-    SDL_RenderPresent(rendu);
+    //SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
 
     image = SDL_LoadBMP("eclair.bmp");
     SDL_Texture* eclair = SDL_CreateTextureFromSurface(rendu, image);
     dstrect = { 830,210,100,116 };
     SDL_RenderCopy(rendu, eclair, NULL, &dstrect);
-    SDL_RenderPresent(rendu);
     SDL_DestroyTexture(eclair);
+    SDL_RenderPresent(rendu);
 }
 
 bool repos = false;
@@ -480,26 +523,28 @@ Uint32 event1(Uint32 interval, void* param) {
     int yy = -80;
     int posx = 180;
     int h = 10;
+    
     // creation des bambous 
     InitBamboueraie(bambouseraie, 8, parametres);
 
     // boucle infinie
     bool boucle = true;
     for (int i = 0; boucle; i++) {
-
+        
         exit();
         batterie_lv1();
         if (repos == false) {
 
             // affichage des bambous 
-            afficheBambou(rendu, 150, 510, bambouseraie[0].taille);
-            afficheBambou(rendu, 250, 510, bambouseraie[1].taille);
-            afficheBambou(rendu, 350, 510, bambouseraie[2].taille);
-            afficheBambou(rendu, 450, 510, bambouseraie[3].taille);
-            afficheBambou(rendu, 550, 510, bambouseraie[4].taille);
-            afficheBambou(rendu, 650, 510, bambouseraie[5].taille);
-            afficheBambou(rendu, 750, 510, bambouseraie[6].taille);
-            afficheBambou(rendu, 850, 510, bambouseraie[7].taille);
+            afficheBambou(rendu, 150, 600, bambouseraie[0].taille);
+            afficheBambou(rendu, 250, 600, bambouseraie[1].taille);
+            afficheBambou(rendu, 350, 600, bambouseraie[2].taille);
+            afficheBambou(rendu, 450, 600, bambouseraie[3].taille);
+            afficheBambou(rendu, 550, 600, bambouseraie[4].taille);
+            afficheBambou(rendu, 650, 600, bambouseraie[5].taille);
+            afficheBambou(rendu, 750, 600, bambouseraie[6].taille);
+            afficheBambou(rendu, 850, 600, bambouseraie[7].taille);
+
         }
 
         // test dans la console
@@ -518,7 +563,7 @@ Uint32 event1(Uint32 interval, void* param) {
             int indice_a_couper = ReduceMax(bambouseraie, 8);
             bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
 
-            //SDL_Delay(800);
+            SDL_Delay(800);
 
             // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
             fond(rendu);
@@ -527,28 +572,28 @@ Uint32 event1(Uint32 interval, void* param) {
 
             // les endroits ou le Robot spawn
             if (indice_a_couper == 0) {
-                afficheRobot(rendu, 200, 570);
+                afficheRobot(rendu, 150, 570);
             }
             else if (indice_a_couper == 1) {
-                afficheRobot(rendu, 300, 570);
+                afficheRobot(rendu, 250, 570);
             }
             else if (indice_a_couper == 2) {
-                afficheRobot(rendu, 400, 570);
+                afficheRobot(rendu, 350, 570);
             }
             else if (indice_a_couper == 3) {
-                afficheRobot(rendu, 500, 570);
+                afficheRobot(rendu, 450, 570);
             }
             else if (indice_a_couper == 4) {
-                afficheRobot(rendu, 600, 570);
+                afficheRobot(rendu, 550, 570);
             }
             else if (indice_a_couper == 5) {
-                afficheRobot(rendu, 700, 570);
+                afficheRobot(rendu, 650, 570);
             }
             else if (indice_a_couper == 6) {
-                afficheRobot(rendu, 800, 570);
+                afficheRobot(rendu, 750, 570);
             }
             else if (indice_a_couper == 7) {
-                afficheRobot(rendu, 900, 570);
+                afficheRobot(rendu, 850, 570);
             }
 
             // Le soleil se lève à tout jamais
@@ -557,21 +602,22 @@ Uint32 event1(Uint32 interval, void* param) {
             SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
             SDL_Rect dstrect5 = { xx,yy,300,300 };
             SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-            SDL_RenderPresent(rendu);
             if (xx == 1000) {
                 xx = 0;
             }
             xx += 50;
             SDL_DestroyTexture(texture5);
+
         }
 
         graph();
-
+        
     }
-
+    
+    //SDL_DestroyRenderer(rendu);
     SDL_RenderPresent(rendu);//on rafraichit
-
     return interval;
+
 }
 
 Uint32 event2(Uint32 interval, void* param) {
@@ -592,14 +638,14 @@ Uint32 event2(Uint32 interval, void* param) {
         batterie_lv1();
         if (repos == false) {
             // affichage des bambous 
-            afficheBambou(rendu, 150, 510, bambouseraie[0].taille);
-            afficheBambou(rendu, 250, 510, bambouseraie[1].taille);
-            afficheBambou(rendu, 350, 510, bambouseraie[2].taille);
-            afficheBambou(rendu, 450, 510, bambouseraie[3].taille);
-            afficheBambou(rendu, 550, 510, bambouseraie[4].taille);
-            afficheBambou(rendu, 650, 510, bambouseraie[5].taille);
-            afficheBambou(rendu, 750, 510, bambouseraie[6].taille);
-            afficheBambou(rendu, 850, 510, bambouseraie[7].taille);
+            afficheBambou(rendu, 150, 600, bambouseraie[0].taille);
+            afficheBambou(rendu, 250, 600, bambouseraie[1].taille);
+            afficheBambou(rendu, 350, 600, bambouseraie[2].taille);
+            afficheBambou(rendu, 450, 600, bambouseraie[3].taille);
+            afficheBambou(rendu, 550, 600, bambouseraie[4].taille);
+            afficheBambou(rendu, 650, 600, bambouseraie[5].taille);
+            afficheBambou(rendu, 750, 600, bambouseraie[6].taille);
+            afficheBambou(rendu, 850, 600, bambouseraie[7].taille);
         }
         // test dans la console
         for (int i = 0; i < 8; i++) {
@@ -625,28 +671,28 @@ Uint32 event2(Uint32 interval, void* param) {
 
             // les endroits ou le Robot spawn
             if (indice_a_couper == 0) {
-                afficheRobot(rendu, 200, 570);
+                afficheRobot(rendu, 150, 570);
             }
             else if (indice_a_couper == 1) {
-                afficheRobot(rendu, 300, 570);
+                afficheRobot(rendu, 250, 570);
             }
             else if (indice_a_couper == 2) {
-                afficheRobot(rendu, 400, 570);
+                afficheRobot(rendu, 350, 570);
             }
             else if (indice_a_couper == 3) {
-                afficheRobot(rendu, 500, 570);
+                afficheRobot(rendu, 450, 570);
             }
             else if (indice_a_couper == 4) {
-                afficheRobot(rendu, 600, 570);
+                afficheRobot(rendu, 550, 570);
             }
             else if (indice_a_couper == 5) {
-                afficheRobot(rendu, 700, 570);
+                afficheRobot(rendu, 650, 570);
             }
             else if (indice_a_couper == 6) {
-                afficheRobot(rendu, 800, 570);
+                afficheRobot(rendu, 750, 570);
             }
             else if (indice_a_couper == 7) {
-                afficheRobot(rendu, 900, 570);
+                afficheRobot(rendu, 850, 570);
             }
 
             // Le soleil se lève à tout jamais
@@ -655,7 +701,6 @@ Uint32 event2(Uint32 interval, void* param) {
             SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
             SDL_Rect dstrect5 = { xx,yy,300,300 };
             SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-            SDL_RenderPresent(rendu);
             if (xx == 1000) {
                 xx = 0;
             }
@@ -690,14 +735,14 @@ Uint32 event3(Uint32 interval, void* param) {
 
         if (repos == false) {
             // affichage des bambous 
-            afficheBambou(rendu, 150, 510, bambouseraie[0].taille);
-            afficheBambou(rendu, 250, 510, bambouseraie[1].taille);
-            afficheBambou(rendu, 350, 510, bambouseraie[2].taille);
-            afficheBambou(rendu, 450, 510, bambouseraie[3].taille);
-            afficheBambou(rendu, 550, 510, bambouseraie[4].taille);
-            afficheBambou(rendu, 650, 510, bambouseraie[5].taille);
-            afficheBambou(rendu, 750, 510, bambouseraie[6].taille);
-            afficheBambou(rendu, 850, 510, bambouseraie[7].taille);
+            afficheBambou(rendu, 150, 600, bambouseraie[0].taille);
+            afficheBambou(rendu, 250, 600, bambouseraie[1].taille);
+            afficheBambou(rendu, 350, 600, bambouseraie[2].taille);
+            afficheBambou(rendu, 450, 600, bambouseraie[3].taille);
+            afficheBambou(rendu, 550, 600, bambouseraie[4].taille);
+            afficheBambou(rendu, 650, 600, bambouseraie[5].taille);
+            afficheBambou(rendu, 750, 600, bambouseraie[6].taille);
+            afficheBambou(rendu, 850, 600, bambouseraie[7].taille);
         }
         // test dans la console
         for (int i = 0; i < 8; i++) {
@@ -730,54 +775,54 @@ Uint32 event3(Uint32 interval, void* param) {
             // les endroits ou le Robot spawn
 
             if (indice_a_couper1 == 0) {
-                afficheRobot(rendu, 200, 570);
+                afficheRobot(rendu, 150, 570);
             }
             else if (indice_a_couper1 == 1) {
-                afficheRobot(rendu, 300, 570);
+                afficheRobot(rendu, 250, 570);
             }
             else if (indice_a_couper1 == 2) {
-                afficheRobot(rendu, 400, 570);
+                afficheRobot(rendu, 350, 570);
             }
             else if (indice_a_couper1 == 3) {
-                afficheRobot(rendu, 500, 570);
+                afficheRobot(rendu, 450, 570);
             }
             else if (indice_a_couper1 == 4) {
-                afficheRobot(rendu, 600, 570);
+                afficheRobot(rendu, 550, 570);
             }
             else if (indice_a_couper1 == 5) {
-                afficheRobot(rendu, 700, 570);
+                afficheRobot(rendu, 650, 570);
             }
             else if (indice_a_couper1 == 6) {
-                afficheRobot(rendu, 800, 570);
+                afficheRobot(rendu, 750, 570);
             }
             else if (indice_a_couper1 == 7) {
-                afficheRobot(rendu, 900, 570);
+                afficheRobot(rendu, 850, 570);
             }
 
             // les endroits ou le Robot spawn
             if (indice_a_couper2 == 0) {
-                afficheRobot(rendu, 200, 570);
+                afficheRobot(rendu, 150, 570);
             }
             else if (indice_a_couper2 == 1) {
-                afficheRobot(rendu, 300, 570);
+                afficheRobot(rendu, 250, 570);
             }
             else if (indice_a_couper2 == 2) {
-                afficheRobot(rendu, 400, 570);
+                afficheRobot(rendu, 350, 570);
             }
             else if (indice_a_couper2 == 3) {
-                afficheRobot(rendu, 500, 570);
+                afficheRobot(rendu, 450, 570);
             }
             else if (indice_a_couper2 == 4) {
-                afficheRobot(rendu, 600, 570);
+                afficheRobot(rendu, 550, 570);
             }
             else if (indice_a_couper2 == 5) {
-                afficheRobot(rendu, 700, 570);
+                afficheRobot(rendu, 650, 570);
             }
             else if (indice_a_couper2 == 6) {
-                afficheRobot(rendu, 800, 570);
+                afficheRobot(rendu, 750, 570);
             }
             else if (indice_a_couper2 == 7) {
-                afficheRobot(rendu, 900, 570);
+                afficheRobot(rendu, 850, 570);
             }
 
             // Le soleil se lève à tout jamais
@@ -786,7 +831,6 @@ Uint32 event3(Uint32 interval, void* param) {
             SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
             SDL_Rect dstrect5 = { xx,yy,300,300 };
             SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-            SDL_RenderPresent(rendu);
             if (xx == 1000) {
                 xx = 0;
             }
@@ -821,13 +865,12 @@ Uint32 manual(Uint32 interval, void* param) {
         
         if (repos == false) {
             // affichage des bambous 
-            afficheBambou(rendu, 150, 570, bambouseraie[0].taille);
-            afficheBambou(rendu, 250, 570, bambouseraie[1].taille);
-            afficheBambou(rendu, 350, 570, bambouseraie[2].taille);
-            afficheBambou(rendu, 450, 570, bambouseraie[3].taille);
-            afficheBambou(rendu, 550, 570, bambouseraie[4].taille);
-            afficheBambou(rendu, 550, 570, bambouseraie[4].taille);
-            SDL_RenderPresent(rendu);
+            afficheBambou(rendu, 150, 600, bambouseraie[0].taille);
+            afficheBambou(rendu, 250, 600, bambouseraie[1].taille);
+            afficheBambou(rendu, 350, 600, bambouseraie[2].taille);
+            afficheBambou(rendu, 450, 600, bambouseraie[3].taille);
+            afficheBambou(rendu, 550, 600, bambouseraie[4].taille);
+            afficheBambou(rendu, 650, 600, bambouseraie[5].taille);
             SDL_Delay(800);
 
             //system("pause");
@@ -863,7 +906,6 @@ Uint32 manual(Uint32 interval, void* param) {
             SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
             SDL_Rect dstrect5 = { xx,yy,300,300 };
             SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-            SDL_RenderPresent(rendu);
             if (xx == 1000) {
                 xx = 0;
             }
