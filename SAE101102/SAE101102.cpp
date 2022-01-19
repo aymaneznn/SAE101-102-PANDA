@@ -1456,7 +1456,9 @@ int main(int argn, char* argv[]) {
             if (event.key.keysym.sym == SDLK_a) { //touche a
                 timer = SDL_AddTimer(interval, manual, NULL);
             }
-
+            if (event.key.keysym.sym == SDLK_ESCAPE) { //touche a
+                continuer = false;
+            }
             if (event.key.keysym.sym == SDLK_b) { //touche b
                 timer = SDL_AddTimer(interval, event2, NULL);
             }
