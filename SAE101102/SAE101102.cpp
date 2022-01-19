@@ -309,7 +309,6 @@ void batterie_lv1() {
     char lv1[] = "batterie_lv1.bmp";
     char lv2[] = "batterie_lv2.bmp";
     char lv3[] = "batterie_lv3.bmp";
-    char names[] = "batterie_lv3.bmp";
     if (indice_batterie <= 5) {
         batterie(lv3);
     }
