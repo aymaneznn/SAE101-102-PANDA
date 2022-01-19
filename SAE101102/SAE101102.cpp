@@ -20,6 +20,7 @@ int manuell;
 int max1 = 0;
 int max2 = 0;
 const int taille = 8;
+int indice_batterie = 0;
 
 // Definition des bambou
 struct Bambou {
@@ -257,39 +258,56 @@ void ajout(int tab[], int truc) {
     tab[18] = truc;
 }
 
-
-// affiche batterie 
-void batterievide() {
-    SDL_Surface* image = SDL_LoadBMP("batterievide.bmp");
+//image batterie
+void batterie(char nom[]) {
+    SDL_Surface* image = SDL_LoadBMP(nom);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
-    SDL_Rect dstrect = { 10,10,200 ,100 };
+    SDL_Rect dstrect = { 900,10,200 ,100 };
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
     SDL_RenderPresent(rendu);
-
     SDL_DestroyTexture(texture);
 }
-void batteriepleine(int i) {
 
-        SDL_Surface* image = SDL_LoadBMP("batteriepleine.bmp");
-        SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
-        SDL_Rect dstrect = { 10,10,200 ,100 };
-        SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-        SDL_RenderPresent(rendu);
-        SDL_DestroyTexture(texture);
-
+// fond recharge
+void fond_recharge() {
+    SDL_Surface* image = SDL_LoadBMP("fond_recharge.bmp");
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
+    SDL_Rect dstrect = { 0,0,1360 ,700 };
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_RenderPresent(rendu);
+    SDL_DestroyTexture(texture);
 }
 
-void videur(int posX,int posY, int h, int taillebat) {
-
-    for (int i = 0; i < taillebat; i++) {
-        SDL_Surface* image = SDL_LoadBMP("videur.bmp");
-        SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
-        SDL_Rect dstrect = { posX,posY,h ,40 };
-        SDL_RenderCopy(rendu, texture, NULL, &dstrect);
-        SDL_RenderPresent(rendu);
-        posX += 30;
-        SDL_DestroyTexture(texture);
+// affiche le bon level batterie 
+void batterie_lv1() {
+    char lv1[] = "batterie_lv1.bmp";
+    char lv2[] = "batterie_lv2.bmp";
+    char lv3[] = "batterie_lv3.bmp";
+    char names[] = "batterie_lv3.bmp";
+    if (indice_batterie <= 10) {
+        batterie(lv3);
     }
+    if (indice_batterie >= 10 && indice_batterie < 20) {
+        batterie(lv2);
+    }
+    if (indice_batterie >= 20) {
+        batterie(lv1);
+    }
+    if (indice_batterie >= 30) {
+        bool batterie = true;
+        while (batterie == true )
+        {
+        fond_recharge();
+        if (indice_batterie == 36) {
+            batterie = false;
+        }
+        batterie_lv1();
+        }
+        indice_batterie = 0;
+    }
+    indice_batterie++;
+
+
 }
 
 int interval = 10;
@@ -314,10 +332,7 @@ Uint32 event1(Uint32 interval, void* param) {
     for (int i = 0; boucle; i++) {
 
         exit();
-        batteriepleine(i);
-        videur(posx,40,h,i);
-        posx -= 50;
-        h += 30;
+        batterie_lv1();
         // affichage des bambous 
         afficheBambou(rendu, 150, 510, bambouseraie[0].taille);
         afficheBambou(rendu, 250, 510, bambouseraie[1].taille);
@@ -342,7 +357,7 @@ Uint32 event1(Uint32 interval, void* param) {
         int indice_a_couper = ReduceMax(bambouseraie, 8);
         bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
 
-        SDL_Delay(900);
+        //SDL_Delay(900);
 
         // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
         fond(rendu);
@@ -545,6 +560,7 @@ Uint32 event2(Uint32 interval, void* param) {
     for (int i = 0; boucle; i++) {
 
         exit();
+        batterie_lv1();
 
         // affichage des bambous 
         afficheBambou(rendu, 150, 510, bambouseraie[0].taille);
@@ -772,6 +788,7 @@ Uint32 event3(Uint32 interval, void* param) {
     for (int i = 0; boucle; i++) {
 
         exit();
+        batterie_lv1();
 
         // affichage des bambous 
         afficheBambou(rendu, 150, 510, bambouseraie[0].taille);
@@ -1033,6 +1050,7 @@ Uint32 manual(Uint32 interval, void* param) {
     // boucle infinie
     bool boucle = true;
     for (int i = 0; boucle; i++) {
+        batterie_lv1();
         // affichage des bambous 
         afficheBambou(rendu, 150, 570, bambouseraie[0].taille);
         afficheBambou(rendu, 250, 570, bambouseraie[1].taille);
