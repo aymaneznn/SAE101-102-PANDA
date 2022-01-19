@@ -19,5 +19,11 @@
 #### Niveau 0 : Terminé
 #### Niveau 1 : Terminé
 #### Niveau 2 : En cours
+  - [x] Interaction utilisateur ( avec un clic souris sur le bambou choisi ).
+  - [x] Enregistrer une configuration et la recharger depuis un fichier.
+
 #### Niveau 3 : En cours
+  - Contraintes supplémentaires :
+    - [x] Recharge des batteries : régulière, tous les 15 jours ( pour 5 jours de recharge ).
+    - [x] Deuxième robot
 #### Niveau + : En cours
