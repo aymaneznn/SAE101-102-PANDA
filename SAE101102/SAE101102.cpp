@@ -1068,6 +1068,19 @@ Uint32 manual(Uint32 interval, void* param) {
 
         fond(rendu);
 
+        // Le soleil se lève à tout jamais
+        char soleil[] = "soleiv2.bmp";
+        SDL_Surface* image5 = SDL_LoadBMP(soleil);
+        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
+        SDL_Rect dstrect5 = { xx,yy,300,300 };
+        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
+        SDL_RenderPresent(rendu);
+        if (xx == 1000) {
+            xx = 0;
+        }
+        xx += 50;
+        SDL_DestroyTexture(texture5);
+
         // Graphes
         SDL_Rect Noir = { 1080,0,280,720 };
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
@@ -1100,19 +1113,6 @@ Uint32 manual(Uint32 interval, void* param) {
 
         //on détruit la texture
         SDL_DestroyTexture(texture);
-
-        // Le soleil se lève à tout jamais
-        char soleil[] = "soleiv2.bmp";
-        SDL_Surface* image5 = SDL_LoadBMP(soleil);
-        SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-        SDL_Rect dstrect5 = { xx,yy,300,300 };
-        SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-        SDL_RenderPresent(rendu);
-        if (xx == 1000) {
-            xx = 0;
-        }
-        xx += 50;
-        SDL_DestroyTexture(texture5);
 
         //on détruit la texture
         SDL_DestroyTexture(texture);
@@ -1745,8 +1745,7 @@ int main(int argn, char* argv[]) {
                     break;
                 }
             }
-
-        break;
+            break;
         }
     }
 
