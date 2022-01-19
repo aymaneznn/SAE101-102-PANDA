@@ -1801,6 +1801,7 @@ int main(int argn, char* argv[]) {
                 if (event.button.x > Load.x && event.button.x<Load.x + Load.w && event.button.y>Load.y && event.button.y < Load.y + Load.h) { //dans 	le rectangle
                     cout << "charge" << endl;
                     load();
+                    // affichage
                     for (int i = 0; i < taille; i++) {
                         SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
                         SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image);
