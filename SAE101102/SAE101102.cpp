@@ -310,19 +310,19 @@ void batterie_lv1() {
     char lv2[] = "batterie_lv2.bmp";
     char lv3[] = "batterie_lv3.bmp";
     char names[] = "batterie_lv3.bmp";
-    if (indice_batterie <= 10) {
+    if (indice_batterie <= 5) {
         batterie(lv3);
     }
-    if (indice_batterie >= 10 && indice_batterie < 20) {
+    if (indice_batterie >= 5 && indice_batterie < 10) {
         batterie(lv2);
     }
-    if (indice_batterie >= 20) {
+    if (indice_batterie >= 10) {
         batterie(lv1);
     }
-    if (indice_batterie >= 30) {
+    if (indice_batterie >= 15) {
         fond_recharge();
         repos = true;
-        if (indice_batterie == 36) {
+        if (indice_batterie == 20) {
             indice_batterie = 0;
             repos = false;
             fond(rendu);
@@ -388,7 +388,7 @@ Uint32 event1(Uint32 interval, void* param) {
             int indice_a_couper = ReduceMax(bambouseraie, 8);
             bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
 
-            SDL_Delay(300);
+            SDL_Delay(800);
 
             // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
             fond(rendu);
