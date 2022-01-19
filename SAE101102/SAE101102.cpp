@@ -363,19 +363,19 @@ void batterie_lv1() {
     char lv1[] = "batterie_lv1.bmp";
     char lv2[] = "batterie_lv2.bmp";
     char lv3[] = "batterie_lv3.bmp";
-    if (indice_batterie <= 5) {
+    if (indice_batterie <= 7) {
         batterie(lv3);
     }
-    if (indice_batterie >= 5 && indice_batterie < 10) {
+    if (indice_batterie >= 7 && indice_batterie < 14) {
         batterie(lv2);
     }
-    if (indice_batterie >= 10) {
+    if (indice_batterie >= 14) {
         batterie(lv1);
     }
-    if (indice_batterie >= 15) {
+    if (indice_batterie >= 21) {
         fond_recharge();
         repos = true;
-        if (indice_batterie == 20) {
+        if (indice_batterie == 25) {
             indice_batterie = 0;
             repos = false;
             fond(rendu);
@@ -394,7 +394,30 @@ int number = 0;
 int tabMax[19] = { 0 };
 int tabMoy[19] = { 0 };
 int tabMin[19] = { 0 };
+int scale = 10;
+
+int maxi(int tab[]) {
+    int n = 0;
+    for (int i = 0; i < 19; i++) {
+        if (n < tab[i]) {
+            n = tab[i];
+        }
+    }
+    return n;
+}
+
 void graph() {
+    ajout(tabMax, TaillleMax(bambouseraie, 8));
+    ajout(tabMoy, TailleMoy(bambouseraie, 8));
+    ajout(tabMin, TailleMin(bambouseraie, 8));
+    while (125 + (maxi(tabMax) * scale) >= 205) {
+        scale--;
+    }
+    while (125 + (maxi(tabMax) * scale) < 205) {
+        scale++;
+    }
+    scale--;
+
     number++;
 
     SDL_Rect Noir = { 1080,0,280,720 };
@@ -445,9 +468,8 @@ void graph() {
     graphMax.w = 180;
     graphMax.h = 80;
     SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
-    ajout(tabMax, TaillleMax(bambouseraie, 8));
     for (int i = 1; i < 19; i++) {
-        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 205 - (tabMax[i - 1] * 4), 1130 + (i * 10), 205 - (tabMax[i] * 4));
+        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 205 - (tabMax[i - 1] * scale), 1130 + (i * 10), 205 - (tabMax[i] * scale));
     }
     SDL_RenderDrawRect(rendu, &graphMax);
 
@@ -467,9 +489,8 @@ void graph() {
     graphMax.w = 180;
     graphMax.h = 80;
     SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
-    ajout(tabMoy, TailleMoy(bambouseraie, 8));
     for (int i = 1; i < 19; i++) {
-        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 360 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 360 - (tabMoy[i] * 4));
+        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 360 - (tabMoy[i - 1] * scale), 1130 + (i * 10), 360 - (tabMoy[i] * scale));
     }
     SDL_RenderDrawRect(rendu, &graphMax);
 
@@ -489,9 +510,8 @@ void graph() {
     graphMax.w = 180;
     graphMax.h = 80;
     SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
-    ajout(tabMin, TailleMin(bambouseraie, 8));
     for (int i = 1; i < 19; i++) {
-        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * 4), 1130 + (i * 10), 515 - (tabMin[i] * 4));
+        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * scale), 1130 + (i * 10), 515 - (tabMin[i] * scale));
     }
     SDL_RenderDrawRect(rendu, &graphMax);
 
@@ -512,15 +532,15 @@ void graph() {
     graphMax.h = 80;
     SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
     for (int i = 1; i < 19; i++) {
-        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMax[i - 1] * 4), 1130 + (i * 10), 670 - (tabMax[i] * 4));
+        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMax[i - 1] * scale), 1130 + (i * 10), 670 - (tabMax[i] * scale));
     }
     SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
     for (int i = 1; i < 19; i++) {
-        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 670 - (tabMoy[i] * 4));
+        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMoy[i - 1] * scale), 1130 + (i * 10), 670 - (tabMoy[i] * scale));
     }
     SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
     for (int i = 1; i < 19; i++) {
-        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMin[i - 1] * 4), 1130 + (i * 10), 670 - (tabMin[i] * 4));
+        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMin[i - 1] * scale), 1130 + (i * 10), 670 - (tabMin[i] * scale));
     }
     SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
     SDL_RenderDrawRect(rendu, &graphMax);
