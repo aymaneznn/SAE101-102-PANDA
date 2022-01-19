@@ -8,7 +8,6 @@ using namespace std;
 #include "SDL_image.h"
 #include<ctime>
 
-
 SDL_Renderer* rendu;
 TTF_Font* font;
 SDL_TimerID timer;
@@ -156,6 +155,23 @@ void GrowAll(Bambou bambouraie[], int taille) {
     }
 }
 
+void save() {
+    ofstream sortie("save.txt", ios::trunc);
+    for (int i = 0; i < taille; i++) {
+        sortie << parametres[i] << " ";
+    }
+    sortie.close();
+}
+
+void load() {
+    ifstream entre("save.txt", ios::in);
+    for (int i = 0; i < taille; i++) {
+        entre >> parametres[i];
+        cout << parametres[i];
+    }
+    entre.close();
+}
+
 //--------------------------------------------------Fonctions SDL----------------------------------------------------------- //
 
 // Fond
@@ -257,7 +273,6 @@ void ajout(int tab[], int truc) {
     tab[18] = truc;
 }
 
-
 // affiche batterie 
 void batterievide() {
     SDL_Surface* image = SDL_LoadBMP("batterievide.bmp");
@@ -268,6 +283,7 @@ void batterievide() {
 
     SDL_DestroyTexture(texture);
 }
+
 void batteriepleine(int i) {
 
     SDL_Surface* image = SDL_LoadBMP("batteriepleine.bmp");
@@ -1305,6 +1321,41 @@ int main(int argn, char* argv[]) {
     bb8.h = 75;
     //SDL_RenderDrawRect(rendu, &bb8);
 
+    SDL_Color blanc = { 0,0,0 }; //on définit une couleur de texte
+    SDL_Rect positionTexte;
+
+    SDL_Rect Save;
+    Save.x = 620;
+    Save.y = 585;
+    Save.w = 200;
+    Save.h = 50;
+    SDL_RenderDrawRect(rendu, &Save);
+    positionTexte.x = 660;
+    positionTexte.y = 580;
+    SDL_Texture* texture = loadText(rendu, "Save", blanc, font);
+    SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+    positionTexte.w *= 4;
+    positionTexte.h *= 4;
+    SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+    SDL_DestroyTexture(texture);
+    SDL_RenderPresent(rendu);
+
+    SDL_Rect Load;
+    Load.x = 870;
+    Load.y = 585;
+    Load.w = 200;
+    Load.h = 50;
+    SDL_RenderDrawRect(rendu, &Load);
+    positionTexte.x = 910;
+    positionTexte.y = 580;
+    texture = loadText(rendu, "Load", blanc, font);
+    SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+    positionTexte.w *= 4;
+    positionTexte.h *= 4;
+    SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+    SDL_DestroyTexture(texture);
+    SDL_RenderPresent(rendu);
+
     SDL_Rect ss;
     ss.x = 730;
     ss.y = 54;
@@ -1397,8 +1448,6 @@ int main(int argn, char* argv[]) {
     bool continuer = true;
     SDL_Event event;
     int champ = 0;
-    SDL_Color blanc = { 0,0,0 }; //on définit une couleur de texte
-    SDL_Rect positionTexte; //rectangle définissant le positionnement du texte, et sa taille
 
     while (continuer)
     {
@@ -1742,6 +1791,36 @@ int main(int argn, char* argv[]) {
                     SDL_RenderFillRect(rendu, &bb8);
                     SDL_RenderPresent(rendu);*/
                     champ = 8;
+                    break;
+                }
+                if (event.button.x > Save.x && event.button.x<Save.x + Save.w && event.button.y>Save.y && event.button.y < Save.y + Save.h) { //dans 	le rectangle
+                    cout << "sauvegarde" << endl;
+                    save();
+                    break;
+                }
+                if (event.button.x > Load.x && event.button.x<Load.x + Load.w && event.button.y>Load.y && event.button.y < Load.y + Load.h) { //dans 	le rectangle
+                    cout << "charge" << endl;
+                    load();
+                    for (int i = 0; i < taille; i++) {
+                        SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
+                        SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image);
+                        SDL_Rect dstrect = { 607 + (74 * i),488,72,70 };
+                        SDL_RenderCopy(rendu, texture2, NULL, &dstrect);
+                        SDL_RenderPresent(rendu);
+                        SDL_DestroyTexture(texture2);
+
+                        string tmp = to_string(parametres[i]);
+                        char const* num_char = tmp.c_str();
+                        positionTexte.x = 625 + (74 * i);
+                        positionTexte.y = 484;
+                        SDL_Texture* texture = loadText(rendu, num_char, blanc, font);
+                        SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
+                        positionTexte.w *= 5;
+                        positionTexte.h *= 5;
+                        SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
+                        SDL_DestroyTexture(texture);
+                        SDL_RenderPresent(rendu);
+                    }
                     break;
                 }
             }
