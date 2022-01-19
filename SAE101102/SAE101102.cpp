@@ -469,7 +469,7 @@ void graph() {
     graphMax.h = 80;
     SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
     for (int i = 1; i < 19; i++) {
-        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 205 - (tabMax[i - 1] * 4), 1130 + (i * 10), 205 - (tabMax[i] * 4));
+        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 205 - (tabMax[i - 1] * scale), 1130 + (i * 10), 205 - (tabMax[i] * scale));
     }
     SDL_RenderDrawRect(rendu, &graphMax);
 
@@ -490,7 +490,7 @@ void graph() {
     graphMax.h = 80;
     SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
     for (int i = 1; i < 19; i++) {
-        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 360 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 360 - (tabMoy[i] * 4));
+        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 360 - (tabMoy[i - 1] * scale), 1130 + (i * 10), 360 - (tabMoy[i] * scale));
     }
     SDL_RenderDrawRect(rendu, &graphMax);
 
@@ -511,7 +511,7 @@ void graph() {
     graphMax.h = 80;
     SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
     for (int i = 1; i < 19; i++) {
-        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * 4), 1130 + (i * 10), 515 - (tabMin[i] * 4));
+        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 515 - (tabMin[i - 1] * scale), 1130 + (i * 10), 515 - (tabMin[i] * scale));
     }
     SDL_RenderDrawRect(rendu, &graphMax);
 
@@ -532,21 +532,21 @@ void graph() {
     graphMax.h = 80;
     SDL_SetRenderDrawColor(rendu, 255, 0, 0, 255);
     for (int i = 1; i < 19; i++) {
-        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMax[i - 1] * 4), 1130 + (i * 10), 670 - (tabMax[i] * 4));
+        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMax[i - 1] * scale), 1130 + (i * 10), 670 - (tabMax[i] * scale));
     }
     SDL_SetRenderDrawColor(rendu, 0, 255, 0, 255);
     for (int i = 1; i < 19; i++) {
-        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMoy[i - 1] * 4), 1130 + (i * 10), 670 - (tabMoy[i] * 4));
+        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMoy[i - 1] * scale), 1130 + (i * 10), 670 - (tabMoy[i] * scale));
     }
     SDL_SetRenderDrawColor(rendu, 100, 100, 255, 255);
     for (int i = 1; i < 19; i++) {
-        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMin[i - 1] * 4), 1130 + (i * 10), 670 - (tabMin[i] * 4));
+        SDL_RenderDrawLine(rendu, 1130 + ((i - 1) * 10), 670 - (tabMin[i - 1] * scale), 1130 + (i * 10), 670 - (tabMin[i] * scale));
     }
     SDL_SetRenderDrawColor(rendu, 255, 255, 255, 255);
     SDL_RenderDrawRect(rendu, &graphMax);
 }
 
-int interval = 100;
+int interval = 10;
 Uint32 event1(Uint32 interval, void* param) {
     // variables
     int number = 0;
