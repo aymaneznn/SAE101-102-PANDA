@@ -175,6 +175,17 @@ void load() {
     entre.close();
 }
 
+int len() {
+    int n = 0;
+    int m = 0;
+    for (int i = 0; i < taille; i++) {
+        if (parametres[i] != 0) {
+            m += parametres[i];
+            n++;
+        }
+    }
+    return (m/n);
+}
 //--------------------------------------------------Fonctions SDL----------------------------------------------------------- //
 
 // Fond
