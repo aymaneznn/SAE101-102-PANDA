@@ -335,13 +335,13 @@ void batterie_lv1() {
 
 }
 
+// definition des tableaux fonction pour les stats
 int number = 0;
+int tabMax[19] = { 0 };
+int tabMoy[19] = { 0 };
+int tabMin[19] = { 0 };
 void graph() {
     number++;
-    // definition des tableaux des stats
-    int tabMax[19] = { 0 };
-    int tabMoy[19] = { 0 };
-    int tabMin[19] = { 0 };
 
     SDL_Rect Noir = { 1080,0,280,720 };
     SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
@@ -903,6 +903,7 @@ int main(int argn, char* argv[]) {
     rendu = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
     //fin parametres fenetres 
 
+    // Menu avec tous les boutons
     menu();
 
     SDL_Rect bb1;
@@ -910,78 +911,66 @@ int main(int argn, char* argv[]) {
     bb1.y = 485;
     bb1.w = 62;
     bb1.h = 75;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);
-    //SDL_RenderDrawRect(rendu, &bb1);
 
     SDL_Rect bb2;
     bb2.x = 686;
     bb2.y = 485;
     bb2.w = 62;
     bb2.h = 75;
-    //SDL_RenderDrawRect(rendu, &bb2);
 
     SDL_Rect bb3;
     bb3.x = 760;
     bb3.y = 485;
     bb3.w = 62;
     bb3.h = 75;
-    //SDL_RenderDrawRect(rendu, &bb3);
 
     SDL_Rect bb4;
     bb4.x = 834;
     bb4.y = 485;
     bb4.w = 62;
     bb4.h = 75;
-    //SDL_RenderDrawRect(rendu, &bb4);
 
     SDL_Rect bb5;
     bb5.x = 908;
     bb5.y = 485;
     bb5.w = 62;
     bb5.h = 75;
-    //SDL_RenderDrawRect(rendu, &bb5);
 
     SDL_Rect bb6;
     bb6.x = 982;
     bb6.y = 485;
     bb6.w = 62;
     bb6.h = 75;
-    //SDL_RenderDrawRect(rendu, &bb6);
 
     SDL_Rect bb7;
     bb7.x = 1056;
     bb7.y = 485;
     bb7.w = 62;
     bb7.h = 75;
-    //SDL_RenderDrawRect(rendu, &bb7);
 
     SDL_Rect bb8;
     bb8.x = 1130;
     bb8.y = 485;
     bb8.w = 62;
     bb8.h = 75;
-    //SDL_RenderDrawRect(rendu, &bb8);
 
     SDL_Rect ss;
     ss.x = 730;
     ss.y = 54;
     ss.w = 310;
     ss.h = 86;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);
 
     SDL_Rect rect2;
     rect2.x = 884;
     rect2.y = 208;
     rect2.w = 260;
     rect2.h = 80;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);
 
     SDL_Rect rect3;
     rect3.x = 624;
     rect3.y = 208;
     rect3.w = 260;
     rect3.h = 80;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);
 
     SDL_Rect retour;
     retour.x = 1150;
@@ -989,93 +978,75 @@ int main(int argn, char* argv[]) {
     retour.w = 100;
     retour.h = 50;
 
-    SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255);
-
     SDL_Rect exit;
     exit.x = 950;
     exit.y = 650;
     exit.w = 100;
     exit.h = 50;
-    SDL_SetRenderDrawColor(rendu, 254, 254, 254, 255);
 
     SDL_Rect manuel;
     manuel.x = 612;
     manuel.y = 346;
     manuel.w = 540;
     manuel.h = 100;
-    SDL_SetRenderDrawColor(rendu, 255, 255, 255, 0);
     exit_menu();
 
+    // Bambou
     SDL_Rect bambou1;
     bambou1.x = 200;
     bambou1.y = 370;
     bambou1.w = 15;
     bambou1.h = 300;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);	//pinceau vert
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
 
     SDL_Rect bambou2;
     bambou2.x = 300;
     bambou2.y = 370;
     bambou2.w = 15;
     bambou2.h = 300;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0);	//pinceau vert
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 0); //pinceau noir
-
 
     SDL_Rect bambou3;
     bambou3.x = 400;
     bambou3.y = 370;
     bambou3.w = 15;
     bambou3.h = 300;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir;
 
     SDL_Rect bambou4;
     bambou4.x = 500;
     bambou4.y = 370;
     bambou4.w = 15;
     bambou4.h = 300;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
 
     SDL_Rect bambou5;
     bambou5.x = 600;
     bambou5.y = 370;
     bambou5.w = 15;
     bambou5.h = 300;
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255);	//pinceau vert
-    //SDL_RenderFillRect(rendu, &bambou5);
-    SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
-    //SDL_RenderDrawRect(rendu, &bambou5);
 
-    SDL_Color blanc = { 0,0,0 }; //on définit une couleur de texte
+    // Menu Save & Load
+    SDL_Color noir = { 0,0,0 };
     SDL_Rect positionTexte;
     SDL_Rect Save;
     Save.x = 620;
     Save.y = 585;
     Save.w = 200;
     Save.h = 50;
-    SDL_RenderDrawRect(rendu, &Save);
     positionTexte.x = 660;
     positionTexte.y = 580;
-    SDL_Texture* texture = loadText(rendu, "Save", blanc, font);
+    SDL_Texture* texture = loadText(rendu, "Save", noir, font);
     SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
     positionTexte.w *= 4;
     positionTexte.h *= 4;
     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
     SDL_DestroyTexture(texture);
-    SDL_RenderPresent(rendu);
 
     SDL_Rect Load;
     Load.x = 870;
     Load.y = 585;
     Load.w = 200;
     Load.h = 50;
-    SDL_RenderDrawRect(rendu, &Load);
     positionTexte.x = 910;
     positionTexte.y = 580;
-    texture = loadText(rendu, "Load", blanc, font);
+    texture = loadText(rendu, "Load", noir, font);
     SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
     positionTexte.w *= 4;
     positionTexte.h *= 4;
@@ -1088,8 +1059,6 @@ int main(int argn, char* argv[]) {
     bool continuer = true;
     SDL_Event event;
     int champ = 0;
-    blanc = { 0,0,0 };
-    positionTexte;
 
     while (continuer)
     {
@@ -1117,201 +1086,191 @@ int main(int argn, char* argv[]) {
                     SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image);
                     SDL_Rect dstrect = { 607 + (74 * (champ - 1)),488,72,70 };
                     SDL_RenderCopy(rendu, texture2, NULL, &dstrect);
-                    SDL_RenderPresent(rendu);
                     SDL_DestroyTexture(texture2);
 
                     parametres[champ - 1] = 0;
                     positionTexte.x = 625 + (74 * (champ - 1));
                     champ = 0;
                     positionTexte.y = 484;
-                    SDL_Texture* texture = loadText(rendu, "0", blanc, font);
+                    SDL_Texture* texture = loadText(rendu, "0", noir, font);
                     SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
                     positionTexte.w *= 5;
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    SDL_RenderPresent(rendu);
+                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_1) { //touche 1
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
                     SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image);
                     SDL_Rect dstrect = { 607 + (74 * (champ - 1)),488,72,70 };
                     SDL_RenderCopy(rendu, texture2, NULL, &dstrect);
-                    SDL_RenderPresent(rendu);
                     SDL_DestroyTexture(texture2);
 
                     parametres[champ - 1] = 1;
                     positionTexte.x = 625 + (74 * (champ - 1));
                     champ = 0;
                     positionTexte.y = 484;
-                    SDL_Texture* texture = loadText(rendu, "1", blanc, font);
+                    SDL_Texture* texture = loadText(rendu, "1", noir, font);
                     SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
                     positionTexte.w *= 5;
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    SDL_RenderPresent(rendu);
+                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_2) { //touche 2
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
                     SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image);
                     SDL_Rect dstrect = { 607 + (74 * (champ - 1)),488,72,70 };
                     SDL_RenderCopy(rendu, texture2, NULL, &dstrect);
-                    SDL_RenderPresent(rendu);
                     SDL_DestroyTexture(texture2);
 
                     parametres[champ - 1] = 2;
                     positionTexte.x = 625 + (74 * (champ - 1));
                     champ = 0;
                     positionTexte.y = 484;
-                    SDL_Texture* texture = loadText(rendu, "2", blanc, font);
+                    SDL_Texture* texture = loadText(rendu, "2", noir, font);
                     SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
                     positionTexte.w *= 5;
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    SDL_RenderPresent(rendu);
+                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_3) { //touche 3
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
                     SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image);
                     SDL_Rect dstrect = { 607 + (74 * (champ - 1)),488,72,70 };
                     SDL_RenderCopy(rendu, texture2, NULL, &dstrect);
-                    SDL_RenderPresent(rendu);
                     SDL_DestroyTexture(texture2);
 
                     parametres[champ - 1] = 3;
                     positionTexte.x = 625 + (74 * (champ - 1));
                     champ = 0;
                     positionTexte.y = 484;
-                    SDL_Texture* texture = loadText(rendu, "3", blanc, font);
+                    SDL_Texture* texture = loadText(rendu, "3", noir, font);
                     SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
                     positionTexte.w *= 5;
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    SDL_RenderPresent(rendu);
+                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_4) { //touche 4
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
                     SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image);
                     SDL_Rect dstrect = { 607 + (74 * (champ - 1)),488,72,70 };
                     SDL_RenderCopy(rendu, texture2, NULL, &dstrect);
-                    SDL_RenderPresent(rendu);
                     SDL_DestroyTexture(texture2);
 
                     parametres[champ - 1] = 4;
                     positionTexte.x = 625 + (74 * (champ - 1));
                     champ = 0;
                     positionTexte.y = 484;
-                    SDL_Texture* texture = loadText(rendu, "4", blanc, font);
+                    SDL_Texture* texture = loadText(rendu, "4", noir, font);
                     SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
                     positionTexte.w *= 5;
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    SDL_RenderPresent(rendu);
+                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_5) { //touche 5
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
                     SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image);
                     SDL_Rect dstrect = { 607 + (74 * (champ - 1)),488,72,70 };
                     SDL_RenderCopy(rendu, texture2, NULL, &dstrect);
-                    SDL_RenderPresent(rendu);
                     SDL_DestroyTexture(texture2);
 
                     parametres[champ - 1] = 5;
                     positionTexte.x = 625 + (74 * (champ - 1));
                     champ = 0;
                     positionTexte.y = 484;
-                    SDL_Texture* texture = loadText(rendu, "5", blanc, font);
+                    SDL_Texture* texture = loadText(rendu, "5", noir, font);
                     SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
                     positionTexte.w *= 5;
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    SDL_RenderPresent(rendu);
+                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_6) { //touche 6
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
                     SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image);
                     SDL_Rect dstrect = { 607 + (74 * (champ - 1)),488,72,70 };
                     SDL_RenderCopy(rendu, texture2, NULL, &dstrect);
-                    SDL_RenderPresent(rendu);
                     SDL_DestroyTexture(texture2);
 
                     parametres[champ - 1] = 6;
                     positionTexte.x = 625 + (74 * (champ - 1));
                     champ = 0;
                     positionTexte.y = 484;
-                    SDL_Texture* texture = loadText(rendu, "6", blanc, font);
+                    SDL_Texture* texture = loadText(rendu, "6", noir, font);
                     SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
                     positionTexte.w *= 5;
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    SDL_RenderPresent(rendu);
+                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_7) { //touche 7
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
                     SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image);
                     SDL_Rect dstrect = { 607 + (74 * (champ - 1)),488,72,70 };
                     SDL_RenderCopy(rendu, texture2, NULL, &dstrect);
-                    SDL_RenderPresent(rendu);
                     SDL_DestroyTexture(texture2);
 
                     parametres[champ - 1] = 7;
                     positionTexte.x = 625 + (74 * (champ - 1));
                     champ = 0;
                     positionTexte.y = 484;
-                    SDL_Texture* texture = loadText(rendu, "7", blanc, font);
+                    SDL_Texture* texture = loadText(rendu, "7", noir, font);
                     SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
                     positionTexte.w *= 5;
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    SDL_RenderPresent(rendu);
+                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_8) { //touche 8
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
                     SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image);
                     SDL_Rect dstrect = { 607 + (74 * (champ - 1)),488,72,70 };
                     SDL_RenderCopy(rendu, texture2, NULL, &dstrect);
-                    SDL_RenderPresent(rendu);
                     SDL_DestroyTexture(texture2);
 
                     parametres[champ - 1] = 8;
                     positionTexte.x = 625 + (74 * (champ - 1));
                     champ = 0;
                     positionTexte.y = 484;
-                    SDL_Texture* texture = loadText(rendu, "8", blanc, font);
+                    SDL_Texture* texture = loadText(rendu, "8", noir, font);
                     SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
                     positionTexte.w *= 5;
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    SDL_RenderPresent(rendu);
+                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_9) { //touche 9
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
                     SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image);
                     SDL_Rect dstrect = { 607 + (74 * (champ - 1)),488,72,70 };
                     SDL_RenderCopy(rendu, texture2, NULL, &dstrect);
-                    SDL_RenderPresent(rendu);
                     SDL_DestroyTexture(texture2);
 
                     parametres[champ - 1] = 9;
                     positionTexte.x = 625 + (74 * (champ - 1));
                     champ = 0;
                     positionTexte.y = 484;
-                    SDL_Texture* texture = loadText(rendu, "9", blanc, font);
+                    SDL_Texture* texture = loadText(rendu, "9", noir, font);
                     SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
                     positionTexte.w *= 5;
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    SDL_RenderPresent(rendu);
                 }
+                    SDL_RenderPresent(rendu);
             }
             break;
             SDL_RemoveTimer(timer);
@@ -1457,7 +1416,7 @@ int main(int argn, char* argv[]) {
                         char const* num_char = tmp.c_str();
                         positionTexte.x = 625 + (74 * i);
                         positionTexte.y = 484;
-                        SDL_Texture* texture = loadText(rendu, num_char, blanc, font);
+                        SDL_Texture* texture = loadText(rendu, num_char, noir, font);
                         SDL_QueryTexture(texture, NULL, NULL, &positionTexte.w, &positionTexte.h);
                         positionTexte.w *= 5;
                         positionTexte.h *= 5;
