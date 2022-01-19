@@ -975,7 +975,7 @@ int main(int argn, char* argv[]) {
         cout << "erreur ouverture fenetre";
 
     rendu = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
-    //fin parametres fenetres 
+    // Fin parametres fenetres 
 
     // Menu avec tous les boutons
     menu();
@@ -1145,20 +1145,20 @@ int main(int argn, char* argv[]) {
             break;
         case SDL_KEYDOWN:
             if (event.key.keysym.sym == SDLK_a) { //touche a
-                timer = SDL_AddTimer(interval, event1, NULL);
+                fond(rendu);
+                timer = SDL_AddTimer(interval, manual, NULL);
             }
             if (event.key.keysym.sym == SDLK_p) { //touche a
                 play = false;
             }
-
             if (event.key.keysym.sym == SDLK_o) { //touche a
                 play = true;
             }
-
             if (event.key.keysym.sym == SDLK_ESCAPE) { //touche a
                 continuer = false;
             }
             if (event.key.keysym.sym == SDLK_b) { //touche b
+                fond(rendu);
                 timer = SDL_AddTimer(interval, event2, NULL);
             }
 
@@ -1180,7 +1180,6 @@ int main(int argn, char* argv[]) {
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_1) { //touche 1
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
@@ -1199,7 +1198,6 @@ int main(int argn, char* argv[]) {
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_2) { //touche 2
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
@@ -1218,7 +1216,6 @@ int main(int argn, char* argv[]) {
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_3) { //touche 3
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
@@ -1237,7 +1234,6 @@ int main(int argn, char* argv[]) {
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_4) { //touche 4
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
@@ -1256,7 +1252,6 @@ int main(int argn, char* argv[]) {
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_5) { //touche 5
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
@@ -1275,7 +1270,6 @@ int main(int argn, char* argv[]) {
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_6) { //touche 6
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
@@ -1294,7 +1288,6 @@ int main(int argn, char* argv[]) {
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_7) { //touche 7
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
@@ -1313,7 +1306,6 @@ int main(int argn, char* argv[]) {
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_8) { //touche 8
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
@@ -1332,7 +1324,6 @@ int main(int argn, char* argv[]) {
                     positionTexte.h *= 5;
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
-                    //SDL_RenderPresent(rendu);
                 }
                 if (event.key.keysym.sym == SDLK_9) { //touche 9
                     SDL_Surface* image = SDL_LoadBMP("Capture.bmp");
@@ -1352,10 +1343,12 @@ int main(int argn, char* argv[]) {
                     SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                     SDL_DestroyTexture(texture);
                 }
-                    SDL_RenderPresent(rendu);
+                SDL_RenderPresent(rendu);
             }
+
             break;
             SDL_RemoveTimer(timer);
+
         case SDL_MOUSEBUTTONUP://appui souris
             if (event.button.button == SDL_BUTTON_LEFT) {//si on clique bouton gauche
                 if (event.button.x > rect2.x && event.button.x<rect2.x + rect2.w && event.button.y>rect2.y && event.button.y < rect2.y + rect2.h) { //dans 	le rectangle
@@ -1410,49 +1403,41 @@ int main(int argn, char* argv[]) {
                 }
                 if (event.button.x > bb1.x && event.button.x<bb1.x + bb1.w && event.button.y>bb1.y && event.button.y < bb1.y + bb1.h) { //dans 	le rectangle
                     cout << "bouton1" << endl;
-
                     champ = 1;
                     break;
                 }
                 if (event.button.x > bb2.x && event.button.x<bb2.x + bb2.w && event.button.y>bb2.y && event.button.y < bb2.y + bb2.h) { //dans 	le rectangle
                     cout << "bouton2" << endl;
-
                     champ = 2;
                     break;
                 }
                 if (event.button.x > bb3.x && event.button.x<bb3.x + bb3.w && event.button.y>bb3.y && event.button.y < bb3.y + bb3.h) { //dans 	le rectangle
                     cout << "bouton3" << endl;
-
                     champ = 3;
                     break;
                 }
                 if (event.button.x > bb4.x && event.button.x<bb4.x + bb4.w && event.button.y>bb4.y && event.button.y < bb4.y + bb4.h) { //dans 	le rectangle
                     cout << "bouton4" << endl;
-
                     champ = 4;
                     break;
                 }
                 if (event.button.x > bb5.x && event.button.x<bb5.x + bb5.w && event.button.y>bb5.y && event.button.y < bb5.y + bb5.h) { //dans 	le rectangle
                     cout << "bouton5" << endl;
- 
                     champ = 5;
                     break;
                 }
                 if (event.button.x > bb6.x && event.button.x<bb6.x + bb6.w && event.button.y>bb6.y && event.button.y < bb6.y + bb6.h) { //dans 	le rectangle
                     cout << "bouton6" << endl;
-
                     champ = 6;
                     break;
                 }
                 if (event.button.x > bb7.x && event.button.x<bb7.x + bb7.w && event.button.y>bb7.y && event.button.y < bb7.y + bb7.h) { //dans 	le rectangle
                     cout << "bouton7" << endl;
-
                     champ = 7;
                     break;
                 }
                 if (event.button.x > bb8.x && event.button.x<bb8.x + bb8.w && event.button.y>bb8.y && event.button.y < bb8.y + bb8.h) { //dans 	le rectangle
                     cout << "bouton8" << endl;
-
                     champ = 8;
                     break;
                 }
@@ -1469,7 +1454,6 @@ int main(int argn, char* argv[]) {
                         SDL_Texture* texture2 = SDL_CreateTextureFromSurface(rendu, image);
                         SDL_Rect dstrect = { 607 + (74 * i),488,72,70 };
                         SDL_RenderCopy(rendu, texture2, NULL, &dstrect);
-                        SDL_RenderPresent(rendu);
                         SDL_DestroyTexture(texture2);
 
                         string tmp = to_string(parametres[i]);
@@ -1482,8 +1466,8 @@ int main(int argn, char* argv[]) {
                         positionTexte.h *= 5;
                         SDL_RenderCopy(rendu, texture, NULL, &positionTexte);
                         SDL_DestroyTexture(texture);
-                        SDL_RenderPresent(rendu);
                     }
+                    SDL_RenderPresent(rendu);
                 }
             }
             break;
