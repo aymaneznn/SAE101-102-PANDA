@@ -167,7 +167,7 @@ void fond(SDL_Renderer* rendu) {
     SDL_Surface* image = SDL_LoadBMP(name);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
 
-    SDL_Rect dstrect = { 0,0,1100,700 };
+    SDL_Rect dstrect = { 0,0,1080,700 };
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
@@ -272,14 +272,14 @@ void batterie(char nom[]) {
 void fond_recharge() {
     SDL_Surface* image = SDL_LoadBMP("fond_recharge.bmp");
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
-    SDL_Rect dstrect = { 0,0,1360 ,700 };
+    SDL_Rect dstrect = { 0,0,1080 ,700 };
     SDL_RenderCopy(rendu, texture, NULL, &dstrect);
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(texture);
 
     image = SDL_LoadBMP("eclair.bmp");
     SDL_Texture* eclair = SDL_CreateTextureFromSurface(rendu, image);
-    dstrect = { 1040,210,100,116 };
+    dstrect = { 830,210,100,116 };
     SDL_RenderCopy(rendu, eclair, NULL, &dstrect);
     SDL_RenderPresent(rendu);
     SDL_DestroyTexture(eclair);
