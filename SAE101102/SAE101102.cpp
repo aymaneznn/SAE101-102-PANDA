@@ -278,6 +278,8 @@ void fond_recharge() {
     SDL_DestroyTexture(texture);
 }
 
+bool repos = false;
+
 // affiche le bon level batterie 
 void batterie_lv1() {
     char lv1[] = "batterie_lv1.bmp";
@@ -294,16 +296,12 @@ void batterie_lv1() {
         batterie(lv1);
     }
     if (indice_batterie >= 30) {
-        bool batterie = true;
-        while (batterie == true )
-        {
         fond_recharge();
+        repos = true;
         if (indice_batterie == 36) {
-            batterie = false;
+            indice_batterie = 0;
         }
-        batterie_lv1();
-        }
-        indice_batterie = 0;
+        //batterie_lv1();
     }
     indice_batterie++;
 
@@ -357,7 +355,7 @@ Uint32 event1(Uint32 interval, void* param) {
         int indice_a_couper = ReduceMax(bambouseraie, 8);
         bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
 
-        //SDL_Delay(900);
+        SDL_Delay(900);
 
         // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
         fond(rendu);
