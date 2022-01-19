@@ -53,6 +53,9 @@ int TailleMoy(Bambou tab[], int taille) {
         }
         total += tab[i].taille;
     }
+    if (nb == 0) {
+        nb = 1;
+    }
     return total / nb;
 }
 
@@ -254,6 +257,41 @@ void ajout(int tab[], int truc) {
     tab[18] = truc;
 }
 
+
+// affiche batterie 
+void batterievide() {
+    SDL_Surface* image = SDL_LoadBMP("batterievide.bmp");
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
+    SDL_Rect dstrect = { 10,10,200 ,100 };
+    SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+    SDL_RenderPresent(rendu);
+
+    SDL_DestroyTexture(texture);
+}
+void batteriepleine(int i) {
+
+        SDL_Surface* image = SDL_LoadBMP("batteriepleine.bmp");
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
+        SDL_Rect dstrect = { 10,10,200 ,100 };
+        SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+        SDL_RenderPresent(rendu);
+        SDL_DestroyTexture(texture);
+
+}
+
+void videur(int posX,int posY, int h, int taillebat) {
+
+    for (int i = 0; i < taillebat; i++) {
+        SDL_Surface* image = SDL_LoadBMP("videur.bmp");
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(rendu, image);
+        SDL_Rect dstrect = { posX,posY,h ,40 };
+        SDL_RenderCopy(rendu, texture, NULL, &dstrect);
+        SDL_RenderPresent(rendu);
+        posX += 30;
+        SDL_DestroyTexture(texture);
+    }
+}
+
 int interval = 10;
 Uint32 event1(Uint32 interval, void* param) {
 
@@ -266,7 +304,8 @@ Uint32 event1(Uint32 interval, void* param) {
     int number = 0;
     int xx = 0;
     int yy = -80;
-
+    int posx = 180;
+    int h = 10;
     // creation des bambous 
     InitBamboueraie(bambouseraie, 8, parametres);
 
@@ -275,7 +314,10 @@ Uint32 event1(Uint32 interval, void* param) {
     for (int i = 0; boucle; i++) {
 
         exit();
-
+        batteriepleine(i);
+        videur(posx,40,h,i);
+        posx -= 50;
+        h += 30;
         // affichage des bambous 
         afficheBambou(rendu, 150, 510, bambouseraie[0].taille);
         afficheBambou(rendu, 250, 510, bambouseraie[1].taille);
@@ -1182,6 +1224,8 @@ Uint32 manual(Uint32 interval, void* param) {
 // ----------------------------------------------Fin fonctions SDL----------------------------------------------------------- //
 
 int main(int argn, char* argv[]) {
+
+    
 
     // SDL (interface graphique)
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
