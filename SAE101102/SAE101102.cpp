@@ -8,6 +8,7 @@ using namespace std;
 #include "SDL_image.h"
 #include<ctime>
 
+int poseRobot[] = { 150,250,350,450,550,650,750,850 };
 
 SDL_Renderer* rendu;
 TTF_Font* font;
@@ -562,15 +563,6 @@ Uint32 event1(Uint32 interval, void* param) {
         batterie_lv1();
         if (repos == false) {
 
-            // affichage des bambous 
-            /*afficheBambou(rendu, 150, 600, bambouseraie[0].taille);
-            afficheBambou(rendu, 250, 600, bambouseraie[1].taille);
-            afficheBambou(rendu, 350, 600, bambouseraie[2].taille);
-            afficheBambou(rendu, 450, 600, bambouseraie[3].taille);
-            afficheBambou(rendu, 550, 600, bambouseraie[4].taille);
-            afficheBambou(rendu, 650, 600, bambouseraie[5].taille);
-            afficheBambou(rendu, 750, 600, bambouseraie[6].taille);
-            afficheBambou(rendu, 850, 600, bambouseraie[7].taille);*/
 
             for (int i = 0; i < 8; i++) {
                 afficheBambou(rendu, posx2, 600, bambouseraie[i].taille);
@@ -603,29 +595,11 @@ Uint32 event1(Uint32 interval, void* param) {
             //system("pause");
             if (play) {
                 // les endroits ou le Robot spawn
-                if (indice_a_couper == 0) {
-                    afficheRobot(rendu, 150, 570);
-                }
-                else if (indice_a_couper == 1) {
-                    afficheRobot(rendu, 250, 570);
-                }
-                else if (indice_a_couper == 2) {
-                    afficheRobot(rendu, 350, 570);
-                }
-                else if (indice_a_couper == 3) {
-                    afficheRobot(rendu, 450, 570);
-                }
-                else if (indice_a_couper == 4) {
-                    afficheRobot(rendu, 550, 570);
-                }
-                else if (indice_a_couper == 5) {
-                    afficheRobot(rendu, 650, 570);
-                }
-                else if (indice_a_couper == 6) {
-                    afficheRobot(rendu, 750, 570);
-                }
-                else if (indice_a_couper == 7) {
-                    afficheRobot(rendu, 850, 570);
+                for (int i = 0; i < 8; i++) {
+
+                    if (indice_a_couper == i) {
+                        afficheRobot(rendu, poseRobot[i], 570);
+                    }
                 }
             }
 
@@ -702,29 +676,11 @@ Uint32 event2(Uint32 interval, void* param) {
                 //system("pause");
                 if (play) {
                     // les endroits ou le Robot spawn
-                    if (indice_a_couper == 0) {
-                        afficheRobot(rendu, 150, 570);
-                    }
-                    else if (indice_a_couper == 1) {
-                        afficheRobot(rendu, 250, 570);
-                    }
-                    else if (indice_a_couper == 2) {
-                        afficheRobot(rendu, 350, 570);
-                    }
-                    else if (indice_a_couper == 3) {
-                        afficheRobot(rendu, 450, 570);
-                    }
-                    else if (indice_a_couper == 4) {
-                        afficheRobot(rendu, 550, 570);
-                    }
-                    else if (indice_a_couper == 5) {
-                        afficheRobot(rendu, 650, 570);
-                    }
-                    else if (indice_a_couper == 6) {
-                        afficheRobot(rendu, 750, 570);
-                    }
-                    else if (indice_a_couper == 7) {
-                        afficheRobot(rendu, 850, 570);
+                    for (int i = 0; i < 8; i++) {
+
+                        if (indice_a_couper == i) {
+                            afficheRobot(rendu, poseRobot[i], 570);
+                        }
                     }
                 }
                 // Le soleil se lève à tout jamais
@@ -753,6 +709,7 @@ Uint32 event2(Uint32 interval, void* param) {
 
 Uint32 event3(Uint32 interval, void* param) {
 
+    
     // variables
     int number = 0;
     int xx = 0;
@@ -806,56 +763,18 @@ Uint32 event3(Uint32 interval, void* param) {
 
                 // les endroits ou le Robot spawn
                 if (play) {
-                    if (indice_a_couper1 == 0) {
-                        afficheRobot(rendu, 150, 570);
-                    }
-                    else if (indice_a_couper1 == 1) {
-                        afficheRobot(rendu, 250, 570);
-                    }
-                    else if (indice_a_couper1 == 2) {
-                        afficheRobot(rendu, 350, 570);
-                    }
-                    else if (indice_a_couper1 == 3) {
-                        afficheRobot(rendu, 450, 570);
-                    }
-                    else if (indice_a_couper1 == 4) {
-                        afficheRobot(rendu, 550, 570);
-                    }
-                    else if (indice_a_couper1 == 5) {
-                        afficheRobot(rendu, 650, 570);
-                    }
-                    else if (indice_a_couper1 == 6) {
-                        afficheRobot(rendu, 750, 570);
-                    }
-                    else if (indice_a_couper1 == 7) {
-                        afficheRobot(rendu, 850, 570);
+
+                    for (int i = 0; i < 8; i++) {
+
+                        if (indice_a_couper1 == i) {
+                            afficheRobot(rendu, poseRobot[i], 570);
+                        }
+                        if (indice_a_couper2 == i) {
+                            afficheRobot2(rendu, poseRobot[i], 570);
+                        }
                     }
 
-                    // les endroits ou le Robot spawn
-                    if (indice_a_couper2 == 0) {
-                        afficheRobot2(rendu, 150, 570);
-                    }
-                    else if (indice_a_couper2 == 1) {
-                        afficheRobot2(rendu, 250, 570);
-                    }
-                    else if (indice_a_couper2 == 2) {
-                        afficheRobot2(rendu, 350, 570);
-                    }
-                    else if (indice_a_couper2 == 3) {
-                        afficheRobot2(rendu, 450, 570);
-                    }
-                    else if (indice_a_couper2 == 4) {
-                        afficheRobot2(rendu, 550, 570);
-                    }
-                    else if (indice_a_couper2 == 5) {
-                        afficheRobot2(rendu, 650, 570);
-                    }
-                    else if (indice_a_couper2 == 6) {
-                        afficheRobot2(rendu, 750, 570);
-                    }
-                    else if (indice_a_couper2 == 7) {
-                        afficheRobot2(rendu, 850, 570);
-                    }
+                   
                 }
                 // Le soleil se lève à tout jamais
                 char soleil[] = "soleiv2.bmp";
@@ -933,56 +852,17 @@ Uint32 event4(Uint32 interval, void* param) {
 
                 // les endroits ou le Robot spawn
                 if (play) {
-                    if (indice_a_couper1 == 0) {
-                        afficheRobot(rendu, 150, 570);
-                    }
-                    else if (indice_a_couper1 == 1) {
-                        afficheRobot(rendu, 250, 570);
-                    }
-                    else if (indice_a_couper1 == 2) {
-                        afficheRobot(rendu, 350, 570);
-                    }
-                    else if (indice_a_couper1 == 3) {
-                        afficheRobot(rendu, 450, 570);
-                    }
-                    else if (indice_a_couper1 == 4) {
-                        afficheRobot(rendu, 550, 570);
-                    }
-                    else if (indice_a_couper1 == 5) {
-                        afficheRobot(rendu, 650, 570);
-                    }
-                    else if (indice_a_couper1 == 6) {
-                        afficheRobot(rendu, 750, 570);
-                    }
-                    else if (indice_a_couper1 == 7) {
-                        afficheRobot(rendu, 850, 570);
-                    }
+                    
+                    for (int i = 0; i < 8; i++){
 
-                    // les endroits ou le Robot spawn
-                    if (indice_a_couper2 == 0) {
-                        afficheRobot2(rendu, 150, 570);
+                        if (indice_a_couper1 == i) {
+                            afficheRobot(rendu, poseRobot[i], 570);
+                        }
+                        if (indice_a_couper2 == i) {
+                            afficheRobot2(rendu, poseRobot[i], 570);
+                        }
                     }
-                    else if (indice_a_couper2 == 1) {
-                        afficheRobot2(rendu, 250, 570);
-                    }
-                    else if (indice_a_couper2 == 2) {
-                        afficheRobot2(rendu, 350, 570);
-                    }
-                    else if (indice_a_couper2 == 3) {
-                        afficheRobot2(rendu, 450, 570);
-                    }
-                    else if (indice_a_couper2 == 4) {
-                        afficheRobot2(rendu, 550, 570);
-                    }
-                    else if (indice_a_couper2 == 5) {
-                        afficheRobot2(rendu, 650, 570);
-                    }
-                    else if (indice_a_couper2 == 6) {
-                        afficheRobot2(rendu, 750, 570);
-                    }
-                    else if (indice_a_couper2 == 7) {
-                        afficheRobot2(rendu, 850, 570);
-                    }
+                    
                 }
                 // Le soleil se lève à tout jamais
                 char soleil[] = "soleiv2.bmp";
@@ -1020,8 +900,7 @@ Uint32 manual(Uint32 interval, void* param) {
     bool boucle = true;
     for (int i = 0; boucle; i++) {
         if (play) {
-            batterie_lv1();
-            exit();
+            ///exit();
         }
             if (repos == false) {
                 if (play) {
@@ -1036,26 +915,14 @@ Uint32 manual(Uint32 interval, void* param) {
 
                 //system("pause");
                 if (play) {
-                    if (manuell == 1) {
-                        CutBambou(bambouseraie[0]);
-                        manuell = 0;
+
+                    for (int i = 1; i < 5; i++) {
+
+                        if (manuell == i) {
+                            CutBambou(bambouseraie[i-1]);
+                        }
                     }
-                    if (manuell == 2) {
-                        CutBambou(bambouseraie[1]);
-                        manuell = 0;
-                    }
-                    if (manuell == 3) {
-                        CutBambou(bambouseraie[2]);
-                        manuell = 0;
-                    }
-                    if (manuell == 4) {
-                        CutBambou(bambouseraie[3]);
-                        manuell = 0;
-                    }
-                    if (manuell == 5) {
-                        CutBambou(bambouseraie[4]);
-                        manuell = 0;
-                    }
+
                 }
             }
             if (play) {
