@@ -21,7 +21,6 @@ int max1 = 0;
 int max2 = 0;
 const int taille = 8;
 int indice_batterie = 0;
-
 bool play = true;
 
 // Definition des bambou
@@ -29,10 +28,8 @@ struct Bambou {
     int croissance;
     int taille;
 };
-void SDL_UpdateRect(SDL_Surface* screen, Sint32 x, Sint32 y, Sint32 w, Sint32 h);
-Bambou bambouseraie[TAILLE_MAX];
 
-// Statistiques 
+Bambou bambouseraie[TAILLE_MAX];
 
 // Statistique de la taille maximum de la bambouseraie
 int TaillleMax(Bambou tab[], int TailleChoisie) {
@@ -111,7 +108,6 @@ int VerifMax(Bambou Bambou[], int TailleChoisie) {
     }
     return indiceBambou;
 }
-
 
 void VerifMax2BOT(Bambou bambouseraie[]) {
     int TailleMax1 = 0;
@@ -244,8 +240,6 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
         SDL_RenderDrawRect(rendu, &bambou);
 
-
-
         SDL_Rect haut;
         haut.x = positionX - 2;
         haut.y = positionY + 31;
@@ -255,8 +249,6 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
         SDL_RenderFillRect(rendu, &haut);
         SDL_SetRenderDrawColor(rendu, 0, 0, 0, 255); //pinceau noir
         SDL_RenderDrawRect(rendu, &haut);
-
-
 
         SDL_Rect bas;
         bas.x = positionX - 2;
@@ -358,7 +350,6 @@ void fond_recharge() {
 }
 
 bool repos = false;
-
 // affiche le bon level batterie 
 void batterie_lv1() {
     char lv1[] = "batterie_lv1.bmp";
@@ -381,13 +372,11 @@ void batterie_lv1() {
             repos = false;
             fond(rendu);
         }
-        //batterie_lv1();
     }
     indice_batterie++;
     if(repos){
         SDL_Delay(800);
     }
-
 }
 
 // definition des tableaux fonction pour les stats
@@ -562,7 +551,6 @@ Uint32 event1(Uint32 interval, void* param) {
         afficheBambou(rendu, posx, 600, bambouseraie[i].taille);
         posx += 100;
     }
-    //if(play){
 
     // boucle infinie
     bool boucle = true;
