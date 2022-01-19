@@ -22,6 +22,8 @@ int max2 = 0;
 const int taille = 8;
 int indice_batterie = 0;
 
+bool play = true;
+
 // Definition des bambou
 struct Bambou {
     int croissance;
@@ -269,7 +271,6 @@ void afficheBambou(SDL_Renderer* rendu, int positionX, int positionY, int nbBamb
         SDL_RenderPresent(rendu);//on rafraichit
     }
 }
-
 
 // Robot Panda
 void afficheRobot(SDL_Renderer* rendu, int positionX, int positionY) {
@@ -526,36 +527,47 @@ void graph() {
     SDL_RenderDrawRect(rendu, &graphMax);
 }
 
-int interval = 10;
+int interval = 100;
 Uint32 event1(Uint32 interval, void* param) {
     // variables
     int number = 0;
     int xx = 0;
     int yy = -80;
-    int posx = 180;
+    int posx = 150;
+    int posx2 = 150;
     int h = 10;
     
     // creation des bambous 
     InitBamboueraie(bambouseraie, 8, parametres);
+    for (int i = 0; i < 8; i++) {
+        afficheBambou(rendu, posx, 600, bambouseraie[i].taille);
+        posx += 100;
+    }
+    //if(play){
 
     // boucle infinie
     bool boucle = true;
     for (int i = 0; boucle; i++) {
-        
+        if (play) {
         exit();
         batterie_lv1();
         if (repos == false) {
 
             // affichage des bambous 
-            afficheBambou(rendu, 150, 600, bambouseraie[0].taille);
+            /*afficheBambou(rendu, 150, 600, bambouseraie[0].taille);
             afficheBambou(rendu, 250, 600, bambouseraie[1].taille);
             afficheBambou(rendu, 350, 600, bambouseraie[2].taille);
             afficheBambou(rendu, 450, 600, bambouseraie[3].taille);
             afficheBambou(rendu, 550, 600, bambouseraie[4].taille);
             afficheBambou(rendu, 650, 600, bambouseraie[5].taille);
             afficheBambou(rendu, 750, 600, bambouseraie[6].taille);
-            afficheBambou(rendu, 850, 600, bambouseraie[7].taille);
+            afficheBambou(rendu, 850, 600, bambouseraie[7].taille);*/
 
+            for (int i = 0; i < 8; i++) {
+                afficheBambou(rendu, posx2, 600, bambouseraie[i].taille);
+                posx2 += 100;
+            }
+            posx2 = 150;
         }
 
         // test dans la console
@@ -575,36 +587,37 @@ Uint32 event1(Uint32 interval, void* param) {
             bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
 
             SDL_Delay(800);
-
-            // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
-            fond(rendu);
-
+            if (play) {
+                // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
+                fond(rendu);
+            }
             //system("pause");
-
-            // les endroits ou le Robot spawn
-            if (indice_a_couper == 0) {
-                afficheRobot(rendu, 150, 570);
-            }
-            else if (indice_a_couper == 1) {
-                afficheRobot(rendu, 250, 570);
-            }
-            else if (indice_a_couper == 2) {
-                afficheRobot(rendu, 350, 570);
-            }
-            else if (indice_a_couper == 3) {
-                afficheRobot(rendu, 450, 570);
-            }
-            else if (indice_a_couper == 4) {
-                afficheRobot(rendu, 550, 570);
-            }
-            else if (indice_a_couper == 5) {
-                afficheRobot(rendu, 650, 570);
-            }
-            else if (indice_a_couper == 6) {
-                afficheRobot(rendu, 750, 570);
-            }
-            else if (indice_a_couper == 7) {
-                afficheRobot(rendu, 850, 570);
+            if (play) {
+                // les endroits ou le Robot spawn
+                if (indice_a_couper == 0) {
+                    afficheRobot(rendu, 150, 570);
+                }
+                else if (indice_a_couper == 1) {
+                    afficheRobot(rendu, 250, 570);
+                }
+                else if (indice_a_couper == 2) {
+                    afficheRobot(rendu, 350, 570);
+                }
+                else if (indice_a_couper == 3) {
+                    afficheRobot(rendu, 450, 570);
+                }
+                else if (indice_a_couper == 4) {
+                    afficheRobot(rendu, 550, 570);
+                }
+                else if (indice_a_couper == 5) {
+                    afficheRobot(rendu, 650, 570);
+                }
+                else if (indice_a_couper == 6) {
+                    afficheRobot(rendu, 750, 570);
+                }
+                else if (indice_a_couper == 7) {
+                    afficheRobot(rendu, 850, 570);
+                }
             }
 
             // Le soleil se lève à tout jamais
@@ -618,11 +631,11 @@ Uint32 event1(Uint32 interval, void* param) {
             }
             xx += 50;
             SDL_DestroyTexture(texture5);
-
         }
-
-        graph();
-        
+        }
+        if (play) {
+            graph();
+        }
     }
     
     //SDL_DestroyRenderer(rendu);
@@ -644,82 +657,85 @@ Uint32 event2(Uint32 interval, void* param) {
     // boucle infinie
     bool boucle = true;
     for (int i = 0; boucle; i++) {
+        if (play) {
+            exit();
+            batterie_lv1();
+            if (repos == false) {
+                // affichage des bambous 
+                afficheBambou(rendu, 150, 600, bambouseraie[0].taille);
+                afficheBambou(rendu, 250, 600, bambouseraie[1].taille);
+                afficheBambou(rendu, 350, 600, bambouseraie[2].taille);
+                afficheBambou(rendu, 450, 600, bambouseraie[3].taille);
+                afficheBambou(rendu, 550, 600, bambouseraie[4].taille);
+                afficheBambou(rendu, 650, 600, bambouseraie[5].taille);
+                afficheBambou(rendu, 750, 600, bambouseraie[6].taille);
+                afficheBambou(rendu, 850, 600, bambouseraie[7].taille);
+            }
+            // test dans la console
+            for (int i = 0; i < 8; i++) {
+                cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
+            }
+            cout << endl;
 
-        exit();
-        batterie_lv1();
-        if (repos == false) {
-            // affichage des bambous 
-            afficheBambou(rendu, 150, 600, bambouseraie[0].taille);
-            afficheBambou(rendu, 250, 600, bambouseraie[1].taille);
-            afficheBambou(rendu, 350, 600, bambouseraie[2].taille);
-            afficheBambou(rendu, 450, 600, bambouseraie[3].taille);
-            afficheBambou(rendu, 550, 600, bambouseraie[4].taille);
-            afficheBambou(rendu, 650, 600, bambouseraie[5].taille);
-            afficheBambou(rendu, 750, 600, bambouseraie[6].taille);
-            afficheBambou(rendu, 850, 600, bambouseraie[7].taille);
+            // croissance des bambous
+            for (int i = 0; i < 8; i++) {
+                GrowBambou(bambouseraie[i]);
+            }
+
+            if (repos == false) {
+                int indice_a_couper = ReduceFaster(seuil, bambouseraie, 8);
+                bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
+
+                SDL_Delay(800);
+
+                if (play) {
+                    // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
+                    fond(rendu);
+                }
+                //system("pause");
+                if (play) {
+                    // les endroits ou le Robot spawn
+                    if (indice_a_couper == 0) {
+                        afficheRobot(rendu, 150, 570);
+                    }
+                    else if (indice_a_couper == 1) {
+                        afficheRobot(rendu, 250, 570);
+                    }
+                    else if (indice_a_couper == 2) {
+                        afficheRobot(rendu, 350, 570);
+                    }
+                    else if (indice_a_couper == 3) {
+                        afficheRobot(rendu, 450, 570);
+                    }
+                    else if (indice_a_couper == 4) {
+                        afficheRobot(rendu, 550, 570);
+                    }
+                    else if (indice_a_couper == 5) {
+                        afficheRobot(rendu, 650, 570);
+                    }
+                    else if (indice_a_couper == 6) {
+                        afficheRobot(rendu, 750, 570);
+                    }
+                    else if (indice_a_couper == 7) {
+                        afficheRobot(rendu, 850, 570);
+                    }
+                }
+                // Le soleil se lève à tout jamais
+                char soleil[] = "soleiv2.bmp";
+                SDL_Surface* image5 = SDL_LoadBMP(soleil);
+                SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
+                SDL_Rect dstrect5 = { xx,yy,300,300 };
+                SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
+                if (xx == 1000) {
+                    xx = 0;
+                }
+                xx += 50;
+                SDL_DestroyTexture(texture5);
+            }
         }
-        // test dans la console
-        for (int i = 0; i < 8; i++) {
-            cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
+        if (play) {
+            graph();
         }
-        cout << endl;
-
-        // croissance des bambous
-        for (int i = 0; i < 8; i++) {
-            GrowBambou(bambouseraie[i]);
-        }
-
-        if (repos == false) {
-            int indice_a_couper = ReduceFaster(seuil, bambouseraie, 8);
-            bambouseraie[indice_a_couper].taille = bambouseraie[indice_a_couper].croissance;
-
-            SDL_Delay(800);
-
-            // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
-            fond(rendu);
-
-            //system("pause");
-
-            // les endroits ou le Robot spawn
-            if (indice_a_couper == 0) {
-                afficheRobot(rendu, 150, 570);
-            }
-            else if (indice_a_couper == 1) {
-                afficheRobot(rendu, 250, 570);
-            }
-            else if (indice_a_couper == 2) {
-                afficheRobot(rendu, 350, 570);
-            }
-            else if (indice_a_couper == 3) {
-                afficheRobot(rendu, 450, 570);
-            }
-            else if (indice_a_couper == 4) {
-                afficheRobot(rendu, 550, 570);
-            }
-            else if (indice_a_couper == 5) {
-                afficheRobot(rendu, 650, 570);
-            }
-            else if (indice_a_couper == 6) {
-                afficheRobot(rendu, 750, 570);
-            }
-            else if (indice_a_couper == 7) {
-                afficheRobot(rendu, 850, 570);
-            }
-
-            // Le soleil se lève à tout jamais
-            char soleil[] = "soleiv2.bmp";
-            SDL_Surface* image5 = SDL_LoadBMP(soleil);
-            SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-            SDL_Rect dstrect5 = { xx,yy,300,300 };
-            SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-            if (xx == 1000) {
-                xx = 0;
-            }
-            xx += 50;
-            SDL_DestroyTexture(texture5);
-        }
-
-        graph();
 
     }
 
@@ -740,117 +756,118 @@ Uint32 event3(Uint32 interval, void* param) {
     // boucle infinie
     bool boucle = true;
     for (int i = 0; boucle; i++) {
+        if (play) {
+            exit();
+            batterie_lv1();
 
-        exit();
-        batterie_lv1();
+            if (repos == false) {
+                // affichage des bambous 
+                afficheBambou(rendu, 150, 600, bambouseraie[0].taille);
+                afficheBambou(rendu, 250, 600, bambouseraie[1].taille);
+                afficheBambou(rendu, 350, 600, bambouseraie[2].taille);
+                afficheBambou(rendu, 450, 600, bambouseraie[3].taille);
+                afficheBambou(rendu, 550, 600, bambouseraie[4].taille);
+                afficheBambou(rendu, 650, 600, bambouseraie[5].taille);
+                afficheBambou(rendu, 750, 600, bambouseraie[6].taille);
+                afficheBambou(rendu, 850, 600, bambouseraie[7].taille);
+            }
+            // test dans la console
+            for (int i = 0; i < 8; i++) {
+                cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
+            }
+            cout << endl;
 
-        if (repos == false) {
-            // affichage des bambous 
-            afficheBambou(rendu, 150, 600, bambouseraie[0].taille);
-            afficheBambou(rendu, 250, 600, bambouseraie[1].taille);
-            afficheBambou(rendu, 350, 600, bambouseraie[2].taille);
-            afficheBambou(rendu, 450, 600, bambouseraie[3].taille);
-            afficheBambou(rendu, 550, 600, bambouseraie[4].taille);
-            afficheBambou(rendu, 650, 600, bambouseraie[5].taille);
-            afficheBambou(rendu, 750, 600, bambouseraie[6].taille);
-            afficheBambou(rendu, 850, 600, bambouseraie[7].taille);
+            VerifMax2BOT(bambouseraie);
+
+            // croissance des bambous
+            for (int i = 0; i < 8; i++) {
+                GrowBambou(bambouseraie[i]);
+            }
+
+            if (repos == false) {
+                int indice_a_couper1 = max1;
+                cout << "max1 " << max1 << endl;
+                cout << "max2 " << max2 << endl;
+                int indice_a_couper2 = max2;
+                bambouseraie[indice_a_couper1].taille = bambouseraie[indice_a_couper1].croissance;
+                bambouseraie[indice_a_couper2].taille = bambouseraie[indice_a_couper2].croissance;
+
+                SDL_Delay(800);
+                if (play) {
+                    // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
+                    fond(rendu);
+                }
+                //system("pause");
+
+                // les endroits ou le Robot spawn
+                if (play) {
+                    if (indice_a_couper1 == 0) {
+                        afficheRobot(rendu, 150, 570);
+                    }
+                    else if (indice_a_couper1 == 1) {
+                        afficheRobot(rendu, 250, 570);
+                    }
+                    else if (indice_a_couper1 == 2) {
+                        afficheRobot(rendu, 350, 570);
+                    }
+                    else if (indice_a_couper1 == 3) {
+                        afficheRobot(rendu, 450, 570);
+                    }
+                    else if (indice_a_couper1 == 4) {
+                        afficheRobot(rendu, 550, 570);
+                    }
+                    else if (indice_a_couper1 == 5) {
+                        afficheRobot(rendu, 650, 570);
+                    }
+                    else if (indice_a_couper1 == 6) {
+                        afficheRobot(rendu, 750, 570);
+                    }
+                    else if (indice_a_couper1 == 7) {
+                        afficheRobot(rendu, 850, 570);
+                    }
+
+                    // les endroits ou le Robot spawn
+                    if (indice_a_couper2 == 0) {
+                        afficheRobot(rendu, 150, 570);
+                    }
+                    else if (indice_a_couper2 == 1) {
+                        afficheRobot(rendu, 250, 570);
+                    }
+                    else if (indice_a_couper2 == 2) {
+                        afficheRobot(rendu, 350, 570);
+                    }
+                    else if (indice_a_couper2 == 3) {
+                        afficheRobot(rendu, 450, 570);
+                    }
+                    else if (indice_a_couper2 == 4) {
+                        afficheRobot(rendu, 550, 570);
+                    }
+                    else if (indice_a_couper2 == 5) {
+                        afficheRobot(rendu, 650, 570);
+                    }
+                    else if (indice_a_couper2 == 6) {
+                        afficheRobot(rendu, 750, 570);
+                    }
+                    else if (indice_a_couper2 == 7) {
+                        afficheRobot(rendu, 850, 570);
+                    }
+                }
+                // Le soleil se lève à tout jamais
+                char soleil[] = "soleiv2.bmp";
+                SDL_Surface* image5 = SDL_LoadBMP(soleil);
+                SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
+                SDL_Rect dstrect5 = { xx,yy,300,300 };
+                SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
+                if (xx == 1000) {
+                    xx = 0;
+                }
+                xx += 50;
+                SDL_DestroyTexture(texture5);
+            }
         }
-        // test dans la console
-        for (int i = 0; i < 8; i++) {
-            cout << "Bambou " << i + 1 << " : " << bambouseraie[i].taille << " | il croie de : " << bambouseraie[i].croissance << endl;
+        if (play) {
+            graph();
         }
-        cout << endl;
-
-        VerifMax2BOT(bambouseraie);
-
-        // croissance des bambous
-        for (int i = 0; i < 8; i++) {
-            GrowBambou(bambouseraie[i]);
-        }
-
-        if (repos == false) {
-            int indice_a_couper1 = max1;
-            cout << "max1 " << max1 << endl;
-            cout << "max2 " << max2 << endl;
-            int indice_a_couper2 = max2;
-            bambouseraie[indice_a_couper1].taille = bambouseraie[indice_a_couper1].croissance;
-            bambouseraie[indice_a_couper2].taille = bambouseraie[indice_a_couper2].croissance;
-
-            SDL_Delay(800);
-
-            // mis à jour de l'ecran avec les bonne tailles des bambous en affichant le fond de la fenetre 
-            fond(rendu);
-
-            //system("pause");
-
-            // les endroits ou le Robot spawn
-
-            if (indice_a_couper1 == 0) {
-                afficheRobot(rendu, 150, 570);
-            }
-            else if (indice_a_couper1 == 1) {
-                afficheRobot(rendu, 250, 570);
-            }
-            else if (indice_a_couper1 == 2) {
-                afficheRobot(rendu, 350, 570);
-            }
-            else if (indice_a_couper1 == 3) {
-                afficheRobot(rendu, 450, 570);
-            }
-            else if (indice_a_couper1 == 4) {
-                afficheRobot(rendu, 550, 570);
-            }
-            else if (indice_a_couper1 == 5) {
-                afficheRobot(rendu, 650, 570);
-            }
-            else if (indice_a_couper1 == 6) {
-                afficheRobot(rendu, 750, 570);
-            }
-            else if (indice_a_couper1 == 7) {
-                afficheRobot(rendu, 850, 570);
-            }
-
-            // les endroits ou le Robot spawn
-            if (indice_a_couper2 == 0) {
-                afficheRobot(rendu, 150, 570);
-            }
-            else if (indice_a_couper2 == 1) {
-                afficheRobot(rendu, 250, 570);
-            }
-            else if (indice_a_couper2 == 2) {
-                afficheRobot(rendu, 350, 570);
-            }
-            else if (indice_a_couper2 == 3) {
-                afficheRobot(rendu, 450, 570);
-            }
-            else if (indice_a_couper2 == 4) {
-                afficheRobot(rendu, 550, 570);
-            }
-            else if (indice_a_couper2 == 5) {
-                afficheRobot(rendu, 650, 570);
-            }
-            else if (indice_a_couper2 == 6) {
-                afficheRobot(rendu, 750, 570);
-            }
-            else if (indice_a_couper2 == 7) {
-                afficheRobot(rendu, 850, 570);
-            }
-
-            // Le soleil se lève à tout jamais
-            char soleil[] = "soleiv2.bmp";
-            SDL_Surface* image5 = SDL_LoadBMP(soleil);
-            SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-            SDL_Rect dstrect5 = { xx,yy,300,300 };
-            SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-            if (xx == 1000) {
-                xx = 0;
-            }
-            xx += 50;
-            SDL_DestroyTexture(texture5);
-        }
-
-        graph();
-
     }
 
     SDL_RenderPresent(rendu);//on rafraichit
@@ -861,71 +878,79 @@ Uint32 event3(Uint32 interval, void* param) {
 Uint32 manual(Uint32 interval, void* param) {
 
     // variables
-    int number = 0;
-    int parametres[6] = { 1,2,3,4,5,6 };
     int xx = 0;
     int yy = -80;
     // creation des bambous 
     InitBamboueraie(bambouseraie, 6, parametres);
 
-    fond(rendu);
     // boucle infinie
     bool boucle = true;
     for (int i = 0; boucle; i++) {
-        batterie_lv1();
-        
-        if (repos == false) {
-            // affichage des bambous 
-            afficheBambou(rendu, 150, 600, bambouseraie[0].taille);
-            afficheBambou(rendu, 250, 600, bambouseraie[1].taille);
-            afficheBambou(rendu, 350, 600, bambouseraie[2].taille);
-            afficheBambou(rendu, 450, 600, bambouseraie[3].taille);
-            afficheBambou(rendu, 550, 600, bambouseraie[4].taille);
-            afficheBambou(rendu, 650, 600, bambouseraie[5].taille);
-            SDL_Delay(800);
+        if (play) {
+            batterie_lv1();
+            exit();
 
-            //system("pause");
+            if (repos == false) {
+                // affichage des bambous 
+                afficheBambou(rendu, 200, 600, bambouseraie[0].taille);
+                afficheBambou(rendu, 300, 600, bambouseraie[1].taille);
+                afficheBambou(rendu, 400, 600, bambouseraie[2].taille);
+                afficheBambou(rendu, 500, 600, bambouseraie[3].taille);
+                afficheBambou(rendu, 600, 600, bambouseraie[4].taille);
+                SDL_Delay(1000);
 
-            if (manuell == 1) {
-                CutBambou(bambouseraie[0]);
+                //system("pause");
+
+                if (manuell == 1) {
+                    CutBambou(bambouseraie[0]);
+                    manuell = 0;
+                }
+                if (manuell == 2) {
+                    CutBambou(bambouseraie[1]);
+                    manuell = 0;
+                }
+                if (manuell == 3) {
+                    CutBambou(bambouseraie[2]);
+                    manuell = 0;
+                }
+                if (manuell == 4) {
+                    CutBambou(bambouseraie[3]);
+                    manuell = 0;
+                }
+                if (manuell == 5) {
+                    CutBambou(bambouseraie[4]);
+                    manuell = 0;
+                }
             }
-            if (manuell == 2) {
-                CutBambou(bambouseraie[1]);
+
+            // croissance des bambous
+            for (int i = 0; i < 5; i++) {
+                if (play) {
+
+                    GrowBambou(bambouseraie[i]);
+                }
             }
-            if (manuell == 3) {
-                CutBambou(bambouseraie[2]);
-            }
-            if (manuell == 4) {
-                CutBambou(bambouseraie[3]);
-            }
-            if (manuell == 5) {
-                CutBambou(bambouseraie[4]);
+
+            if (repos == false) {
+
+
+                // Le soleil se lève à tout jamais
+                char soleil[] = "soleiv2.bmp";
+                SDL_Surface* image5 = SDL_LoadBMP(soleil);
+                SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
+                SDL_Rect dstrect5 = { xx,yy,300,300 };
+                SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
+                if (xx == 1000) {
+                    xx = 0;
+                }
+                xx += 50;
+                SDL_DestroyTexture(texture5);
+                fond(rendu);
             }
         }
-
-        // croissance des bambous
-        for (int i = 0; i < 5; i++) {
-            GrowBambou(bambouseraie[i]);
+        if (play) {
+            graph();
         }
-
-        if (repos == false) {
-            fond(rendu);
-
-            // Le soleil se lève à tout jamais
-            char soleil[] = "soleiv2.bmp";
-            SDL_Surface* image5 = SDL_LoadBMP(soleil);
-            SDL_Texture* texture5 = SDL_CreateTextureFromSurface(rendu, image5);
-            SDL_Rect dstrect5 = { xx,yy,300,300 };
-            SDL_RenderCopy(rendu, texture5, NULL, &dstrect5);
-            if (xx == 1000) {
-                xx = 0;
-            }
-            xx += 50;
-            SDL_DestroyTexture(texture5);
-        }
-
-        graph();
-
     }
 
     SDL_RenderPresent(rendu);//on rafraichit
@@ -1124,8 +1149,16 @@ int main(int argn, char* argv[]) {
             break;
         case SDL_KEYDOWN:
             if (event.key.keysym.sym == SDLK_a) { //touche a
-                timer = SDL_AddTimer(interval, manual, NULL);
+                timer = SDL_AddTimer(interval, event1, NULL);
             }
+            if (event.key.keysym.sym == SDLK_p) { //touche a
+                play = false;
+            }
+
+            if (event.key.keysym.sym == SDLK_o) { //touche a
+                play = true;
+            }
+
             if (event.key.keysym.sym == SDLK_ESCAPE) { //touche a
                 continuer = false;
             }
@@ -1355,97 +1388,75 @@ int main(int argn, char* argv[]) {
                     break;
                 }
                 if (event.button.x > bambou1.x && event.button.x<bambou1.x + bambou1.w && event.button.y>bambou1.y && event.button.y < bambou1.y + bambou1.h) { //dans 	le rectangle
-                    cout << "bambou 1 " << endl;
-
+                    cout << "bambou1 " << endl;
                     manuell = 1;
-
                 }
                 if (event.button.x > bambou2.x && event.button.x<bambou2.x + bambou2.w && event.button.y>bambou2.y && event.button.y < bambou2.y + bambou2.h) { //dans 	le rectangle
                     cout << "bambou2" << endl;
                     manuell = 2;
-
                 }
                 if (event.button.x > bambou3.x && event.button.x<bambou3.x + bambou3.w && event.button.y>bambou3.y && event.button.y < bambou3.y + bambou3.h) { //dans 	le rectangle
                     cout << "bambou3" << endl;
-
                     manuell = 3;
                 }
                 if (event.button.x > bambou4.x && event.button.x<bambou4.x + bambou4.w && event.button.y>bambou4.y && event.button.y < bambou4.y + bambou4.h) { //dans 	le rectangle
                     cout << "bambou4" << endl;
-                    fond(rendu);
                     manuell = 4;
                 }
                 if (event.button.x > bambou5.x && event.button.x<bambou5.x + bambou5.w && event.button.y>bambou5.y && event.button.y < bambou5.y + bambou5.h) { //dans 	le rectangle
                     cout << "bambou5" << endl;
-                    fond(rendu);
                     manuell = 5;
                 }
                 if (event.button.x > retour.x && event.button.x<retour.x + retour.w && event.button.y>retour.y && event.button.y < retour.y + retour.h || event.button.x > exit.x && event.button.x<exit.x + exit.w && event.button.y>exit.y && event.button.y < exit.y + exit.h) {
                     cout << "retour" << endl;
                     continuer = false;
                     break;
-                } //dans 	le rectangle
+                }
                 if (event.button.x > bb1.x && event.button.x<bb1.x + bb1.w && event.button.y>bb1.y && event.button.y < bb1.y + bb1.h) { //dans 	le rectangle
                     cout << "bouton1" << endl;
-                    /*SDL_SetRenderDrawColor(rendu, 0, 0, 0, 100);
-                    SDL_RenderFillRect(rendu, &bb1);
-                    SDL_RenderPresent(rendu);*/
+
                     champ = 1;
                     break;
                 }
                 if (event.button.x > bb2.x && event.button.x<bb2.x + bb2.w && event.button.y>bb2.y && event.button.y < bb2.y + bb2.h) { //dans 	le rectangle
                     cout << "bouton2" << endl;
-                    /*SDL_SetRenderDrawColor(rendu, 0, 0, 0, 127);
-                    SDL_RenderFillRect(rendu, &bb2);
-                    SDL_RenderPresent(rendu);*/
+
                     champ = 2;
                     break;
                 }
                 if (event.button.x > bb3.x && event.button.x<bb3.x + bb3.w && event.button.y>bb3.y && event.button.y < bb3.y + bb3.h) { //dans 	le rectangle
                     cout << "bouton3" << endl;
-                   /* SDL_SetRenderDrawColor(rendu, 0, 0, 0, 127);
-                    SDL_RenderFillRect(rendu, &bb3);
-                    SDL_RenderPresent(rendu);*/
+
                     champ = 3;
                     break;
                 }
                 if (event.button.x > bb4.x && event.button.x<bb4.x + bb4.w && event.button.y>bb4.y && event.button.y < bb4.y + bb4.h) { //dans 	le rectangle
                     cout << "bouton4" << endl;
-                    /*SDL_SetRenderDrawColor(rendu, 0, 0, 0, 127);
-                    SDL_RenderFillRect(rendu, &bb4);
-                    SDL_RenderPresent(rendu);*/
+
                     champ = 4;
                     break;
                 }
                 if (event.button.x > bb5.x && event.button.x<bb5.x + bb5.w && event.button.y>bb5.y && event.button.y < bb5.y + bb5.h) { //dans 	le rectangle
                     cout << "bouton5" << endl;
-                    /*SDL_SetRenderDrawColor(rendu, 0, 0, 0, 127);
-                    SDL_RenderFillRect(rendu, &bb5);
-                    SDL_RenderPresent(rendu);*/
+ 
                     champ = 5;
                     break;
                 }
                 if (event.button.x > bb6.x && event.button.x<bb6.x + bb6.w && event.button.y>bb6.y && event.button.y < bb6.y + bb6.h) { //dans 	le rectangle
                     cout << "bouton6" << endl;
-                    /*SDL_SetRenderDrawColor(rendu, 0, 0, 0, 127);
-                    SDL_RenderFillRect(rendu, &bb6);
-                    SDL_RenderPresent(rendu);*/
+
                     champ = 6;
                     break;
                 }
                 if (event.button.x > bb7.x && event.button.x<bb7.x + bb7.w && event.button.y>bb7.y && event.button.y < bb7.y + bb7.h) { //dans 	le rectangle
                     cout << "bouton7" << endl;
-                    /*SDL_SetRenderDrawColor(rendu, 0, 0, 0, 127);
-                    SDL_RenderFillRect(rendu, &bb7);
-                    SDL_RenderPresent(rendu);*/
+
                     champ = 7;
                     break;
                 }
                 if (event.button.x > bb8.x && event.button.x<bb8.x + bb8.w && event.button.y>bb8.y && event.button.y < bb8.y + bb8.h) { //dans 	le rectangle
                     cout << "bouton8" << endl;
-                    /*SDL_SetRenderDrawColor(rendu, 0, 0, 0, 127);
-                    SDL_RenderFillRect(rendu, &bb8);
-                    SDL_RenderPresent(rendu);*/
+
                     champ = 8;
                     break;
                 }
